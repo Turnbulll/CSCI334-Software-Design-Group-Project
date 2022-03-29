@@ -8,9 +8,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "USERTABLE")
-public class User {
+public abstract class User {
 	//variables
-	private @Id @GeneratedValue long userId;
+	private @Id @GeneratedValue Long userId;
 	private String name;
 	private String password;
 	private String userType;
@@ -19,11 +19,10 @@ public class User {
 	public User() {};
 	
 	//constructor
-	public User(long userId, String name, String password, String userType) {
-		this.userId = userId;
-		this.name = name;
-		this.password = password;
-		this.userType = userType;
+	public User(String name, String password, String userType) {
+		setName(name);
+		setPassword(password);
+		setUserType(userType);
 	}
 	
 	//getters
@@ -31,16 +30,33 @@ public class User {
 		return userId;
 	}
 	
-	public String getUserName(){
+	public String getName(){
 		return name;
 	}
 	
-	public String getUserPassword(){
+	public String getPassword(){
 		return password;
 	}
 	
 	public String getUserType(){
 		return userType;
+	}
+	
+	//setters
+	public void setUserId(Long userId){
+		this.userId = userId;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public void setPassword(String password){
+		this.password = password;
+	}
+	
+	public void setUserType(String userType){ //TODO: ADD VALIDATION
+		this.userType = userType; 
 	}
 	
 	@Override
@@ -72,7 +88,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-        return "User{" + "userId=" + userId + ", name=" + name + ", userType=" + userType + '}';
+        return "User{" + "userId=" + userId + ", name=" + name + ", password=" + password + ", userType=" + userType + '}';
 	}
 	
 	
