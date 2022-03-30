@@ -64,7 +64,7 @@ public class DoctorController implements UserControllerInterface<Doctor> {
 
 	//get request that returns a true if a doctor is found
 	@Override
-	@GetMapping("/Doctor?Valid/{customerid}")
+	@GetMapping("/Doctor/Valid/{userId}")
 	public boolean validateUser(@PathVariable("userId") Long userId) {
 		return doctorService.validateUser(userId);
 	}

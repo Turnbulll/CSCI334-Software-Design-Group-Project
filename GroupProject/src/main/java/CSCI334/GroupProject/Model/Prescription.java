@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PRESCRIPTIONTABLE")
+@Table(name = "PRESCRIPTION_TABLE")
 public class Prescription {
 	//variables
 	private @Id @GeneratedValue Long prescriptionId;
@@ -20,15 +20,15 @@ public class Prescription {
     @JoinColumn(name = "treatment_id", referencedColumnName= "treatmentId")
 	private Treatment treatment;
 	
+	public Prescription() {};
+	
 	//constructor without treatment
-	public Prescription(Long prescriptionId, String medicine, float dosage){
-		this.prescriptionId = prescriptionId;
+	public Prescription(String medicine, float dosage){
 		this.setMedicine(medicine);
 		this.setDosage(dosage);
 	}
 	
-	public Prescription(Long prescriptionId, String medicine, float dosage, Treatment treatment){
-		this.prescriptionId = prescriptionId;
+	public Prescription(String medicine, float dosage, Treatment treatment){
 		this.setMedicine(medicine);
 		this.setDosage(dosage);
 		this.setTreatment(treatment);

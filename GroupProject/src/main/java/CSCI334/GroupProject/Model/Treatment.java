@@ -10,7 +10,7 @@ import CSCI334.GroupProject.Model.Prescription;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "TREATMENTTABLE")
+@Table(name = "TREATMENT_TABLE")
 public class Treatment {
 	//variables
 	private @Id @GeneratedValue Long TreatmentId;
@@ -20,6 +20,8 @@ public class Treatment {
     @JsonIgnore
     private Prescription prescription;
 	
+    public Treatment(){};
+    
 	Treatment(String description){
 		this.description = description;
 	}

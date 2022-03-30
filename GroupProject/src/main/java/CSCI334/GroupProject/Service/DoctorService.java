@@ -39,6 +39,7 @@ public class DoctorService implements UserServiceInterface<Doctor> {
 		}	
 	}
 
+	//adds a list of doctors
 	@Override
 	public void addNewUsers(Doctor[] doctors) {
 		for (Doctor doctor : doctors) {
@@ -46,11 +47,13 @@ public class DoctorService implements UserServiceInterface<Doctor> {
         }
 	}
 	
+	//adds a single doctor
 	@Override
 	public void addNewUser(Doctor doctor) {
 		doctorRepository.save(doctor);
 	}
 
+	//updates a doctor
 	@Override
 	@Transactional
 	public void updateUser(Long userId, String name, String password, String userType) {
@@ -70,7 +73,8 @@ public class DoctorService implements UserServiceInterface<Doctor> {
 	        }
 	        doctorRepository.save(doctor);
 	}
-
+	
+	//returns true if a doctor is found
 	@Override
 	public boolean validateUser(Long userId) {
 		return doctorRepository.findById(userId).isPresent(); 

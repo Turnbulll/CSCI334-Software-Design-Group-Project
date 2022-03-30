@@ -7,14 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PHARMACISTABLE")
+@Table(name = "PHARMACIST_TABLE")
 public class Pharmacist extends User {
 	//variables
 	ArrayList<String> prescriptions = new ArrayList<String>();
 	
+	public Pharmacist() {};
+	
 	public Pharmacist(String name, String password, String userType, ArrayList<String> prescriptions) {
 		super(name, password, userType);
 		this.prescriptions = prescriptions;
+	}
+	
+	public Pharmacist(String name, String password, String userType) {
+		super(name, password, userType);
 	}
 	
 	ArrayList<String> getPrescriptions(){

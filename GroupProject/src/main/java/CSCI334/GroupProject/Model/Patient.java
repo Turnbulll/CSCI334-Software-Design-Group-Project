@@ -7,10 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PATIENTTABLE")
+@Table(name = "PATIENT_TABLE")
+
 public class Patient extends User {
 	//variables
 	ArrayList<String> prescriptions = new ArrayList<String>();
+	
+	public Patient(){};
 	
 	public Patient(String name, String password, String userType, ArrayList<String> prescriptions) {
 		super(name, password, userType);
