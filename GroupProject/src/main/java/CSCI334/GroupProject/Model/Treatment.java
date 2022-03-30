@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "TREATMENT_TABLE")
 public class Treatment {
 	//variables
-	private @Id @GeneratedValue Long TreatmentId;
+	private @Id @GeneratedValue Long treatmentId;
 	private String description;
 	
     @OneToOne(mappedBy = "treatment")
