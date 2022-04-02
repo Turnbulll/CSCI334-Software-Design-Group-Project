@@ -3,6 +3,7 @@ package CSCI334.GroupProject.Model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import CSCI334.GroupProject.Model.Prescription;
@@ -22,7 +23,7 @@ public class Treatment {
 	
     public Treatment(){};
     
-	Treatment(String description){
+	public Treatment(String description){
 		this.description = description;
 	}
 	
@@ -32,11 +33,15 @@ public class Treatment {
 	}
 	
 	//getter
+	public Long getTreatmentId() {
+		return treatmentId;
+	}
+	
 	public String getDescription(){
 		return description;
 	}
 	
 	public String toString(){
-		return "description= " + description;
+		return "Treatment { treatmentId= " + treatmentId + ", description= " + description + "}"; 
 	}
 }

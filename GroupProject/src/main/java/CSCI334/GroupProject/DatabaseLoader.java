@@ -7,9 +7,13 @@ import org.springframework.stereotype.Component;
 import CSCI334.GroupProject.Model.Doctor;
 import CSCI334.GroupProject.Model.Patient;
 import CSCI334.GroupProject.Model.Pharmacist;
+import CSCI334.GroupProject.Model.Prescription;
+import CSCI334.GroupProject.Model.Treatment;
 import CSCI334.GroupProject.Service.DoctorService;
 import CSCI334.GroupProject.Service.PatientService;
 import CSCI334.GroupProject.Service.PharmacistService;
+import CSCI334.GroupProject.Service.PrescriptionService;
+import CSCI334.GroupProject.Service.TreatmentService;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
@@ -19,16 +23,25 @@ public class DatabaseLoader implements CommandLineRunner {
 	DoctorService doctorService;
 	PatientService patientService;
 	PharmacistService pharmacistService;
+	TreatmentService treatmentService;
+	PrescriptionService prescriptionService;
 	
 	Doctor[] doctors;
 	Patient[] patients;
 	Pharmacist[] pharmacists;
+	Treatment[] treatments;
+	Prescription[] prescriptions;
 	
 	//constructor
-	public DatabaseLoader(DoctorService doctorService, PatientService patientService, PharmacistService pharmacistService) {
+	public DatabaseLoader(
+			DoctorService doctorService, PatientService patientService, 
+			PharmacistService pharmacistService, TreatmentService treatmentService,
+			PrescriptionService prescriptionService) {
 		this.doctorService = doctorService;
 		this.patientService = patientService;
 		this.pharmacistService = pharmacistService;
+		this.treatmentService = treatmentService;
+		this.prescriptionService = prescriptionService;
 	}
 	
 	@Override
@@ -37,6 +50,8 @@ public class DatabaseLoader implements CommandLineRunner {
 		doctors = new Doctor[3];
 		patients = new Patient[3];
 		pharmacists = new Pharmacist[3];
+		treatments = new Treatment[3];
+		prescriptions = new Prescription[3];
 
 		log.info("Hiring doctors..");
 		doctors[0] = new Doctor("Doctor1", "password", "Doctor");
@@ -64,6 +79,26 @@ public class DatabaseLoader implements CommandLineRunner {
 		log.info("Adding pharmacists to the database...");
 		pharmacistService.addNewUsers(pharmacists);
 		log.info("Finished adding pharmacists to the database");
+		
+		log.info("Treatments are being created...");
+		treatments[0] = new Treatment("description1");
+		treatments[1] = new Treatment("description2");
+		treatments[2] = new Treatment("description3");
+		
+		log.info("Adding treatments to the database...");
+		treatmentService.addNewTreatments(treatments);
+		log.info("Finished adding treatments to the database");
+		
+		
+		log.info("Prescriptions are being created...");
+		prescriptions[0] = new Prescription("medicine1" , 1.0f, treatments[0]);
+		prescriptions[1] = new Prescription("medicine2" , 1.0f, treatments[1]);
+		prescriptions[2] = new Prescription("medicine3" , 1.0f, treatments[2]);
+		
+		log.info("Adding prescriptions to the database...");
+		prescriptionService.addNewPrescriptions(prescriptions);
+		log.info("Finished adding prescriptions to the database");
+		
 		
 	}
 	

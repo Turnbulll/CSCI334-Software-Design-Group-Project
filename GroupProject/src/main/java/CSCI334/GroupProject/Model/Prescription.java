@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,27 +15,33 @@ public class Prescription {
 	//variables
 	private @Id @GeneratedValue Long prescriptionId;
 	private String medicine;
-	private float dosage;
+	private Float dosage;
 	
-	@OneToOne(cascade=CascadeType.PERSIST)
+	
+	@OneToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "treatment_id", referencedColumnName= "treatmentId")
 	private Treatment treatment;
 	
 	public Prescription() {};
 	
 	//constructor without treatment
-	public Prescription(String medicine, float dosage){
+	public Prescription(String medicine, Float dosage){
 		this.setMedicine(medicine);
 		this.setDosage(dosage);
 	}
 	
-	public Prescription(String medicine, float dosage, Treatment treatment){
+	public Prescription(String medicine, Float dosage, Treatment treatment){
 		this.setMedicine(medicine);
 		this.setDosage(dosage);
 		this.setTreatment(treatment);
 	}
 	
 	//getters
+	
+	public Long getPrescriptionId() {
+		return prescriptionId;
+	}
+	
 	public String getMedicine() {
 		return medicine;
 	}
@@ -52,7 +59,7 @@ public class Prescription {
 		this.medicine = medicine;
 	}
 	
-	public void setDosage(float dosage) {
+	public void setDosage(Float dosage) {
 		this.dosage = dosage;
 	}
 
@@ -61,13 +68,14 @@ public class Prescription {
 	}
 	
 	public String toString(){
-		return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + "treatment= " + treatment.toString(); 
+		
+		if(treatment == null) {
+			return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + "}"; 
+		}
+		else {
+			return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + "}, " + treatment.toString(); 
+		}
 	}
-
-
-
-
-
-
-
+	
 }
+

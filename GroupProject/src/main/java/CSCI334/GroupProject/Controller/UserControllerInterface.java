@@ -18,13 +18,13 @@ public interface UserControllerInterface<T extends User> {
 	public Optional<T> getUser(@PathVariable("userId") Long userId);
 	
 	//post request that adds a list of new users
-	public void newUsers(@RequestBody T[] users);
+	public String newUsers(@RequestBody T[] users);
 	
 	//post request to add a single new user
-	public void newUser(@RequestBody T user);
+	public String newUser(@RequestBody T user);
 	
 	//put request that updates user information
-	public void updateUser(
+	public String updateUser(
 	        @PathVariable("userId") Long userId,
 	        @RequestParam(required = false) String name,
 	        @RequestParam(required = false) String password,

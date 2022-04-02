@@ -40,26 +40,29 @@ public class PharmacistController implements UserControllerInterface<Pharmacist>
 	//post request to add a list of new pharmacists
 	@Override
 	@PostMapping("/Pharmacists/New")
-	public void newUsers(@RequestBody Pharmacist[] pharmacists) {
+	public String newUsers(@RequestBody Pharmacist[] pharmacists) {
 		pharmacistService.addNewUsers(pharmacists);
+		return "New list of pharmacists added";
 	}
 	
 	//post request to add a new pharmacist
 	@Override
 	@PostMapping("/Pharmacist/New")
-	public void newUser(@RequestBody Pharmacist pharmacist) {
+	public String newUser(@RequestBody Pharmacist pharmacist) {
 		pharmacistService.addNewUser(pharmacist);
+		return pharmacist.toString() + " added \n";
 	}
 
 	//put request to update a pharmacists information
 	@Override
 	@PutMapping("Pharmacist/{userId}")
-	public void updateUser(
+	public String updateUser(
 		@PathVariable("userId") Long userId,
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String password,
         @RequestParam(required = false) String userType){
 			pharmacistService.updateUser(userId, name, password, userType);
+			return pharmacistService.findUserById(userId).toString() + " updated \n";
 		}
 
 	//get request that returns a true if a pharmacist is found

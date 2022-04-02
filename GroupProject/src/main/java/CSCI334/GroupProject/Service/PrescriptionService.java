@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -13,6 +14,7 @@ import CSCI334.GroupProject.Model.Treatment;
 import CSCI334.GroupProject.Repository.PrescriptionRepository;
 import CSCI334.GroupProject.Repository.TreatmentRepository;
 
+@Service
 public class PrescriptionService {
 	private final PrescriptionRepository prescriptionRepository;
 	private final TreatmentRepository treatmentRepository;
@@ -54,19 +56,19 @@ public class PrescriptionService {
 
 	//updates a prescription
 	@Transactional
-	public void updatePrescription(Long prescriptionId, String medicine, float dosage) {
+	public void updatePrescription(@PathVariable Long prescriptionId, @PathVariable String medicine, @PathVariable Float dosage) {
 		Prescription prescription = prescriptionRepository.findById(prescriptionId)
 	                .orElseThrow(()-> new IllegalStateException("prescription with id " + prescriptionId + " does not exist" ));
-	        
-	        if(dosage >= 0 && prescription.getDosage() >= 0 && !Objects.equals(prescription.getDosage(), dosage)){  //double check logic
-	        	prescription.setDosage(dosage);
-	        }
-	        if(medicine != null && prescription.getMedicine().length() > 0 && !Objects.equals(prescription.getMedicine(), medicine)){
+			if(medicine != null && prescription.getMedicine().length() > 0 && !Objects.equals(prescription.getMedicine(), medicine)){
 	        	prescription.setMedicine(medicine);
+	        }
+	        if(dosage != null && prescription.getDosage() >= 0 && !Objects.equals(prescription.getDosage(), dosage)){  
+	        	prescription.setDosage(dosage);
 	        }
 	        prescriptionRepository.save(prescription);
 	}
 	
+	/* // CURRENTLY BROKEN
 	//updates treatment for the prescription via id
     public Prescription updatePrescriptionTreatment(@PathVariable Long prescriptionId, @PathVariable Long treatmentId) {
         Treatment treatment = treatmentRepository.findById(prescriptionId).orElseThrow(RuntimeException::new);
@@ -74,6 +76,7 @@ public class PrescriptionService {
         prescription.setTreatment(treatment);
         return prescriptionRepository.save(prescription);
     }
+	*/ 
 	
 	//returns true if a prescription is found
 	public boolean validatePrescription(Long prescriptionId) {
