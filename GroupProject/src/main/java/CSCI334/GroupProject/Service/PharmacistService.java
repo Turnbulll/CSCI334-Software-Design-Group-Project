@@ -79,5 +79,11 @@ public class PharmacistService implements UserServiceInterface<Pharmacist> {
 	public boolean validateUser(Long userId) {
 		return pharmacistRepository.findById(userId).isPresent(); 
 	}
+	
+	/*TODO
+	+UpdatePresciption()
+	+MonitorPatient()
+	+AdvisePatient()
+	 */
 
 }

@@ -80,5 +80,12 @@ public class PatientService implements UserServiceInterface<Patient> {
 	public boolean validateUser(Long userId) {
 		return patientRepository.findById(userId).isPresent(); 
 	}
+	
+	//TODO
+	/*
+	+ViewPrescriptions()
+	+InputMedication()
+	+InputReaction()
+	*/
 
 }

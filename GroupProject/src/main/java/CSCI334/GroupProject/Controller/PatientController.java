@@ -71,6 +71,12 @@ public class PatientController implements UserControllerInterface<Patient> {
 	public boolean validateUser(@PathVariable("userId") Long userId) {
 		return patientService.validateUser(userId);
 	}
+	
+	/*TODO
+	+ViewPrescriptions()
+	+InputMedication()
+	+InputReaction()
+	 */
 
 
 }
