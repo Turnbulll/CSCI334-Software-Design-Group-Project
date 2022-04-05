@@ -71,6 +71,12 @@ public class PharmacistController implements UserControllerInterface<Pharmacist>
 	public boolean validateUser(@PathVariable("userId") Long userId) {
 		return pharmacistService.validateUser(userId);
 	}
+	
+	/*TODO
+	+UpdatePresciption()
+	+MonitorPatient()
+	+AdvisePatient()
+	 */
 
 
 }
