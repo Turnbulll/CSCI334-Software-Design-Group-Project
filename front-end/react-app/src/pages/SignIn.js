@@ -15,15 +15,22 @@ class SignIn extends React.Component {
     checkCredentials  = (event) => {
         /* NEED TO ADD LOGIC FOR GETTING ACOUNT DETAIL IN HERE */
 
-
-        this.setState({userType: "patient"})
+        this.setState({userType:"patient"});
+        document.dispatchEvent(new Event("loggedInPatient"));
+        
     }
 
    render(){
        return(
+
+    
+
            <div className='form'>
                {/* route to new page on login*/}
-               {this.state.userType === "patient" ? < Navigate to="/home"/> : null}
+               {this.state.userType === "patient" ? < Navigate to={{
+                    pathname: '/home',
+                    state: {userType: this.state.userType}
+                    }} /> : null }
 
                 <form className='form'>
                     <h1>Sign In</h1>

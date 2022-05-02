@@ -15,7 +15,6 @@ class SignUp extends React.Component {
     checkCredentials  = (event) => {
         /* NEED TO ADD LOGIC FOR GETTING ACOUNT DETAIL IN HERE */
 
-        
         this.setState({valid: true})
     }
 
