@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import {Route, Routes, BrowserRouter} from "react-router-dom"
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
               <Route path="/" element={<SignIn />} />
               <Route path="/about" element={<About />} />
               <Route path="/Home" element={<Home />} />
+              <Route path="/SignUp" element ={<SignUp />} />
             </Routes>
             </div>
         </div>

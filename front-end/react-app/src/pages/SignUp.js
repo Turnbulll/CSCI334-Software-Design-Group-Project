@@ -1,39 +1,48 @@
 import React from 'react'
-import { Navigate, Link} from "react-router-dom";
+import { Navigate} from "react-router-dom";
 
 
-class SignIn extends React.Component {
+class SignUp extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {email: "",
                       password: "",
-                      userType: ""};
+                      valid: false};
   
       }
 
     checkCredentials  = (event) => {
         /* NEED TO ADD LOGIC FOR GETTING ACOUNT DETAIL IN HERE */
 
-
-        this.setState({userType: "patient"})
+        
+        this.setState({valid: true})
     }
 
    render(){
        return(
            <div className='form'>
                {/* route to new page on login*/}
-               {this.state.userType === "patient" ? < Navigate to="/home"/> : null}
+               {this.state.valid ? < Navigate to="/"/> : null}
 
                 <form className='form'>
-                    <h1>Sign In</h1>
+                    <h1>Sign Up</h1>
+
+                    <label>First Name:</label>
+                    <input type="text" name="FirstName" />
+
+                    <label>Last Name:</label>
+                    <input type="text" name="FirstName" />
+
+                    <label>Date Of Birth:</label>
+                    <input type="Date" name="DOB" />
+                    
                     <label>Email:</label>
                     <input type="text" name="Email" />
 
                     <label>Password:</label>
                     <input type="password" name="password" />
 
-                    <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
                    
                 </form>
                 <button onClick={this.checkCredentials}>Submit</button>
@@ -43,4 +52,4 @@ class SignIn extends React.Component {
         
 }
 
-export default SignIn
+export default SignUp

@@ -80,7 +80,7 @@ input {
   border-radius: 4px;
 }
 
-.form label {
+.form label{
   text-align: right;
 }
 .form h1{
@@ -100,6 +100,10 @@ input {
 
 .form button:hover{
   background-color: #2788ba;
+}
+
+.form .SignUpLink{
+  grid-column: span 2;
 }
 
 @keyframes App-logo-spin {
