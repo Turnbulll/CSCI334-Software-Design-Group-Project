@@ -3,10 +3,11 @@ import {Link} from "react-router-dom"
 
 function Home() {
   return (
-    <div>
+    <div className='home'>
       THIS IS HOME
       
-      <p><Link to="/about">TEST NAVIGATION LINK</Link></p>
+      <p>Hi how you doin?</p>
+
       
     </div>
   )
