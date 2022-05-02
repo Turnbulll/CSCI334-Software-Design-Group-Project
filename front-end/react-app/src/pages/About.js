@@ -1,6 +1,8 @@
+import { render } from '@testing-library/react'
 import React from 'react'
 
-const About = () => {
+class About extends React.Component {
+  render(){
   return (
     <div>
       THIS IS ABOUT PAGE
@@ -9,6 +11,7 @@ const About = () => {
       </p>
     </div>
   )
+  }
 }
 
 export default About

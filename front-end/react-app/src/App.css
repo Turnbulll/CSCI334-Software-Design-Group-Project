@@ -32,6 +32,10 @@
   overflow:hidden;
 }
 
+input {
+  margin-left:50px;
+}
+
 /* Navbar inspired by https://www.w3schools.com/css/css_navbar_vertical.asp */
 .navBar{
   list-style-type: none;
@@ -59,6 +63,43 @@
 
 .home{
   text-align: center;
+}
+
+
+/*form stuff*/
+.form{
+  display: inline-grid;
+  grid-template-columns: max-content max-content;
+  grid-gap:7px;
+  
+}
+
+.form input{
+  border: 2px solid;
+  padding: 3px;
+  border-radius: 4px;
+}
+
+.form label {
+  text-align: right;
+}
+.form h1{
+  grid-column: span 2;
+}
+
+.form button{
+  grid-column: span 2;
+  background-color: #1E98D7;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.form button:hover{
+  background-color: #2788ba;
 }
 
 @keyframes App-logo-spin {

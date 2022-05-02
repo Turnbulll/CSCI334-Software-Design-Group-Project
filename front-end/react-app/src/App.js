@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home'
 import About from './pages/About'
 import {Route, Routes, BrowserRouter} from "react-router-dom"
+import SignIn from './pages/SignIn';
 
 
 function App() {
@@ -15,8 +16,9 @@ function App() {
           <NavBar/>
             <div>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<SignIn />} />
               <Route path="/about" element={<About />} />
+              <Route path="/Home" element={<Home />} />
             </Routes>
             </div>
         </div>
