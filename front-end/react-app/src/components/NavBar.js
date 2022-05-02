@@ -24,6 +24,11 @@ class NavBar extends React.Component{
     render(){
     return (
         <div>
+            
+            {/* EVENTS IS A TEMPORARY WAY OF DOING THIS, NAVBAR RESETS ON REFRESH*/}
+
+            {/* LOAD TO SIGNUP PAGE ON REFRESH */}
+           
             {/*listens for user to be logged in */}
             {document.addEventListener("loggedInPatient", () => {
                     this.setState({ userType: "patient" });
@@ -32,9 +37,14 @@ class NavBar extends React.Component{
 
             <ul className="navBar">
                 {/*load navbar component based on state*/}
+
+                {/*if usertype null render signin and signup*/}
                 {this.state.userType === "" ? <li><Link to="/">Sign In</Link></li> : null}
                 {this.state.userType === "" ? <li><Link to="/">Sign Up</Link></li> : null}
-
+                
+                {/*Patient*/}
+                {/*Imagine this as an if statement
+                    if            A   =    B                {do this}                     else {}*/}
                 {this.state.userType === "patient" ? <li><Link to="/home">Home</Link></li> : null}
                 {this.state.userType === "patient" ? <li><Link to="/about">About</Link></li> : null}
 
