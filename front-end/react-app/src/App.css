@@ -107,6 +107,20 @@ input {
   grid-column: span 2;
 }
 
+
+/* Prescription list*/
+
+.prescriptionListItem{
+  display: inline-grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+  padding-top: 10px;
+}
+
+.prescriptionList{
+  display: inline-grid;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

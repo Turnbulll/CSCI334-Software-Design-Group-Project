@@ -54,6 +54,7 @@ class NavBar extends React.Component{
                     if            A   =    B                {do this}                     else {}*/}
                 {this.state.userType === "patient" ? <li><Link to="/PatientHome">Home</Link></li> : null}
                 {this.state.userType === "patient" ? <li><Link to="/Profile">Profile</Link></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/PatientPrescriptions">Prescriptions</Link></li> : null}
 
                 
                 {/*Doctor Navigation*/}
@@ -64,7 +65,7 @@ class NavBar extends React.Component{
 
                 
                 {/* Common */}
-                {this.state.userType != "" ? <li onClick={() => this.logout()}><Link to="/">Log Out</Link></li> : null}
+                {this.state.userType !== "" ? <li onClick={() => this.logout()}><Link to="/">Log Out</Link></li> : null}
 
 
             </ul>
