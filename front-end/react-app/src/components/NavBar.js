@@ -36,10 +36,16 @@ class NavBar extends React.Component{
 
             {/* LOAD TO SIGNUP PAGE ON REFRESH */}
            
-            {/*listens for user to be logged in */}
+            {/*listens for patient to be logged in */}
             {document.addEventListener("loggedInPatient", () => {
                     this.setState({ userType: "patient" });
                     this.updateState("patient")
+		        })}
+
+            {/*listens for docotor to be logged in */}
+            {document.addEventListener("loggedInDoctor", () => {
+                    this.setState({ userType: "doctor" });
+                    this.updateState("doctor")
 		        })}
 
             <ul className="navBar">
@@ -58,7 +64,10 @@ class NavBar extends React.Component{
 
                 
                 {/*Doctor Navigation*/}
-
+                {this.state.userType === "doctor" ? <li><Link to="/DoctorHome">Home</Link></li> : null}
+                {this.state.userType === "doctor" ? <li><Link to="/DoctorPrescriptions">Prescriptions</Link></li> : null}
+                {this.state.userType === "doctor" ? <li><Link to="/NewPrescription">New Prescription</Link></li> : null}
+                {this.state.userType === "doctor" ? <li><Link to="/Patients">Patients</Link></li> : null}
 
                 {/*Pharmacist Navigation*/}
 
