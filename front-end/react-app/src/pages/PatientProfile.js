@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
-class About extends React.Component {
+class PatientProfile extends React.Component {
   render(){
   return (
-    <div>
-      THIS IS ABOUT PAGE
+    <div className='main'>
+      
       <p>
         Got any grapes?
       </p>
@@ -14,4 +14,4 @@ class About extends React.Component {
   }
 }
 
-export default About
+export default PatientProfile

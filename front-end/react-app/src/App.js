@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import NavBar from "./components/NavBar"
 import './App.css';
-import Home from './pages/Home'
-import About from './pages/About'
+import PatientHome from './pages/PatientHome'
+import PatientProfile from './pages/PatientProfile';
+import PatientPrescriptions from './pages/PatientPrescriptions';
 import {Route, Routes, BrowserRouter} from "react-router-dom"
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -18,9 +19,10 @@ function App() {
             <div>
             <Routes>
               <Route path="/" element={<SignIn />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/Home" element={<Home />} />
+              <Route path="/Profile" element={<PatientProfile />} />
+              <Route path="/PatientHome" element={<PatientHome />} />
               <Route path="/SignUp" element ={<SignUp />} />
+              <Route path="/PatientPrescriptions" element={<PatientPrescriptions />}/>
             </Routes>
             </div>
         </div>

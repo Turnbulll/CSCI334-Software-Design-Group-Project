@@ -10,6 +10,8 @@ class NavBar extends React.Component{
 		this.state = {
 			userType: ""
 		};
+
+    
 	}
 
     componentDidMount() {
@@ -19,6 +21,11 @@ class NavBar extends React.Component{
     updateState(type){
         this.setState({ userType: type });
         console.log("NAVBAR: " + this.state.userType);
+    }
+
+    logout(){
+        console.log("TEST");
+        this.updateState("");
     }
 
     render(){
@@ -40,13 +47,25 @@ class NavBar extends React.Component{
 
                 {/*if usertype null render signin and signup*/}
                 {this.state.userType === "" ? <li><Link to="/">Sign In</Link></li> : null}
-                {this.state.userType === "" ? <li><Link to="/">Sign Up</Link></li> : null}
+                {this.state.userType === "" ? <li><Link to="/SignUp">Sign Up</Link></li> : null}
                 
                 {/*Patient*/}
                 {/*Imagine this as an if statement
                     if            A   =    B                {do this}                     else {}*/}
-                {this.state.userType === "patient" ? <li><Link to="/home">Home</Link></li> : null}
-                {this.state.userType === "patient" ? <li><Link to="/about">About</Link></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/PatientHome">Home</Link></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/Profile">Profile</Link></li> : null}
+
+                
+                {/*Doctor Navigation*/}
+
+
+                {/*Pharmacist Navigation*/}
+
+
+                
+                {/* Common */}
+                {this.state.userType != "" ? <li onClick={() => this.logout()}><Link to="/">Log Out</Link></li> : null}
+
 
             </ul>
         

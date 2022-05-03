@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link, Navigate} from "react-router-dom"
 
-class Home extends React.Component {
+class PatientPrescriptions extends React.Component {
 
   constructor(props) {
     super(props);
@@ -11,21 +11,17 @@ class Home extends React.Component {
 
   }
 
-  componentDidMount(){
-
-    console.log("HOME: " + this.state.userType);
-  }
 
 
   render(){
   return (
   
-    <div className='home'>
+    <div className='main'>
       {/* route to sign in if no user type*/}
       
 
-      THIS IS HOME
       
+      <h2>PRESCRIPTIONS GO ERE</h2>
       <p>Hi how you doin?</p>
 
       
@@ -33,5 +29,5 @@ class Home extends React.Component {
   )}
 }
 
-export default Home
+export default PatientPrescriptions
 

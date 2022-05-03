@@ -28,7 +28,7 @@ class SignIn extends React.Component {
            <div className='form'>
                {/* route to new page on login*/}
                {this.state.userType === "patient" ? < Navigate to={{
-                    pathname: '/home',
+                    pathname: '/PatientHome',
                     state: {userType: this.state.userType}
                     }} /> : null }
 
