@@ -11,9 +11,11 @@ import SignUp from './pages/SignUp';
 
 function App() {
   {/* add router components here to add other web pages */}
+
   return (
     <BrowserRouter>
       <div className="App">
+        {/*set the name of the app*/}
         <div>
           <NavBar/>
             <div>
