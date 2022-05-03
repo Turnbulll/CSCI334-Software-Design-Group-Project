@@ -111,15 +111,25 @@ input {
 /* Prescription list*/
 
 .prescriptionListItem{
+  width: 100%;
   display: inline-grid;
   grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
-  padding-top: 10px;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
 }
 
 .prescriptionList{
   display: inline-grid;
+  width: 80%;
 }
 
+.searchBox{
+  width: 80%; 
+  font-size: 16px;
+  padding: 13px;
+  border: 1px solid rgba(221, 221, 221, 0.863);
+  margin-bottom: 5px;
+}
 
 @keyframes App-logo-spin {
   from {

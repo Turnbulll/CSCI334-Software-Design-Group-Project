@@ -94,10 +94,11 @@ class PatientPrescriptions extends React.Component {
       <h2>PRESCRIPTIONS GO ERE</h2>
       <p>Hi how you doin?</p>
 
-      <input type="text" id="prescriptionSearch" onKeyUp={this.searchPrescription} placeholder="Search prescriptions..."></input>
+      <input type="text" id="prescriptionSearch" className='searchBox' onKeyUp={this.searchPrescription} placeholder="Search prescriptions..."></input>
       <br/>
 
       <ul className='prescriptionList' id="prescriptionList">
+        
           <li className="prescriptionListItem">
               <div>Date</div>
               <div>Doctor</div>
