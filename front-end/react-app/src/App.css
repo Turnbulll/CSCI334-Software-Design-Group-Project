@@ -109,19 +109,29 @@ input {
 
 
 /* Prescription list*/
+.prescriptionList{
+  display: inline-grid;
+  width: 100%;
+}
 
 .prescriptionListItem{
-  width: 100%;
+  width: 80%;
   display: inline-grid;
   grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
   padding: 10px;
   border: 1px solid rgb(185, 185, 185);
+  
 }
 
-.prescriptionList{
-  display: inline-grid;
+.doctorPrescriptionListItem{
   width: 80%;
+  display: inline-grid;
+  grid-template-columns: 0.1fr 0.5fr 2fr 1fr 1fr 1fr;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
+  
 }
+
 
 .searchBox{
   width: 80%; 

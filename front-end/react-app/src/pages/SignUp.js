@@ -31,7 +31,7 @@ class SignUp extends React.Component {
                     <input type="text" name="FirstName" />
 
                     <label>Last Name:</label>
-                    <input type="text" name="FirstName" />
+                    <input type="text" name="LastName" />
 
                     <label>Date Of Birth:</label>
                     <input type="Date" name="DOB" />
