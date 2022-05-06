@@ -141,6 +141,37 @@ input {
   margin-bottom: 5px;
 }
 
+/* loaded Prescription */
+.loadedPrescription{
+  display: inline-grid;
+  grid-template-columns: max-content max-content;
+  grid-gap:20px;
+  padding: 20px;
+  justify-content: start;
+  text-align: left;
+
+}
+
+.loadedPrescription button{
+  grid-column: span 2;
+  background-color: #d7871e;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+
+}
+
+.loadedPrescription button:hover{
+  background-color: #c78335;
+}
+
+.span2{
+  grid-column: span 2;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

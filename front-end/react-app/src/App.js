@@ -12,7 +12,8 @@ import NewPrescription from './pages/NewPrescription';
 import Patients from './pages/Patients';
 import DoctorHome from './pages/DoctorHome';
 import DoctorPrescriptions from './pages/DoctorPrescriptions';
-
+import PharmacistHome from './pages/PharmacistHome';
+import ReadScript from './pages/ReadScript';
 
 function App() {
   {/* add router components here to add other web pages */}
@@ -37,6 +38,9 @@ function App() {
               <Route path="/DoctorPrescriptions" element={<DoctorPrescriptions />}/>
            
               <Route path="/Patients" element={<Patients />}/>
+
+              <Route path="/PharmacistHome" element={<PharmacistHome />} />
+              <Route path="/ReadScript" element={<ReadScript />} />
             </Routes>
             </div>
         </div>

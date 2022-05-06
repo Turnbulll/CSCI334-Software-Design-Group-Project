@@ -26,7 +26,7 @@ class Patients extends React.Component {
 
     this.state.list.push({
       id: 1,
-      Email: 'randyBonckles@yahoo.com',
+      Email: 'randybonckles@yahoo.com',
       FirstName: 'Randy',
       LastName: 'bonckles',
       Score: 1})
@@ -76,7 +76,6 @@ class Patients extends React.Component {
       
     }
 
-    
   }
   
   render(){
