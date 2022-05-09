@@ -1,0 +1,182 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.main{
+  overflow:hidden;
+}
+
+input {
+  margin-left:50px;
+}
+
+/* Navbar inspired by https://www.w3schools.com/css/css_navbar_vertical.asp */
+.navBar{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  height: 100vh;
+  background-color: #E84E36;
+  float: left;
+}
+
+.navBar li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+/* Changes color on hover*/
+.navBar li a:hover {
+  background-color: #BE4332;
+  color: white;
+}
+
+
+.home{
+  display: inline-grid;
+  text-align: center;
+}
+
+
+/*form stuff*/
+.form{
+  display: inline-grid;
+  grid-template-columns: max-content max-content;
+  grid-gap:7px;
+  
+}
+
+.form input{
+  border: 2px solid;
+  padding: 3px;
+  border-radius: 4px;
+}
+
+.form label{
+  text-align: right;
+}
+.form h1{
+  grid-column: span 2;
+}
+
+.form button{
+  grid-column: span 2;
+  background-color: #1E98D7;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.form button:hover{
+  background-color: #2788ba;
+}
+
+.form .SignUpLink{
+  grid-column: span 2;
+}
+
+
+/* Prescription list*/
+.prescriptionList{
+  display: inline-grid;
+  width: 100%;
+}
+
+.prescriptionListItem{
+  width: 80%;
+  display: inline-grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
+  
+}
+
+.doctorPrescriptionListItem{
+  width: 80%;
+  display: inline-grid;
+  grid-template-columns: 0.1fr 0.5fr 2fr 1fr 1fr 1fr;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
+  
+}
+
+
+.searchBox{
+  width: 80%; 
+  font-size: 16px;
+  padding: 13px;
+  border: 1px solid rgba(221, 221, 221, 0.863);
+  margin-bottom: 5px;
+}
+
+/* loaded Prescription */
+.loadedPrescription{
+  display: inline-grid;
+  grid-template-columns: max-content max-content;
+  grid-gap:20px;
+  padding: 20px;
+  justify-content: start;
+  text-align: left;
+
+}
+
+.loadedPrescription button{
+  grid-column: span 2;
+  background-color: #d7871e;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+
+}
+
+.loadedPrescription button:hover{
+  background-color: #c78335;
+}
+
+.span2{
+  grid-column: span 2;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
