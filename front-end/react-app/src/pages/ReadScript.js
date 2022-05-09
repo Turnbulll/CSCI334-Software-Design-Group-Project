@@ -1,5 +1,5 @@
 import React from 'react'
-import Prescription from '../components/Prescription';
+
 
 class ReadScript extends React.Component{
 
