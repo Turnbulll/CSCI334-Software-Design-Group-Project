@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react'
 import { Navigate, Link} from "react-router-dom";
 
@@ -8,47 +9,110 @@ class SignIn extends React.Component {
         super(props);
         this.state = {email: "",
                       password: "",
-                      userType: ""};
+                      userType: "",
+                      Users: []};
   
       }
 
-    checkCredentials  = (event) => {
+    login  = (event) => {
         /* NEED TO ADD LOGIC FOR GETTING ACOUNT DETAIL IN HERE */
-
-        //this.setState({userType:"doctor"});
-        //this.setState({userType:"patient"});
-        this.setState({userType:"pharmacist"});
 
         //document.dispatchEvent(new Event("loggedInDoctor"));
         //document.dispatchEvent(new Event("loggedInPatient"));
+        //document.dispatchEvent(new Event("loggedInPharmacist"));
+
+        //this.getUsers();
+       //console.log(this.state.Users[2]);
+
+        var username = document.getElementById("user").value;
+        var password = document.getElementById("password").value;
+    
+       this.checkCredentials(username, password);
+
+       if (this.state.userType === "Doctor"){
+        document.dispatchEvent(new Event("loggedInDoctor"));
+
+       }else if(this.state.userType === "Patient"){
+        document.dispatchEvent(new Event("loggedInPatient"));
+
+       }else if(this.state.userType === "Pharmacist"){
         document.dispatchEvent(new Event("loggedInPharmacist"));
-        
+
     }
+      
+    
+       
+
+    }
+
+    checkCredentials(username, password){
+        var users = this.state.Users;
+        for (var i = 0; i < users.length; i++ ){
+            if (users[i].name === username && users[i].password == password){
+                this.setState({userType: users[i].userType});
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    componentDidMount(){
+        //this.getDoctors();   
+        this.getUsers();
+    }
+
+    getUsers(){
+        var req1 = Axios.get("http://localhost:8080/Patient");
+        var req2 = Axios.get("http://localhost:8080/Doctor");
+        var req3 = Axios.get("http://localhost:8080/Pharmacist")
+
+
+        Axios.all([req1, req2, req3]).then(
+            Axios.spread((...responses) => {
+            const resp1 = responses[0];
+            const resp2 = responses[1];
+            const resp3 = responses[2];
+
+            const data = resp1.data.concat(resp2.data, resp3.data);
+            this.setState({Users: data});
+
+            })
+        ).catch(errors => {
+             // react on errors.
+            console.error(errors);
+        });
+
+    }
+
+   
 
    render(){
        return(
 
     
-
+            
            <div className='form'>
-               {/* route to new page on login*/}
-               {this.state.userType === "patient" ? < Navigate to="/PatientHome" /> : null }
-               {this.state.userType === "doctor" ? < Navigate to="/DoctorHome" /> : null }
-               {this.state.userType === "pharmacist" ? < Navigate to="/PharmacistHome" /> : null }
 
+               
+
+               {/* route to new page on login CURRENTLY BROKEN*/}
+               {/*this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
+               {this.state.userType === "Doctor" ? < Navigate to="/DoctorHome" /> : null }
+               {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null */}
 
                 <form className='form'>
                     <h1>Sign In</h1>
-                    <label>Email:</label>
-                    <input type="text" name="Email" />
+                    <label>Name:</label>
+                    <input type="text" name="user" id="user" />
 
                     <label>Password:</label>
-                    <input type="password" name="password" />
+                    <input type="password" name="password" id="password"/>
 
                     <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
                    
                 </form>
-                <button onClick={this.checkCredentials}>Submit</button>
+                <button onClick={this.login}>Submit</button>
            </div>
        )
    }
