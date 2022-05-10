@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigate, Link} from "react-router-dom";
 
 
@@ -7,14 +7,13 @@ class SignIn extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {email: "",
-                      password: "",
-                      userType: "",
-                      Users: []};
+        this.state = {User: null,
+                    userType: null};
   
       }
 
-    login  = (event) => {
+
+    login = () =>{
         /* NEED TO ADD LOGIC FOR GETTING ACOUNT DETAIL IN HERE */
 
         //document.dispatchEvent(new Event("loggedInDoctor"));
@@ -23,7 +22,7 @@ class SignIn extends React.Component {
 
         //this.getUsers();
        //console.log(this.state.Users[2]);
-
+     
         var username = document.getElementById("user").value;
         var password = document.getElementById("password").value;
     
@@ -47,28 +46,10 @@ class SignIn extends React.Component {
     }
 
     checkCredentials(username, password){
-        //checks if the user is currently in the Users array, returns tru if found and updates usertype
-        var users = this.state.Users;
-        for (var i = 0; i < users.length; i++ ){
-            if (users[i].name === username && users[i].password == password){
-                this.setState({userType: users[i].userType});
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    componentDidMount(){
-        //this.getDoctors();   
-        this.getUsers();
-    }
-
-    getUsers(){
         //fetch requests for all user types
-        var req1 = Axios.get("http://localhost:8080/Patient");
-        var req2 = Axios.get("http://localhost:8080/Doctor");
-        var req3 = Axios.get("http://localhost:8080/Pharmacist")
+        var req1 = Axios.get("http://localhost:8080/Patient/Name?name="+username);
+        var req2 = Axios.get("http://localhost:8080/Doctor/Name?name="+username);
+        var req3 = Axios.get("http://localhost:8080/Pharmacist/Name?name="+username)
 
         //fetch all the requests
         Axios.all([req1, req2, req3]).then(
@@ -77,10 +58,37 @@ class SignIn extends React.Component {
             const resp1 = responses[0];
             const resp2 = responses[1];
             const resp3 = responses[2];
+            console.log(resp1.data, resp2.data, resp3.data);
 
-            //concat all responses
-            const data  = resp1.data.concat(resp2.data, resp3.data);
-            this.setState({Users: data});
+            if (resp1.data != []){
+                console.log("YUP");
+                if (resp1.data.password === password){
+                    this.setState({userType: resp1.data[0].userType});
+                    return true;
+                }
+               
+            }
+            if(resp2.data != []){
+
+                if (resp2.data[0].password === password){
+                    this.setState({userType: resp2.data[0].userType});
+                    return true;
+                }
+
+                console.log("YUP");
+            }
+            if (resp3.data[0] != []){
+                console.log("YUP");
+                if (resp3.data[0].password === password){
+                    this.setState({userType: resp3.data[0].userType});
+                    return true;
+
+                }
+
+            }
+
+            return false;
+          
 
             })
         ).catch(errors => {
@@ -89,6 +97,12 @@ class SignIn extends React.Component {
         });
 
     }
+
+    componentDidMount(){
+
+    }
+
+  
 
    
 
