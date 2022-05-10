@@ -29,6 +29,7 @@ class SignIn extends React.Component {
     
        this.checkCredentials(username, password);
 
+       //load different nav bar based on user type
        if (this.state.userType === "Doctor"){
         document.dispatchEvent(new Event("loggedInDoctor"));
 
@@ -46,6 +47,7 @@ class SignIn extends React.Component {
     }
 
     checkCredentials(username, password){
+        //checks if the user is currently in the Users array, returns tru if found and updates usertype
         var users = this.state.Users;
         for (var i = 0; i < users.length; i++ ){
             if (users[i].name === username && users[i].password == password){
@@ -63,18 +65,21 @@ class SignIn extends React.Component {
     }
 
     getUsers(){
+        //fetch requests for all user types
         var req1 = Axios.get("http://localhost:8080/Patient");
         var req2 = Axios.get("http://localhost:8080/Doctor");
         var req3 = Axios.get("http://localhost:8080/Pharmacist")
 
-
+        //fetch all the requests
         Axios.all([req1, req2, req3]).then(
             Axios.spread((...responses) => {
+
             const resp1 = responses[0];
             const resp2 = responses[1];
             const resp3 = responses[2];
 
-            const data = resp1.data.concat(resp2.data, resp3.data);
+            //concat all responses
+            const data  = resp1.data.concat(resp2.data, resp3.data);
             this.setState({Users: data});
 
             })
@@ -93,8 +98,6 @@ class SignIn extends React.Component {
     
             
            <div className='form'>
-
-               
 
                {/* route to new page on login CURRENTLY BROKEN*/}
                {/*this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
