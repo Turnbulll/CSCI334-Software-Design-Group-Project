@@ -9,12 +9,12 @@ class ReadScript extends React.Component{
 		super(props);
 		this.state = {
             loaded: false,
-            Code: "12345678",
-            Date: "12/03/2001",
-            Doctor: "Box",
-            Medicine: "option3",
-            Dosage: "Test Phrase",
-            TreatmentInstruction: "Eat it lol",
+            Code: null,
+            Date: null,
+            Doctor: null,
+            Medicine: null,
+            Dosage: null,
+            TreatmentInstruction: null,
             Dispenses: 2
     
 		};
@@ -27,7 +27,31 @@ class ReadScript extends React.Component{
 
         Axios.get("http://localhost:8080/Prescription/" + prescriptionID).then(resp =>
                 {
-                    console.log(resp);
+                    const respData = resp.data;
+
+                    if ((respData.length > 1) === false){
+                        //do nothing
+                        console.log("do that");
+
+                        this.setState({
+                            loaded: true,
+                            Code: respData.prescriptionId,
+                            Date: "tbd",
+                            Doctor: "tbd",
+                            Medicine: respData.medicine,
+                            Dosage: respData.dosage,
+                            TreatmentInstruction: respData.treatment.description,
+                            Dispenses: 1
+
+
+                        })
+
+                        
+
+                        console.log(respData);
+                    }
+
+                    
                 }
             );
 
@@ -61,6 +85,8 @@ class ReadScript extends React.Component{
         if (this.state.Dispenses > 0){
             this.setState({Dispenses: this.state.Dispenses - 1})
         }
+
+        //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
     }
     
 
