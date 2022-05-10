@@ -28,6 +28,7 @@ class SignIn extends React.Component {
     
        this.checkCredentials(username, password);
 
+       /*
        //load different nav bar based on user type
        if (this.state.userType === "Doctor"){
         document.dispatchEvent(new Event("loggedInDoctor"));
@@ -39,14 +40,13 @@ class SignIn extends React.Component {
         document.dispatchEvent(new Event("loggedInPharmacist"));
 
 
-    }
+        }*/
       
     
-       
-
     }
 
-    checkCredentials(username, password){
+
+    async checkCredentials(username, password){
         //fetch requests for all user types
         var req1 = Axios.get("http://localhost:8080/Patient/Name?name="+username);
         var req2 = Axios.get("http://localhost:8080/Doctor/Name?name="+username);
@@ -61,35 +61,54 @@ class SignIn extends React.Component {
             const resp3 = responses[2];
             console.log(resp1.data, resp2.data, resp3.data);
 
+            var userType;
+                //if patients return a value
             if (resp1.data.length !== 0){
                 if (resp1.data[0].password === password){
-                    this.setState({userType: resp1.data[0].userType});
+                    //update usertype and state
+                    userType = resp1.data[0].userType;
+                    this.setState({User: resp1.data[0]});
                 }
                
             }
-            
+
+            // if doctors returns value
             if(resp2.data.length !== 0){
         
                 if (resp2.data[0].password === password){
-                    
-                    this.setState({userType: resp2.data[0].userType});
+                    //update usertype and state
+                    userType = resp2.data[0].userType;
+                    this.setState({User: resp2.data[0]});
                 }
             }
 
+            //if pharmacist returns
             if (resp3.data.length !== 0){
-     
+                    //update usertype and state
                 if (resp3.data[0].password === password){
-                    this.setState({userType: resp3.data[0].userType});
+                    userType = resp3.data[0].userType;
+                    this.setState({User: resp3.data[0]});
                 }
 
-            }
+            }   
+
+            //work around for state async issue
+                if (userType === "Doctor"){
+                    document.dispatchEvent(new Event("loggedInDoctor"));
+        
+               }else if(userType === "Patient"){
+                    document.dispatchEvent(new Event("loggedInPatient"));
+        
+               }else if(userType === "Pharmacist"){
+                     document.dispatchEvent(new Event("loggedInPharmacist"));
+                }
+            
 
             })
-        ).catch(errors => {
+        ).then((...responses) => {this.log()}).catch(errors => {
              // react on errors.
             console.error(errors);
         });
-
     }
 
     componentDidMount(){
@@ -123,7 +142,7 @@ class SignIn extends React.Component {
                     <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
                    
                 </form>
-                <button onClick={this.login}>Submit</button>
+                <button onClick={this.login}  onMouseDown={this.login} >Submit</button>
            </div>
        )
    }
