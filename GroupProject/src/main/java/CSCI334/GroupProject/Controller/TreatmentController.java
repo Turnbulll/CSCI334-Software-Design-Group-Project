@@ -39,25 +39,25 @@ public class TreatmentController {
 	
 	//post request to add a list of new treatment
 	@PostMapping("/Treatments/New")
-	public String addNewTreatments(@RequestBody Treatment[] treatments) {
+	public Treatment[] addNewTreatments(@RequestBody Treatment[] treatments) {
 		treatmentService.addNewTreatments(treatments);
-		return "New list of treatments added";
+		return treatments;
 	}
 	
 	//post request to add a new treatment
 	@PostMapping("/Treatment/New")
-	public String addNewTreatment(@RequestBody Treatment treatment) {
+	public Treatment addNewTreatment(@RequestBody Treatment treatment) {
 		treatmentService.addNewTreatment(treatment);
-		return treatment.toString() + " added \n";
+		return treatment;
 	}
 
 	//put request to update a treatment information
 	@PutMapping("Treatment/{treatmentId}")
-	public String updateTreatment(
+	public Optional<Treatment> updateTreatment(
 		@PathVariable("treatmentId") Long treatmentId,
         @RequestParam(required = false) String description){
 		treatmentService.updateTreatment(treatmentId, description);
-			return treatmentService.findTreatmentById(treatmentId).toString() + " updated \n";
+			return treatmentService.findTreatmentById(treatmentId);
 	}
 
 	//get request that returns a true if a treatment is found

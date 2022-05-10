@@ -40,26 +40,26 @@ public class PrescriptionController {
 	
 	//post request to add a list of new prescription
 	@PostMapping("/Prescriptions/New")
-	public String addNewPrescriptions(@RequestBody Prescription[] prescriptions) {
+	public Prescription[] addNewPrescriptions(@RequestBody Prescription[] prescriptions) {
 		prescriptionService.addNewPrescriptions(prescriptions);
-		return "New list of prescriptions added";
+		return prescriptions;
 	}
 	
 	//post request to add a new prescription
 	@PostMapping("/Prescription/New")
-	public String addNewPrescription(@RequestBody Prescription prescription) {
+	public Prescription addNewPrescription(@RequestBody Prescription prescription) {
 		prescriptionService.addNewPrescription(prescription);
-		return prescription.toString() + " added \n";
+		return prescription;
 	}
 
 	//put request to update a prescription information
 	@PutMapping("Prescription/{prescriptionId}")
-	public String updatePrescripton(
+	public Optional<Prescription> updatePrescripton(
 		@PathVariable("prescriptionId") Long prescriptionId,
         @RequestParam(required = false) String medicine,
         @RequestParam(required = false) Float dosage){
 		prescriptionService.updatePrescription(prescriptionId, medicine, dosage);
-			return prescriptionService.findPrescriptionById(prescriptionId).toString() + " updated \n";
+			return prescriptionService.findPrescriptionById(prescriptionId);
 	}
 
 	//get request that returns a true if a prescription is found

@@ -40,29 +40,29 @@ public class PatientController implements UserControllerInterface<Patient> {
 	//post request to add a list of new patients
 	@Override
 	@PostMapping("/Patients/New")
-	public String newUsers(@RequestBody Patient[] patients) {
+	public Patient[] newUsers(@RequestBody Patient[] patients) {
 		patientService.addNewUsers(patients);
-		return "New list of patients added";
+		return patients;
 	}
 	
 	//post request to add a new patient
 	@Override
 	@PostMapping("/Patient/New")
-	public String newUser(@RequestBody Patient patient) {
+	public Patient newUser(@RequestBody Patient patient) {
 		patientService.addNewUser(patient);
-		return patient.toString() + " added \n";
+		return patient;
 	}
 
 	//put request to update a patients information
 	@Override
 	@PutMapping("Patient/{userId}")
-	public String updateUser(
+	public Optional<Patient> updateUser(
 		@PathVariable("userId") Long userId,
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String password,
         @RequestParam(required = false) String userType){
 			patientService.updateUser(userId, name, password, userType);
-			return patientService.findUserById(userId).toString() + " updated \n";
+			return patientService.findUserById(userId);
 		}
 
 	//get request that returns a true if a patient is found

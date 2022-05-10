@@ -3,6 +3,7 @@ package CSCI334.GroupProject.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,13 +19,13 @@ public interface UserControllerInterface<T extends User> {
 	public Optional<T> getUser(@PathVariable("userId") Long userId);
 	
 	//post request that adds a list of new users
-	public String newUsers(@RequestBody T[] users);
+	public T[] newUsers(@RequestBody T[] users);
 	
 	//post request to add a single new user
-	public String newUser(@RequestBody T user);
+	public T newUser(@RequestBody T user);
 	
 	//put request that updates user information
-	public String updateUser(
+	public Optional<T> updateUser(
 	        @PathVariable("userId") Long userId,
 	        @RequestParam(required = false) String name,
 	        @RequestParam(required = false) String password,
