@@ -3,6 +3,7 @@ package CSCI334.GroupProject.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import CSCI334.GroupProject.Model.Patient;
 import CSCI334.GroupProject.Model.Pharmacist;
 import CSCI334.GroupProject.Service.PharmacistService;
 
@@ -40,29 +42,29 @@ public class PharmacistController implements UserControllerInterface<Pharmacist>
 	//post request to add a list of new pharmacists
 	@Override
 	@PostMapping("/Pharmacists/New")
-	public String newUsers(@RequestBody Pharmacist[] pharmacists) {
+	public Pharmacist[] newUsers(@RequestBody Pharmacist[] pharmacists) {
 		pharmacistService.addNewUsers(pharmacists);
-		return "New list of pharmacists added";
+		return pharmacists;
 	}
 	
 	//post request to add a new pharmacist
 	@Override
 	@PostMapping("/Pharmacist/New")
-	public String newUser(@RequestBody Pharmacist pharmacist) {
+	public Pharmacist newUser(@RequestBody Pharmacist pharmacist) {
 		pharmacistService.addNewUser(pharmacist);
-		return pharmacist.toString() + " added \n";
+		return pharmacist;
 	}
 
 	//put request to update a pharmacists information
 	@Override
 	@PutMapping("Pharmacist/{userId}")
-	public String updateUser(
+	public Optional<Pharmacist> updateUser(
 		@PathVariable("userId") Long userId,
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String password,
         @RequestParam(required = false) String userType){
 			pharmacistService.updateUser(userId, name, password, userType);
-			return pharmacistService.findUserById(userId).toString() + " updated \n";
+			return pharmacistService.findUserById(userId);
 		}
 
 	//get request that returns a true if a pharmacist is found
@@ -70,6 +72,12 @@ public class PharmacistController implements UserControllerInterface<Pharmacist>
 	@GetMapping("/Pharmacist/Valid/{userId}")
 	public boolean validateUser(@PathVariable("userId") Long userId) {
 		return pharmacistService.validateUser(userId);
+	}
+	
+	//find by name
+	@GetMapping("/Pharmacist/Name")
+	public ResponseEntity<List<Pharmacist>> getUsersByName(@RequestParam String name) {
+		return pharmacistService.getUsersByName(name);
 	}
 	
 	/*TODO
