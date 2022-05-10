@@ -9,6 +9,7 @@ class PatientProfile extends React.Component {
       <p>
         Got any grapes?
       </p>
+      <p> Sup Fellas?</p>
     </div>
   )
   }
