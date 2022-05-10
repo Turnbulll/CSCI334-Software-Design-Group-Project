@@ -38,6 +38,7 @@ class SignIn extends React.Component {
        }else if(this.state.userType === "Pharmacist"){
         document.dispatchEvent(new Event("loggedInPharmacist"));
 
+
     }
       
     
@@ -60,35 +61,28 @@ class SignIn extends React.Component {
             const resp3 = responses[2];
             console.log(resp1.data, resp2.data, resp3.data);
 
-            if (resp1.data != []){
-                console.log("YUP");
-                if (resp1.data.password === password){
+            if (resp1.data.length !== 0){
+                if (resp1.data[0].password === password){
                     this.setState({userType: resp1.data[0].userType});
-                    return true;
                 }
                
             }
-            if(resp2.data != []){
-
+            
+            if(resp2.data.length !== 0){
+        
                 if (resp2.data[0].password === password){
+                    
                     this.setState({userType: resp2.data[0].userType});
-                    return true;
                 }
-
-                console.log("YUP");
             }
-            if (resp3.data[0] != []){
-                console.log("YUP");
+
+            if (resp3.data.length !== 0){
+     
                 if (resp3.data[0].password === password){
                     this.setState({userType: resp3.data[0].userType});
-                    return true;
-
                 }
 
             }
-
-            return false;
-          
 
             })
         ).catch(errors => {
