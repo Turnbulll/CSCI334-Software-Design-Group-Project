@@ -14,34 +14,14 @@ class SignIn extends React.Component {
 
 
     login = () =>{
-        /* NEED TO ADD LOGIC FOR GETTING ACOUNT DETAIL IN HERE */
 
-        //document.dispatchEvent(new Event("loggedInDoctor"));
-        //document.dispatchEvent(new Event("loggedInPatient"));
-        //document.dispatchEvent(new Event("loggedInPharmacist"));
-
-        //this.getUsers();
-       //console.log(this.state.Users[2]);
-     
-        var username = document.getElementById("user").value;
-        var password = document.getElementById("password").value;
-    
+       //get data from input
+       var username = document.getElementById("user").value;
+       var password = document.getElementById("password").value;
+        
+      //check data valid
        this.checkCredentials(username, password);
 
-       /*
-       //load different nav bar based on user type
-       if (this.state.userType === "Doctor"){
-        document.dispatchEvent(new Event("loggedInDoctor"));
-
-       }else if(this.state.userType === "Patient"){
-        document.dispatchEvent(new Event("loggedInPatient"));
-
-       }else if(this.state.userType === "Pharmacist"){
-        document.dispatchEvent(new Event("loggedInPharmacist"));
-
-
-        }*/
-      
     
     }
 
