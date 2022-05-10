@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react'
 
 
@@ -22,7 +23,15 @@ class ReadScript extends React.Component{
 	}
 
     getScript  = (event) => {
-        this.setState({loaded: true});
+        var prescriptionID = document.getElementById("scriptCode").value;
+
+        Axios.get("http://localhost:8080/Prescription/" + prescriptionID).then(resp =>
+                {
+                    console.log(resp);
+                }
+            );
+
+        //this.setState({loaded: true});
     }
 
     getElement(){
@@ -67,7 +76,7 @@ class ReadScript extends React.Component{
                 <form className='form'>
 
                     <label>Manual Code:</label>
-                    <input type="text" name="Email" />
+                    <input type="text" id="scriptCode"/>
                    
                 </form>
 
