@@ -67,7 +67,8 @@ class SignIn extends React.Component {
                 if (resp1.data[0].password === password){
                     //update usertype and state
                     userType = resp1.data[0].userType;
-                    this.setState({User: resp1.data[0]});
+                    this.setState({User: resp1.data[0],
+                                    userType: resp1.data[0].userType});
                 }
                
             }
@@ -78,7 +79,8 @@ class SignIn extends React.Component {
                 if (resp2.data[0].password === password){
                     //update usertype and state
                     userType = resp2.data[0].userType;
-                    this.setState({User: resp2.data[0]});
+                    this.setState({User: resp2.data[0],
+                        userType: resp2.data[0].userType});
                 }
             }
 
@@ -87,7 +89,8 @@ class SignIn extends React.Component {
                     //update usertype and state
                 if (resp3.data[0].password === password){
                     userType = resp3.data[0].userType;
-                    this.setState({User: resp3.data[0]});
+                    this.setState({User: resp3.data[0],
+                        userType: resp3.data[0].userType});
                 }
 
             }   
@@ -95,6 +98,7 @@ class SignIn extends React.Component {
             //work around for state async issue
                 if (userType === "Doctor"){
                     document.dispatchEvent(new Event("loggedInDoctor"));
+              
         
                }else if(userType === "Patient"){
                     document.dispatchEvent(new Event("loggedInPatient"));
@@ -127,9 +131,9 @@ class SignIn extends React.Component {
            <div className='form'>
 
                {/* route to new page on login CURRENTLY BROKEN*/}
-               {/*this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
+               {this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
                {this.state.userType === "Doctor" ? < Navigate to="/DoctorHome" /> : null }
-               {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null */}
+               {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null}
 
                 <form className='form'>
                     <h1>Sign In</h1>
