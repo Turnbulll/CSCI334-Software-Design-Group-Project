@@ -3,6 +3,7 @@ package CSCI334.GroupProject.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import CSCI334.GroupProject.Model.Doctor;
 import CSCI334.GroupProject.Model.Patient;
 import CSCI334.GroupProject.Service.PatientService;
 
@@ -70,6 +72,12 @@ public class PatientController implements UserControllerInterface<Patient> {
 	@GetMapping("/Patient/Valid/{userId}")
 	public boolean validateUser(@PathVariable("userId") Long userId) {
 		return patientService.validateUser(userId);
+	}
+	
+	//find by name
+	@GetMapping("/Patient/Name")
+	public ResponseEntity<List<Patient>> getUsersByName(@RequestParam String name) {
+		return patientService.getUsersByName(name);
 	}
 	
 	/*TODO

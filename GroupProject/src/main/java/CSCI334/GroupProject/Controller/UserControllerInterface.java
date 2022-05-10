@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import CSCI334.GroupProject.Model.Doctor;
 import CSCI334.GroupProject.Model.User;
 
 public interface UserControllerInterface<T extends User> {
@@ -34,5 +35,7 @@ public interface UserControllerInterface<T extends User> {
 	//get request that checks if user is valid
 	public boolean validateUser(@PathVariable("userId") Long userId);
 	
+	//get user by name
+	public ResponseEntity<List<T>> getUsersByName(@RequestParam String name);
 	
 }

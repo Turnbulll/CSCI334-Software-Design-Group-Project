@@ -73,6 +73,12 @@ public class DoctorController implements UserControllerInterface<Doctor> {
 	public boolean validateUser(@PathVariable("userId") Long userId) {
 		return doctorService.validateUser(userId);
 	}
+	
+	//find by name
+	@GetMapping("/Doctor/Name")
+	public ResponseEntity<List<Doctor>> getUsersByName(@RequestParam String name) {
+		return doctorService.getUsersByName(name);
+	}
 
 
 }
