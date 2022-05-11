@@ -57,14 +57,15 @@ public class TreatmentController {
 		return treatmentService.validateTreatment(treatmentId);
 	}
 	
-	/*//add an allergy
-	@GetMapping("/Treatment/Allergy)
-	public void addAllergy(Treatment treatment, String allergy) {
-		treatmentService.addAllergy(treatment, allergy);
+	//add an allergy
+	@PutMapping("/Treatment/Allergy")
+	public String addAllergy(@RequestParam(required = true) Long treatmentId, @RequestParam(required = true) String allergy) {
+		return treatmentService.addAllergy(treatmentId, allergy);
 	}
 	
 	//add a reaction
-	public void addReaction(Treatment treatment, String reaction) {
-		treatmentService.addReaction(treatment, reaction);
-	}*/
+	@PutMapping("/Treatment/Reaction")
+	public String addReaction(@RequestParam(required = true) Long treatmentId, @RequestParam(required = true) String reaction) {
+		return treatmentService.addReaction(treatmentId, reaction);
+	}
 }

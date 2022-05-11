@@ -56,14 +56,18 @@ public class TreatmentService {
 	}
 	
 	//add an allergy
-	public void addAllergy(Treatment treatment, String allergy) {
+	public String addAllergy(Long treatmentId, String allergy) {
+		Treatment treatment = treatmentRepository.getById(treatmentId);
 		treatment.addAllergy(allergy);
 		treatmentRepository.save(treatment);
+		return allergy + " added to treatment " + treatmentId.toString();
 	}
 	
 	//add a reaction
-	public void addReaction(Treatment treatment, String reaction) {
+	public String addReaction(Long treatmentId, String reaction) {
+		Treatment treatment = treatmentRepository.getById(treatmentId);
 		treatment.addReaction(reaction);
 		treatmentRepository.save(treatment);
+		return reaction + " added to treatment " + treatmentId.toString();
 	}
 }
