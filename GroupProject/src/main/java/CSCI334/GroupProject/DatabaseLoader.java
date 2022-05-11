@@ -1,5 +1,7 @@
 package CSCI334.GroupProject;
 
+import java.util.ArrayList;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -81,9 +83,9 @@ public class DatabaseLoader implements CommandLineRunner {
 		log.info("Finished adding pharmacists to the database");
 		
 		log.info("Treatments are being created...");
-		treatments[0] = new Treatment("description1");
-		treatments[1] = new Treatment("description2");
-		treatments[2] = new Treatment("description3");
+		treatments[0] = new Treatment(new ArrayList<String>(), new ArrayList<String>());
+		treatments[1] = new Treatment(new ArrayList<String>(), new ArrayList<String>());
+		treatments[2] = new Treatment(new ArrayList<String>(), new ArrayList<String>());
 		
 		log.info("Adding treatments to the database...");
 		treatmentService.addNewTreatments(treatments);
@@ -91,9 +93,9 @@ public class DatabaseLoader implements CommandLineRunner {
 		
 		
 		log.info("Prescriptions are being created...");
-		prescriptions[0] = new Prescription("medicine1" , 1.0f, treatments[0]);
-		prescriptions[1] = new Prescription("medicine2" , 1.0f, treatments[1]);
-		prescriptions[2] = new Prescription("medicine3" , 1.0f, treatments[2]);
+		prescriptions[0] = new Prescription("medicine1" , 1.0f, 3, treatments[0]);
+		prescriptions[1] = new Prescription("medicine2" , 1.0f, 3, treatments[1]);
+		prescriptions[2] = new Prescription("medicine3" , 1.0f, 3, treatments[2]);
 		
 		log.info("Adding prescriptions to the database...");
 		prescriptionService.addNewPrescriptions(prescriptions);
