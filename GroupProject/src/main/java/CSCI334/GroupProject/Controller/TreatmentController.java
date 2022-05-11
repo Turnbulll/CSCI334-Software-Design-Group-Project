@@ -51,18 +51,20 @@ public class TreatmentController {
 		return treatment.toString() + " added \n";
 	}
 
-	//put request to update a treatment information
-	@PutMapping("Treatment/{treatmentId}")
-	public String updateTreatment(
-		@PathVariable("treatmentId") Long treatmentId,
-        @RequestParam(required = false) String description){
-		treatmentService.updateTreatment(treatmentId, description);
-			return treatmentService.findTreatmentById(treatmentId).toString() + " updated \n";
-	}
-
 	//get request that returns a true if a treatment is found
 	@GetMapping("/Treatment/Valid/{treatmentId}")
 	public boolean validateTreatment(@PathVariable("treatmentId") Long treatmentId) {
 		return treatmentService.validateTreatment(treatmentId);
 	}
+	
+	/*//add an allergy
+	@GetMapping("/Treatment/Allergy)
+	public void addAllergy(Treatment treatment, String allergy) {
+		treatmentService.addAllergy(treatment, allergy);
+	}
+	
+	//add a reaction
+	public void addReaction(Treatment treatment, String reaction) {
+		treatmentService.addReaction(treatment, reaction);
+	}*/
 }

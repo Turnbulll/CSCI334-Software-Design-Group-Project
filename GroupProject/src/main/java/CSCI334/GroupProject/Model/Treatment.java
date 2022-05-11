@@ -1,5 +1,7 @@
 package CSCI334.GroupProject.Model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Treatment {
 	//variables
 	private @Id @GeneratedValue Long treatmentId;
-	private String description;
+	private ArrayList<String> allergies;
+	private ArrayList<String> reactions;
 	
     @OneToOne(mappedBy = "treatment")
     @JsonIgnore
@@ -23,13 +26,18 @@ public class Treatment {
 	
     public Treatment(){};
     
-	public Treatment(String description){
-		this.description = description;
+	public Treatment(ArrayList<String> allergies, ArrayList<String> reactions){
+		this.setAllergies(allergies);
+		this.setReactions(reactions);
 	}
 	
 	//setter 
-	public void setDescription(String description){
-		this.description = description;
+	public void setAllergies(ArrayList<String> allergies){
+		this.allergies = allergies;
+	}
+	
+	public void setReactions(ArrayList<String> reactions){
+		this.reactions = reactions;
 	}
 	
 	//getter
@@ -37,11 +45,25 @@ public class Treatment {
 		return treatmentId;
 	}
 	
-	public String getDescription(){
-		return description;
+	public ArrayList<String> getAllergies(){
+		return allergies;
+	}
+	
+	public ArrayList<String> getReactions(){
+		return reactions;
+	}
+	
+	//add an allergy
+	public void addAllergy(String allergy) {
+		allergies.add(allergy);
+	}
+	
+	//add a reaction
+	public void addReaction(String reaction) {
+		reactions.add(reaction);
 	}
 	
 	public String toString(){
-		return "Treatment { treatmentId= " + treatmentId + ", description= " + description + "}"; 
+		return "Treatment { treatmentId= " + treatmentId + ", allergies= " + allergies + ", reactions= " + reactions +"}"; 
 	}
 }
