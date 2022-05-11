@@ -1,6 +1,6 @@
 package CSCI334.GroupProject.Model;
 
-import java.util.ArrayList;
+
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +18,7 @@ public abstract class User {
 	private String name;
 	private String password;
 	private String userType;
-	private ArrayList<String> prescriptions;
+
 	
 	//default constructor
 	public User() {};
@@ -62,14 +62,6 @@ public abstract class User {
 	
 	public void setUserType(String userType){ //TODO: ADD VALIDATION
 		this.userType = userType; 
-	}
-	
-	public ArrayList<String> getPrescriptions(){
-		return prescriptions;
-	}
-	
-	public void setPrescriptions(ArrayList<String> prescriptions){
-		this.prescriptions = prescriptions;
 	}
 	
 	@Override
