@@ -3,6 +3,9 @@ package CSCI334.GroupProject.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import CSCI334.GroupProject.Model.Doctor;
 import CSCI334.GroupProject.Service.DoctorService;
 
+@CrossOrigin("*")//had to ass this to get frontend communication working. there's deffo a better way to do it. If you work it out lemme know
 @RestController
 public class DoctorController implements UserControllerInterface<Doctor> {
 	private final DoctorService doctorService;
@@ -40,29 +44,29 @@ public class DoctorController implements UserControllerInterface<Doctor> {
 	//post request to add a list of new doctors
 	@Override
 	@PostMapping("/Doctors/New")
-	public String newUsers(@RequestBody Doctor[] doctors) {
+	public Doctor[] newUsers(@RequestBody Doctor[] doctors) {
 		doctorService.addNewUsers(doctors);
-		return "New list of doctors added";
+		return doctors;
 	}
 	
 	//post request to add a new doctor
 	@Override
 	@PostMapping("/Doctor/New")
-	public String newUser(@RequestBody Doctor doctor) {
+	public Doctor newUser(@RequestBody Doctor doctor) {
 		doctorService.addNewUser(doctor);
-		return doctor.toString() + " added \n";
+		return doctor;
 	}
 
 	//put request to update a doctors information
 	@Override
 	@PutMapping("Doctor/{userId}")
-	public String updateUser(
+	public Optional<Doctor> updateUser(
 		@PathVariable("userId") Long userId,
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String password,
         @RequestParam(required = false) String userType){
 			doctorService.updateUser(userId, name, password, userType);
-			return doctorService.findUserById(userId).toString() + " updated \n";
+			return doctorService.findUserById(userId);
 		}
 
 	//get request that returns a true if a doctor is found
@@ -70,6 +74,12 @@ public class DoctorController implements UserControllerInterface<Doctor> {
 	@GetMapping("/Doctor/Valid/{userId}")
 	public boolean validateUser(@PathVariable("userId") Long userId) {
 		return doctorService.validateUser(userId);
+	}
+	
+	//find by name
+	@GetMapping("/Doctor/Name")
+	public ResponseEntity<List<Doctor>> getUsersByName(@RequestParam String name) {
+		return doctorService.getUsersByName(name);
 	}
 
 

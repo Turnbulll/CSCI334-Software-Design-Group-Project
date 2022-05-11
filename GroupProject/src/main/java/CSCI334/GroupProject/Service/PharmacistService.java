@@ -5,9 +5,12 @@ import java.util.Optional;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import CSCI334.GroupProject.Model.Patient;
 import CSCI334.GroupProject.Model.Pharmacist;
 import CSCI334.GroupProject.Repository.PharmacistRepository;
 
@@ -78,6 +81,11 @@ public class PharmacistService implements UserServiceInterface<Pharmacist> {
 	@Override
 	public boolean validateUser(Long userId) {
 		return pharmacistRepository.findById(userId).isPresent(); 
+	}
+	
+	//find by name
+	public ResponseEntity<List<Pharmacist>> getUsersByName(String name) {
+		return new ResponseEntity<List<Pharmacist>>(pharmacistRepository.findByName(name), HttpStatus.OK);
 	}
 	
 	/*TODO

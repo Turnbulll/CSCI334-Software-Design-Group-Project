@@ -3,6 +3,8 @@ package CSCI334.GroupProject.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import CSCI334.GroupProject.Model.Doctor;
 import CSCI334.GroupProject.Model.Patient;
 import CSCI334.GroupProject.Service.PatientService;
 
+
+@CrossOrigin("*")//had to ass this to get frontend communication working. there's deffo a better way to do it. If you work it out lemme know
 @RestController
 public class PatientController implements UserControllerInterface<Patient> {
 	private final PatientService patientService;
@@ -40,29 +45,29 @@ public class PatientController implements UserControllerInterface<Patient> {
 	//post request to add a list of new patients
 	@Override
 	@PostMapping("/Patients/New")
-	public String newUsers(@RequestBody Patient[] patients) {
+	public Patient[] newUsers(@RequestBody Patient[] patients) {
 		patientService.addNewUsers(patients);
-		return "New list of patients added";
+		return patients;
 	}
 	
 	//post request to add a new patient
 	@Override
 	@PostMapping("/Patient/New")
-	public String newUser(@RequestBody Patient patient) {
+	public Patient newUser(@RequestBody Patient patient) {
 		patientService.addNewUser(patient);
-		return patient.toString() + " added \n";
+		return patient;
 	}
 
 	//put request to update a patients information
 	@Override
 	@PutMapping("Patient/{userId}")
-	public String updateUser(
+	public Optional<Patient> updateUser(
 		@PathVariable("userId") Long userId,
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String password,
         @RequestParam(required = false) String userType){
 			patientService.updateUser(userId, name, password, userType);
-			return patientService.findUserById(userId).toString() + " updated \n";
+			return patientService.findUserById(userId);
 		}
 
 	//get request that returns a true if a patient is found
@@ -70,6 +75,12 @@ public class PatientController implements UserControllerInterface<Patient> {
 	@GetMapping("/Patient/Valid/{userId}")
 	public boolean validateUser(@PathVariable("userId") Long userId) {
 		return patientService.validateUser(userId);
+	}
+	
+	//find by name
+	@GetMapping("/Patient/Name")
+	public ResponseEntity<List<Patient>> getUsersByName(@RequestParam String name) {
+		return patientService.getUsersByName(name);
 	}
 	
 	/*TODO
