@@ -10,8 +10,7 @@ class SignUp extends React.Component {
         this.state = {user: "",
                       password: "",
                       userType: "Patient",
-                      valid: false,
-                      nameTaken: true};
+                      valid: false};
   
       }
 
@@ -56,9 +55,7 @@ class SignUp extends React.Component {
         //set state
         this.setState({user: user_, password: password_, userType: userType_});
         this.checkAlreadyInDB(user_);
-     
-   
-
+    
         
     }
 
@@ -77,37 +74,31 @@ class SignUp extends React.Component {
                       const res2 = responses[1].data;
                       const res3 = responses[2].data;
   
-                      //che3cks user isnt already in database
+                      //checks user isnt already in database
                       if (res1.length === 0 && res2.length === 0 & res3.length === 0){
                           //if length of all arrays is 0 then user not in database
-                          console.log("We did it reddit");
-                          this.setState({nameTaken: false})
+                          //console.log("We did it reddit");
+
+                          //console.log("SAVE THE USER");
+                            //setup user object
+                            const user = {name: this.state.user,
+                            password: this.state.password,
+                            userType: this.state.userType}
+
+                                //post user object to database
+                          Axios.post("http://localhost:8080/"+this.state.userType+"/New?", user).then(resp => {
+                            //console.log(resp)
+                              this.setState({valid: true}); //update the state
+                          });
+
                       }else{
                           //maybe send error/notification
                       }
   
-                      console.log(res1, res2, res3);
+                     // console.log(res1, res2, res3);
   
                 }))
   
-    }
-
-    saveUser(){
-        //push to backend
-        //this.setState({valid: true})
-        console.log("SAVE THE USER");
-        const user = {name: this.state.user,
-                      password: this.state.password,
-                      userType: this.state.userType}
-
-        
-            Axios.post("http://localhost:8080/"+this.state.userType+"/New?", user).then(resp => {
-                console.log(resp)
-                this.setState({valid: true});
-        
-            });
-
-        
     }
 
 
@@ -118,7 +109,7 @@ class SignUp extends React.Component {
                {this.state.valid ? < Navigate to="/"/> : null}
 
                {/* when state updated call function */}
-               {this.state.nameTaken ? null : this.saveUser()}
+               {/*this.state.nameTaken ? null : this.saveUser()*/}
 
                 <form className='form'>
                     <h1>Sign Up</h1>
