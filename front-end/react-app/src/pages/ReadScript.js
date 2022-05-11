@@ -85,7 +85,7 @@ class ReadScript extends React.Component{
         if (this.state.Dispenses > 0){
             const prescription = {};
 
-            Axios.put("http://localhost:8080/Prescription/"+this.state.Code + "?medicine=meidine123").then(response => console.log(response));;
+            Axios.put("http://localhost:8080/Prescription/"+ this.state.Code + "?repeats=" + (this.state.Dispenses - 1)).then(response => console.log(response.data));;
 
             this.setState({Dispenses: this.state.Dispenses - 1})
         }
