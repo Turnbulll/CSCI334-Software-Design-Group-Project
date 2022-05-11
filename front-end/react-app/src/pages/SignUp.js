@@ -16,7 +16,7 @@ class SignUp extends React.Component {
       }
 
     checkCredentials  = (event) => {
-        /* NEED TO ADD LOGIC FOR GETTING ACOUNT DETAIL IN HERE */
+        /* CURRENT BUG IF A USER SIGNS UP WITH WRONG INFORMATION, THEN CORRECT INFORMATION IT CREATES 2 IDENTICAL USERS IN DATABASE*/
 
         //check all inputs have values
             //currently saved in backend
@@ -30,9 +30,10 @@ class SignUp extends React.Component {
         var dob = document.getElementById("DOB").value;
      
 
-
+        //get all the radio buttons
         var radioButtons = [document.getElementById('Patient'), document.getElementById('Doctor'), document.getElementById('Pharmacist')];
 
+        //get user type from radio buttons
         for (var i = 0; i < radioButtons.length; i++){
             if (radioButtons[i].checked){
                 userType_ = radioButtons[i].value;
@@ -45,7 +46,7 @@ class SignUp extends React.Component {
         //console.log(lastName);
         //console.log(dob);
 
-
+        //if value missing return
         if (user_ === "" || password_ === "" || firstName === "" || lastName === "" || dob === "" || userType_ === ""){
             //,aybe send error notification
             console.log("MISSING INPUT");
@@ -54,35 +55,41 @@ class SignUp extends React.Component {
 
         //set state
         this.setState({user: user_, password: password_, userType: userType_});
-
-        //check if account name already exists
-          //fetch requests for all user types
-        var req1 = Axios.get("http://localhost:8080/Patient/Name?name="+user_);
-        var req2 = Axios.get("http://localhost:8080/Doctor/Name?name="+user_);
-        var req3 = Axios.get("http://localhost:8080/Pharmacist/Name?name="+user_)
-  
-          //fetch all the requests
-        Axios.all([req1, req2, req3]).then(
-              Axios.spread((...responses) => {
-                    const res1 = responses[0].data;
-                    const res2 = responses[1].data;
-                    const res3 = responses[2].data;
-
-                    //che3cks user isnt already in database
-                    if (res1.length === 0 && res2.length === 0 & res3.length === 0){
-                        console.log("We did it reddit");
-                        this.setState({nameTaken: false})
-                    }else{
-                        //maybe send error/notification
-                    }
-
-                    console.log(res1, res2, res3);
-
-              }))
-
+        this.checkAlreadyInDB(user_);
+     
    
 
         
+    }
+
+    checkAlreadyInDB(user_){
+           //check if account name already exists
+          //fetch requests for all user types
+          var req1 = Axios.get("http://localhost:8080/Patient/Name?name="+user_);
+          var req2 = Axios.get("http://localhost:8080/Doctor/Name?name="+user_);
+          var req3 = Axios.get("http://localhost:8080/Pharmacist/Name?name="+user_)
+    
+            //fetch all the requests
+          Axios.all([req1, req2, req3]).then(
+                Axios.spread((...responses) => {
+                    //get all responses
+                      const res1 = responses[0].data;
+                      const res2 = responses[1].data;
+                      const res3 = responses[2].data;
+  
+                      //che3cks user isnt already in database
+                      if (res1.length === 0 && res2.length === 0 & res3.length === 0){
+                          //if length of all arrays is 0 then user not in database
+                          console.log("We did it reddit");
+                          this.setState({nameTaken: false})
+                      }else{
+                          //maybe send error/notification
+                      }
+  
+                      console.log(res1, res2, res3);
+  
+                }))
+  
     }
 
     saveUser(){
