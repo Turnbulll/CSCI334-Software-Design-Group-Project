@@ -122,6 +122,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Doctor/Name?name=Doctor1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Doctor",
+								"Name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Doctor1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -202,7 +228,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/Patient/{}?name=name",
+							"raw": "http://localhost:8080/Patient/{id}?name=name",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -210,7 +236,7 @@
 							"port": "8080",
 							"path": [
 								"Patient",
-								"{}"
+								"{id}"
 							],
 							"query": [
 								{
@@ -238,6 +264,32 @@
 								"Patient",
 								"Valid",
 								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Patient/Name?name=Patient1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Patient",
+								"Name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Patient1"
+								}
 							]
 						}
 					},
@@ -362,6 +414,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Pharmacist/Name?name=Pharmacist1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Pharmacist",
+								"Name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Pharmacist1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -414,7 +492,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Description\"\r\n}",
+							"raw": "{\r\n    \"allergies\": [],\r\n    \"reactions\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -437,32 +515,6 @@
 					"response": []
 				},
 				{
-					"name": "Update Treatment",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Treatment/{id}?description=description",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Treatment",
-								"{id}"
-							],
-							"query": [
-								{
-									"key": "description",
-									"value": "description"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Validate Treatment",
 					"request": {
 						"method": "GET",
@@ -478,6 +530,66 @@
 								"Treatment",
 								"Valid",
 								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Allergy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Treatment/Allergy?treatmentId=10&allergy=panadol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Treatment",
+								"Allergy"
+							],
+							"query": [
+								{
+									"key": "treatmentId",
+									"value": "10"
+								},
+								{
+									"key": "allergy",
+									"value": "panadol"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Reaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Treatment/Reaction?treatmentId=10&reaction=panadol",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Treatment",
+								"Reaction"
+							],
+							"query": [
+								{
+									"key": "treatmentId",
+									"value": "10"
+								},
+								{
+									"key": "reaction",
+									"value": "panadol"
+								}
 							]
 						}
 					},
@@ -604,6 +716,34 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "QR Code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"medicine\": \"medicine\",\r\n    \"dosage\": \"1.0f\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/QR",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"QR"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
