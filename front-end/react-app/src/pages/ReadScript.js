@@ -39,6 +39,7 @@ class ReadScript extends React.Component{
                             Code: respData.prescriptionId,
                             Date: "tbd",
                             Doctor: "tbd",
+                            TreatmentInstruction: "TBD",
                             Medicine: respData.medicine,
                             Dosage: respData.dosage,
                             TreatmentInstruction: respData.treatment.description,
@@ -94,10 +95,12 @@ class ReadScript extends React.Component{
         //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
     }
     
-    onNewScanResult(decodedText, decodedResult){
+    onNewScanResult = (decodedText, decodedResult) =>{
        // console.log(decodedText);
        // console.log(decodedResult);
+       
         document.getElementById("scriptCode").value = decodedText; 
+        this.setState({Code:  decodedText});
     }
 
   render(){
@@ -117,6 +120,8 @@ class ReadScript extends React.Component{
                 <button onClick={this.getScript}>Submit</button>
 
                    {/* QR READER FROM https://github.com/scanapp-org/html5-qrcode-react WE DO NOT CLAIM IT*/}
+
+                   
                 <QRReader fps={10}
                 qrbox={250}
                 disableFlip={false}
@@ -127,8 +132,9 @@ class ReadScript extends React.Component{
             <br/>
 
 
-
+            {this.state.Code !== null ? this.getScript() : null }
            {this.state.loaded ? this.getElement()  : null}
+           
         
         </div>
   )}

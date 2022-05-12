@@ -51,6 +51,7 @@ class QRReader extends React.Component {
             this.props.qrCodeSuccessCallback,
             this.props.qrCodeErrorCallback);
     }
+
 };
 
 export default QRReader;
