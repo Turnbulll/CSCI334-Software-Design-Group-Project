@@ -31,7 +31,7 @@ class ReadScript extends React.Component{
 
                     if ((respData.length > 1) === false){
                         //do nothing
-                        console.log("do that");
+                        //console.log("do that");
 
                         this.setState({
                             loaded: true,
@@ -41,14 +41,14 @@ class ReadScript extends React.Component{
                             Medicine: respData.medicine,
                             Dosage: respData.dosage,
                             TreatmentInstruction: respData.treatment.description,
-                            Dispenses: 1
+                            Dispenses: respData.repeats
 
 
                         })
 
                         
 
-                        console.log(respData);
+                        //console.log(respData);
                     }
 
                     
@@ -83,8 +83,16 @@ class ReadScript extends React.Component{
         console.log("Dispensed LOL");
 
         if (this.state.Dispenses > 0){
+            const prescription = {};
+
+            //update dispenses left in backend
+            Axios.put("http://localhost:8080/Prescription/"+ this.state.Code + "?repeats=" + (this.state.Dispenses - 1)).then(response => console.log(response.data));;
+
+            //update state
             this.setState({Dispenses: this.state.Dispenses - 1})
         }
+
+
 
         //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
     }
