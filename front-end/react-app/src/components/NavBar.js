@@ -1,7 +1,7 @@
 import React from 'react'
+import logoTranSmall from '../logoTranSmall.png';
+import homeIcon from '../homeIcon.png';
 import { Link, NavLink } from "react-router-dom";
-
-
 
 class NavBar extends React.Component{
 
@@ -13,6 +13,7 @@ class NavBar extends React.Component{
 
     
 	}
+    
 
     componentDidMount() {
         console.log(this.state.userType);
@@ -54,34 +55,48 @@ class NavBar extends React.Component{
                     this.updateState("pharmacist")
 		        })}
 
+            {/*styling listed here*/}
+            
             <ul className="navBar">
+                
                 {/*load navbar component based on state*/}
 
+                
                 {/*if usertype null render signin and signup*/}
-                {this.state.userType === "" ? <li><Link to="/">Sign In</Link></li> : null}
-                {this.state.userType === "" ? <li><Link to="/SignUp">Sign Up</Link></li> : null}
+                {this.state.userType === "" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
+                {this.state.userType === "" ? <li><h2>Welcome</h2></li> : null}
+                {this.state.userType === "" ? <li><Link to="/" >Sign In</Link></li> : null}
+                {this.state.userType === "" ? <li><Link to="/SignUp" >Sign Up</Link></li> : null}
                 
                 {/*Patient*/}
                 {/*Imagine this as an if statement
                     if            A   =    B                {do this}                     else {}*/}
-                {this.state.userType === "patient" ? <li><Link to="/PatientHome">Home</Link></li> : null}
-                {this.state.userType === "patient" ? <li><Link to="/Profile">Profile</Link></li> : null}
-                {this.state.userType === "patient" ? <li><Link to="/PatientPrescriptions">Prescriptions</Link></li> : null}
+                {this.state.userType === "patient" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
+                {this.state.userType === "patient" ? <li><h2>Patient Name</h2></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/PatientHome" >Home</Link></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/Profile" >Profile</Link></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/PatientPrescriptions" >Prescriptions</Link></li> : null}
 
                 
                 {/*Doctor Navigation*/}
-                {this.state.userType === "doctor" ? <li><Link to="/DoctorHome">Home</Link></li> : null}
-                {this.state.userType === "doctor" ? <li><Link to="/DoctorPrescriptions">Prescriptions</Link></li> : null}
-                {this.state.userType === "doctor" ? <li><Link to="/NewPrescription">New Prescription</Link></li> : null}
-                {this.state.userType === "doctor" ? <li><Link to="/Patients">Patients</Link></li> : null}
+                {/*I intend for these logos to turn into the profile pictures of users-just gotta change the source*/}
+                {this.state.userType === "doctor" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
+                {this.state.userType === "doctor" ? <li><h2>Doctor Name</h2></li> : null}
+                {this.state.userType === "doctor" ? <li><Link to="/DoctorHome" >Home</Link></li> : null}
+                {this.state.userType === "doctor" ? <li><Link to="/DoctorPrescriptions" >Prescriptions</Link></li> : null}
+                {this.state.userType === "doctor" ? <li><Link to="/NewPrescription" >New Prescription</Link></li> : null}
+                {this.state.userType === "doctor" ? <li><Link to="/Patients" >Patients</Link></li> : null}
 
                 {/*Pharmacist Navigation*/}
-                {this.state.userType === "pharmacist" ? <li><Link to="/PharmacistHome">Home</Link></li> : null}
-                {this.state.userType === "pharmacist" ? <li><Link to="/ReadScript">Load Prescriptions</Link></li> : null}
+                {this.state.userType === "pharmacist" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
+                {this.state.userType === "pharmacist" ? <li><h2>Pharmacist Name</h2></li> : null}
+                {this.state.userType === "pharmacist" ? <li><Link to="/PharmacistHome" >Home</Link></li> : null}
+                {this.state.userType === "pharmacist" ? <li><Link to="/ReadScript" >Load Prescriptions</Link></li> : null}
 
                 
                 {/* Common */}
-                {this.state.userType !== "" ? <li onClick={() => this.logout()}><Link to="/">Log Out</Link></li> : null}
+                {this.state.userType !== "" ? <li className="spacer"></li> : null}
+                {this.state.userType !== "" ? <li onClick={() => this.logout()}><Link to="/">Log Out <br/><img src={homeIcon} alt="homeIcon"/></Link></li> : null}
 
 
             </ul>

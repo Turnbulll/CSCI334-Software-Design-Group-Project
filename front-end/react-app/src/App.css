@@ -1,27 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -49,15 +28,39 @@ input {
 
 .navBar li a {
   display: block;
-  color: #000;
+  color: white;
   padding: 8px 16px;
   text-decoration: none;
 }
-
+/*more nav bar CSS for profiles*/
+.navBar h2 {
+  color:white;
+}
+/*lets logout be positioned at the bottom*/
+.navBar .spacer {
+  padding:90%;
+}
+.navBar li {
+  margin-right: auto;
+}
 /* Changes color on hover*/
 .navBar li a:hover {
   background-color: #BE4332;
-  color: white;
+}
+/*profile and logo*/
+.navBar li .profile {
+  padding-top: 4px;
+  padding-bottom: 0px;
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 50%;
+}
+/*house icon*/
+.navBar li img {
+  max-width: 25px;
+  max-height: 25px;
+  align-self:center;
+  padding:2px;
 }
 
 
@@ -74,13 +77,11 @@ input {
   grid-gap:7px;
   
 }
-
 .form input{
   border: 2px solid;
   padding: 3px;
   border-radius: 4px;
 }
-
 .form label{
   text-align: right;
 }
@@ -179,4 +180,10 @@ input {
   to {
     transform: rotate(360deg);
   }
+}
+/* base styles */
+* {
+  margin: 5;
+  font-family: "Quicksand";
+  color: #333;
 }

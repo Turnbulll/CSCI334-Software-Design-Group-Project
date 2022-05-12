@@ -1,4 +1,5 @@
 import React from 'react'
+import logoBlack from '../logoBlack.png'
 import { Navigate, Link} from "react-router-dom";
 
 
@@ -29,15 +30,17 @@ class SignIn extends React.Component {
        return(
 
     
-
+        
+        
            <div className='form'>
                {/* route to new page on login*/}
                {this.state.userType === "patient" ? < Navigate to="/PatientHome" /> : null }
                {this.state.userType === "doctor" ? < Navigate to="/DoctorHome" /> : null }
                {this.state.userType === "pharmacist" ? < Navigate to="/PharmacistHome" /> : null }
 
-
+                
                 <form className='form'>
+                    <br/><br/>
                     <h1>Sign In</h1>
                     <label>Email:</label>
                     <input type="text" name="Email" />
