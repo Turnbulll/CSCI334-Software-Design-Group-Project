@@ -8,7 +8,8 @@ class NewPrescription extends React.Component {
     this.state = {
       valid: false,
       prescription: null,
-      treatment: null
+      treatment: null,
+      test:null
 
     };
 
@@ -71,7 +72,8 @@ class NewPrescription extends React.Component {
         const scriptID = resp.data.prescriptionId;
         //GENERATE QRCODE
         Axios.post("http://localhost:8080/QR", {"id": scriptID}).then(resp =>{
-          console.log(resp.data);
+          console.log(resp);
+          this.setState({test: resp.data});
       
       
       }).catch(err => {console.log(err.data)})
@@ -127,6 +129,7 @@ class NewPrescription extends React.Component {
 
                 <button onClick={this.checkValidInput}>Submit </button>
                 {this.state.valid ? this.saveData() : console.log("FASLE")}
+                
                 
     </div>
   )}
