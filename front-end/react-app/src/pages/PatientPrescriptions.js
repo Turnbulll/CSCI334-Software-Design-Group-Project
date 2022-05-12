@@ -16,6 +16,7 @@ class PatientPrescriptions extends React.Component {
 
   }
 
+  //for testing
   loadData(){
 
     {/* NEED TO IMPLEMENT FUNCTIONALITY TO GET BACKEND HERE*/}
