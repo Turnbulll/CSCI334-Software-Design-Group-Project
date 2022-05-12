@@ -59,8 +59,9 @@ public class PrescriptionController {
 	public Optional<Prescription> updatePrescripton(
 		@PathVariable("prescriptionId") Long prescriptionId,
         @RequestParam(required = false) String medicine,
-        @RequestParam(required = false) Float dosage){
-		prescriptionService.updatePrescription(prescriptionId, medicine, dosage);
+        @RequestParam(required = false) Float dosage,
+        @RequestParam(required = false) Integer repeats){
+		prescriptionService.updatePrescription(prescriptionId, medicine, dosage, repeats);
 			return prescriptionService.findPrescriptionById(prescriptionId);
 	}
 
