@@ -23,7 +23,7 @@ export function getUser(){
 
 export function setUser(user){
   User = user;
-  console.log("SET USER: ", User);
+  //console.log("SET USER: ", User);
 }
 
 
