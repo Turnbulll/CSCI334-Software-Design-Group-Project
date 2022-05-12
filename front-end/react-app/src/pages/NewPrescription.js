@@ -41,7 +41,7 @@ class NewPrescription extends React.Component {
       medicine: medicine_,
       dosage: dosage_,
       repeats: repeats_,
-      treatment: null
+      treatment : null
     };
 
     this.setState({valid:true, prescription: prescription_});
@@ -54,10 +54,23 @@ class NewPrescription extends React.Component {
     console.log("LOL");
 
     const prescription = this.state.prescription;
-
-    Axios.post("http://localhost:8080/Prescription/New?").then(resp => {
+    /*
+    Axios.post("http://localhost:8080/Treatment/New?", { "treatmentId": null,
+    "allergies": null,
+    "reactions": null}).catch(err => {console.log(err);});*/
+    
+    Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
                             console.log(resp)
                           }).catch(err => {console.log(err);});
+
+    //reset variables
+    document.getElementById("Medication").value = "";
+    document.getElementById("Dosage").value = "";
+    document.getElementById("Repeats").value = "";
+    document.getElementById("FirstName").value = "";
+    document.getElementById("LastName").value = "";
+    document.getElementById("Instructions").value = "";
+    document.getElementById("todaysDate").value = "";
   }
   
   render(){
