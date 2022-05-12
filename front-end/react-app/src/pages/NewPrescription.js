@@ -55,24 +55,26 @@ class NewPrescription extends React.Component {
     //console.log("LOL");
     var treatment = this.state.treatment;
 
+    //post the treatment object
     Axios.post("http://localhost:8080/Treatment/New", treatment).then(resp => {
       
-      console.log(resp)
+      //console.log(resp)
+      //get the prescription and treatment object
       var prescription = this.state.prescription;
       var treat =  resp.data;
 
+      //set the treatment
       prescription.treatment = treat;
       
+      //post the treatment
       Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
         //console.log(resp)
-
-
-
       }).catch(err => {console.log(err);});
 
 
      }).catch(err => {console.log(err);});
-    //reset variables
+    
+     //reset variables
     document.getElementById("Medication").value = "";
     document.getElementById("Dosage").value = "";
     document.getElementById("Repeats").value = "";
@@ -86,9 +88,6 @@ class NewPrescription extends React.Component {
   render(){
   return (
     <div className='form'>
-
-    
-
 
       <h1>New Prescription</h1>
 
