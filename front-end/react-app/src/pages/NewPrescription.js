@@ -68,6 +68,14 @@ class NewPrescription extends React.Component {
       
       //post the treatment
       Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
+        const scriptID = resp.data.prescriptionId;
+        //GENERATE QRCODE
+        Axios.post("http://localhost:8080/QR", {"id": scriptID}).then(resp =>{
+          console.log(resp.data);
+      
+      
+      }).catch(err => {console.log(err.data)})
+
         //console.log(resp)
       }).catch(err => {console.log(err);});
 
