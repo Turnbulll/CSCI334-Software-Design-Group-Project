@@ -7,7 +7,8 @@ class NewPrescription extends React.Component {
     super(props);
     this.state = {
       valid: false,
-      prescription: null
+      prescription: null,
+      treatment: null
 
     };
 
@@ -44,25 +45,33 @@ class NewPrescription extends React.Component {
       treatment : null
     };
 
-    this.setState({valid:true, prescription: prescription_});
+    this.setState({valid:true, prescription: prescription_, treatment: treatment_});
 
     //console.log(this.state.valid);
   }
 
  
   saveData(){
-    console.log("LOL");
+    //console.log("LOL");
+    var treatment = this.state.treatment;
 
-    const prescription = this.state.prescription;
-    /*
-    Axios.post("http://localhost:8080/Treatment/New?", { "treatmentId": null,
-    "allergies": null,
-    "reactions": null}).catch(err => {console.log(err);});*/
-    
-    Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
-                            console.log(resp)
-                          }).catch(err => {console.log(err);});
+    Axios.post("http://localhost:8080/Treatment/New", treatment).then(resp => {
+      
+      console.log(resp)
+      var prescription = this.state.prescription;
+      var treat =  resp.data;
 
+      prescription.treatment = treat;
+      
+      Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
+        //console.log(resp)
+
+
+
+      }).catch(err => {console.log(err);});
+
+
+     }).catch(err => {console.log(err);});
     //reset variables
     document.getElementById("Medication").value = "";
     document.getElementById("Dosage").value = "";
@@ -72,6 +81,7 @@ class NewPrescription extends React.Component {
     document.getElementById("Instructions").value = "";
     document.getElementById("todaysDate").value = "";
   }
+
   
   render(){
   return (
