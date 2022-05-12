@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react'
 
 class NewPrescription extends React.Component {
@@ -5,17 +6,58 @@ class NewPrescription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: ""
+      valid: false,
+      prescription: null
+
     };
+
 
   }
 
 
-  sendToBackEnd(){
-    /* get user by frist name last name OR ID can change later*/
-    //Kaleb saving link for later: https://reactjs.org/docs/forms.html
+  checkValidInput = () =>{
+     //get user input
+    //gets sent to backend
+    var medicine_ = document.getElementById("Medication").value;
+    var dosage_ = document.getElementById("Dosage").value;
+    var repeats_ = document.getElementById("Repeats").value;
 
+    var treatment_ = {treatmentId: null,
+                     allergies: [],
+                     reactions: []}
 
+    //not currently being sent to backend
+    var firstName_ = document.getElementById("FirstName").value;
+    var lastName_ = document.getElementById("LastName").value;
+    var instructions_  = document.getElementById("Instructions").value;
+    var date_ = document.getElementById("todaysDate").value;
+
+    if (medicine_ === "" || dosage_ === "" || repeats_ === "" || firstName_ === "" || lastName_ === "" || instructions_ === "" || date_ === ""){
+      console.log("MISSING INPUT");
+      return;
+    }
+    const prescription_ = {
+      prescriptionId: null,
+      medicine: medicine_,
+      dosage: dosage_,
+      repeats: repeats_,
+      treatment: null
+    };
+
+    this.setState({valid:true, prescription: prescription_});
+
+    //console.log(this.state.valid);
+  }
+
+ 
+  saveData(){
+    console.log("LOL");
+
+    const prescription = this.state.prescription;
+
+    Axios.post("http://localhost:8080/Prescription/New?").then(resp => {
+                            console.log(resp)
+                          }).catch(err => {console.log(err);});
   }
   
   render(){
@@ -30,27 +72,31 @@ class NewPrescription extends React.Component {
       <form className='form'>
 
                     <label>First Name:</label>
-                    <input type="text" name="FirstName" />
+                    <input type="text" id="FirstName" />
 
                     <label>Last Name:</label>
-                    <input type="text" name="LastName" />
+                    <input type="text" id="LastName" />
 
                     <label>Date:</label>
-                    <input type="date" name="date" id="todaysDate" />
+                    <input type="date"  id="todaysDate" />
 
                     <label>Medication:</label>
-                    <input type="text" name="Medication" />
+                    <input type="text" id="Medication" />
 
                     <label>Dosage:</label>
-                    <input type="text" name="Dosage" />
+                    <input type="number" id="Dosage" min={0.1} />
+
+                    <label>Repeats:</label>
+                    <input type="number" id="Repeats" min={1} />
 
                     <label>Instructions:</label>
-                    <input type="text" name="Instructions" />
+                    <input type="text" id="Instructions" />
 
                     
                 </form>
 
-                <button onClick={this.sendToBackEnd}>Submit</button>
+                <button onClick={this.checkValidInput}>Submit </button>
+                {this.state.valid ? this.saveData() : console.log("FASLE")}
                 
     </div>
   )}
