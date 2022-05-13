@@ -9,7 +9,7 @@ class NewPrescription extends React.Component {
       valid: false,
       prescription: null,
       treatment: null,
-      test:null
+      QRCode:null
 
     };
 
@@ -60,6 +60,7 @@ class NewPrescription extends React.Component {
     //post the treatment object
     Axios.post("http://localhost:8080/Treatment/New", treatment).then(resp => {
       
+      console.log("Treatment made");
       //console.log(resp)
       //get the prescription and treatment object
       var treat =  resp.data;
@@ -70,10 +71,21 @@ class NewPrescription extends React.Component {
       //post the treatment
       Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
         const scriptID = resp.data.prescriptionId;
+        console.log("Script made");
+
         //GENERATE QRCODE
-        Axios.post("http://localhost:8080/QR", {"id": scriptID}).then(resp =>{
+        Axios.post("http://localhost:8080/QR", {id: scriptID}, { responseType: 'arraybuffer' }).then(resp =>{
           console.log(resp);
           this.setState({test: resp.data});
+          console.log("QR MADE");
+
+          //var image = new Buffer(resp.data, 'binary').toString('base64');
+          const blob = new Blob([resp.data])
+
+          var image = URL.createObjectURL(blob);
+          //console.log(image);
+
+          this.setState({QRCode: image});
       
       
       }).catch(err => {console.log(err.data)})
@@ -124,12 +136,15 @@ class NewPrescription extends React.Component {
                     <label>Instructions:</label>
                     <input type="text" id="Instructions" />
 
+                    {/*RENDERS QR CODE */}
+                    <img src={this.state.QRCode}></img>
+
                     
                 </form>
 
                 <button onClick={this.checkValidInput}>Submit </button>
-                
-                
+               
+               
                 
     </div>
   )}
