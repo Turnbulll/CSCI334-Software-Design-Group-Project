@@ -137,14 +137,15 @@ class NewPrescription extends React.Component {
                     <label>Instructions:</label>
                     <input type="text" id="Instructions" />
 
-                    {/*RENDERS QR CODE */}
-                    <img src={this.state.QRCode}></img>
-
+                  
                     
                 </form>
 
                 <button onClick={this.checkValidInput}>Submit </button>
-               
+                
+                 {/*RENDERS QR CODE */}
+                  <img src={this.state.QRCode} className="span2"></img>
+
                
                 
     </div>
