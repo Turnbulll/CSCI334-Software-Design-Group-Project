@@ -117,7 +117,7 @@ input {
 .prescriptionListItem{
   width: 80%;
   display: inline-grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
   padding: 10px;
   border: 1px solid rgb(185, 185, 185);
   

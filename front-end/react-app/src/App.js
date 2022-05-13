@@ -23,6 +23,9 @@ function App() {
       <div className="App">
         {/*set the name of the app*/}
         <div>
+          
+        <script src="html5-qrcode.min.js"></script>
+
           <NavBar/>
             <div>
             <Routes>
