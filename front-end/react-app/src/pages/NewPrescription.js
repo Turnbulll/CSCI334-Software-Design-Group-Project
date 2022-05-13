@@ -54,7 +54,7 @@ class NewPrescription extends React.Component {
     this.setState({prescription: prescription_, treatment: treatment_});
 
     //console.log(this.state.valid);
-    this.saveData(prescription_, treatment_, name);
+    this.saveData(prescription_, name);
   }
 
  
