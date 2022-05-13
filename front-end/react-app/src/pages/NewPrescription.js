@@ -38,6 +38,7 @@ class NewPrescription extends React.Component {
       console.log("MISSING INPUT");
       return;
     }
+
     const prescription_ = {
       prescriptionId: null,
       medicine: medicine_,
@@ -49,19 +50,18 @@ class NewPrescription extends React.Component {
     this.setState({valid:true, prescription: prescription_, treatment: treatment_});
 
     //console.log(this.state.valid);
+    this.saveData(prescription_, treatment_);
   }
 
  
-  saveData(){
+  saveData(prescription, treatment){
     //console.log("LOL");
-    var treatment = this.state.treatment;
 
     //post the treatment object
     Axios.post("http://localhost:8080/Treatment/New", treatment).then(resp => {
       
       //console.log(resp)
       //get the prescription and treatment object
-      var prescription = this.state.prescription;
       var treat =  resp.data;
 
       //set the treatment
@@ -128,7 +128,7 @@ class NewPrescription extends React.Component {
                 </form>
 
                 <button onClick={this.checkValidInput}>Submit </button>
-                {this.state.valid ? this.saveData() : console.log("FASLE")}
+                
                 
                 
     </div>
