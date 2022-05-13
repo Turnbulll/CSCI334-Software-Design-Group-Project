@@ -83,6 +83,24 @@ public class PatientController implements UserControllerInterface<Patient> {
 		return patientService.getUsersByName(name);
 	}
 	
+	//put request to add a new prescription to a patient
+	@PutMapping("/Patient/AddPrescription/{userId}")
+	public Optional<Patient> addPrescription(
+			@PathVariable("userId") Long userId,
+			@RequestParam(required = true) Long prescriptionId){
+		patientService.addPrescription(userId, prescriptionId);
+		return patientService.findUserById(userId);
+	}
+	
+	//set treatment plan
+	//put request to add a new prescription to a patient
+		@PutMapping("/Patient/SetTreatment/{userId}")
+		public Optional<Patient> setTreatment(
+				@PathVariable("userId") Long userId,
+				@RequestParam(required = true) Long treatmentId){
+			patientService.setTreatment(userId, treatmentId);
+			return patientService.findUserById(userId);
+		}
 	/*TODO
 	+ViewPrescriptions()
 	+InputMedication()

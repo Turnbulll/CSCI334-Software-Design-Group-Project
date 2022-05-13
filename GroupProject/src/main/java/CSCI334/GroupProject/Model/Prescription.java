@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,29 +20,18 @@ public class Prescription {
 	private String medicine;
 	private Float dosage;
 	private int repeats;
-	/*
-	@OneToMany(mappedBy = "prescription")
+	
+	@ManyToOne
     @JsonIgnore
     private Patient patient;
-	*/
-	@OneToOne(cascade=CascadeType.MERGE)
-    @JoinColumn(name = "treatment_id", referencedColumnName= "treatmentId")
-	private Treatment treatment;
 	
 	public Prescription() {};
 	
-	//constructor without treatment
+	//constructor 
 	public Prescription(String medicine, Float dosage, int repeats){
 		this.setMedicine(medicine);
 		this.setDosage(dosage);
 		this.setRepeats(repeats);
-	}
-	
-	public Prescription(String medicine, Float dosage,int repeats,  Treatment treatment){
-		this.setMedicine(medicine);
-		this.setDosage(dosage);
-		this.setRepeats(repeats);
-		this.setTreatment(treatment);
 	}
 	
 	//getters
@@ -61,12 +51,16 @@ public class Prescription {
 	public int getRepeats() {
 		return repeats;
 	}
-
-	public Treatment getTreatment() {
-		return treatment;
+	
+	public Patient getPatient() {
+		return patient;
 	}
 	
 	//setters
+	public void setPrescriptionId(Long prescriptionId) {
+		this.prescriptionId = prescriptionId;
+	}
+	
 	public void setMedicine(String medicine) {
 		this.medicine = medicine;
 	}
@@ -78,19 +72,13 @@ public class Prescription {
 	public void setRepeats(int repeats) {
 		this.repeats = repeats;
 	}
-
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 	
 	public String toString(){
-		
-		if(treatment == null) {
-			return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + ", repeats= " + repeats +"}"; 
-		}
-		else {
-			return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + ", repeats= " + repeats +"}, " + treatment.toString(); 
-		}
+		return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + ", repeats= " + repeats +"})"; 
 	}
 	
 }

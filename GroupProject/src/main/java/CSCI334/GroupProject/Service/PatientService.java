@@ -4,25 +4,36 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Objects;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import CSCI334.GroupProject.DatabaseLoader;
 import CSCI334.GroupProject.Model.Doctor;
 import CSCI334.GroupProject.Model.Patient;
+import CSCI334.GroupProject.Model.Prescription;
+import CSCI334.GroupProject.Model.Treatment;
 import CSCI334.GroupProject.Repository.PatientRepository;
+import CSCI334.GroupProject.Repository.PrescriptionRepository;
+import CSCI334.GroupProject.Repository.TreatmentRepository;
 
 
 @Service
 public class PatientService implements UserServiceInterface<Patient> {
 	private final PatientRepository patientRepository;
+	private final PrescriptionRepository prescriptionRepository;
+	private final TreatmentRepository treatmentRepository;
+	final org.slf4j.Logger log = LoggerFactory.getLogger(PatientService.class);
 	
 	//sets the patient repository
 	@Autowired
-	public PatientService(PatientRepository patientRepository) {
+	public PatientService(PatientRepository patientRepository, PrescriptionRepository prescriptionRepository, TreatmentRepository treatmentRepository) {
 		this.patientRepository = patientRepository;
+		this.prescriptionRepository = prescriptionRepository;
+		this.treatmentRepository = treatmentRepository;
 	}
 	
 	//returns a list of all patients
@@ -89,6 +100,32 @@ public class PatientService implements UserServiceInterface<Patient> {
 		return new ResponseEntity<List<Patient>>(patientRepository.findByName(name), HttpStatus.OK);
 	}
 	
+	//add a prescription to a patient  BROKEN
+	public void addPrescription(Long userId, Long prescriptionId) {
+		Patient patient = patientRepository.findById(userId).get();
+		Prescription prescription = prescriptionRepository.findById(prescriptionId).get();
+		if(patient != null && prescription != null) {
+			patient.addPrescription(prescription);
+			System.out.println(patient.toString());
+			patientRepository.save(patient);
+		}
+		else {
+			log.info("failed to add prescription patient or prescription is null" );
+		}
+	}
+	
+	//set treatmentPlan for patient
+	public void setTreatment(Long userId, Long treatmentId) {
+		Patient patient = patientRepository.findById(userId).get();
+		Treatment treatment = treatmentRepository.findById(treatmentId).get();
+		if(patient != null && treatment != null) {
+			patient.setTreatment(treatment);
+			patientRepository.save(patient);
+		}
+		else {
+			log.info("failed to set treatment either treatment or patient is null" );
+		}
+	}
 	//TODO
 	/*
 	+ViewPrescriptions()
