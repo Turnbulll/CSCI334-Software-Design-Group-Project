@@ -9,7 +9,8 @@ class NewPrescription extends React.Component {
       valid: false,
       prescription: null,
       treatment: null,
-      QRCode:null
+      QRCode:null,
+      name:null
 
     };
 
@@ -28,13 +29,14 @@ class NewPrescription extends React.Component {
                      allergies: [],
                      reactions: []}
 
+    var name = document.getElementById("PatientName").value;
+    this.setState({name:name});
     //not currently being sent to backend
-    var firstName_ = document.getElementById("FirstName").value;
-    var lastName_ = document.getElementById("LastName").value;
+    
     var instructions_  = document.getElementById("Instructions").value;
     var date_ = document.getElementById("todaysDate").value;
 
-    if (medicine_ === "" || dosage_ === "" || repeats_ === "" || firstName_ === "" || lastName_ === "" || instructions_ === "" || date_ === ""){
+    if (medicine_ === "" || dosage_ === "" || repeats_ === "" || name === "" || instructions_ === "" || date_ === ""){
       console.log("MISSING INPUT");
       return;
     }
@@ -50,61 +52,71 @@ class NewPrescription extends React.Component {
     this.setState({valid:true, prescription: prescription_, treatment: treatment_});
 
     //console.log(this.state.valid);
-    this.saveData(prescription_, treatment_);
+    this.saveData(prescription_, treatment_, name);
   }
 
  
-  saveData(prescription, treatment){
-    //console.log("LOL");
+  saveData(prescription, treatment, name){
+    //console.log("LOL")
 
-    //post the treatment object
-    Axios.post("http://localhost:8080/Treatment/New", treatment).then(resp => {
+     Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
+      const scriptID = resp.data.prescriptionId;
+
+      //console.log("Script made");
+      //console.log("TOTO: " + resp.data.prescriptionId);
+
+      this.setState({prescription: resp.data});
+
+      this.linkPatientPrescription(name, scriptID);
       
-      console.log("Treatment made");
+      //GENERATE QRCODE
+          Axios.post("http://localhost:8080/QR", {id: scriptID}, { responseType: 'arraybuffer' }).then(resp =>{
+              //console.log(resp);
+              this.setState({test: resp.data});
+              //console.log("QR MADE");
+
+              //convert data to image
+              const blob = new Blob([resp.data])
+
+              //get image url
+              var image = URL.createObjectURL(blob);
+              //console.log(image);
+
+              this.setState({QRCode: image});
+    
+          }).catch(err => {console.log(err.data)})
+
+      
+        
+    
+ 
       //console.log(resp)
-      //get the prescription and treatment object
-      var treat =  resp.data;
-
-      //set the treatment
-      prescription.treatment = treat;
-      
-      //post the treatment
-      Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
-        const scriptID = resp.data.prescriptionId;
-        console.log("Script made");
-
-        //GENERATE QRCODE
-        Axios.post("http://localhost:8080/QR", {id: scriptID}, { responseType: 'arraybuffer' }).then(resp =>{
-          console.log(resp);
-          this.setState({test: resp.data});
-          console.log("QR MADE");
-
-          //convert data to image
-          const blob = new Blob([resp.data])
-
-          //get image url
-          var image = URL.createObjectURL(blob);
-          //console.log(image);
-
-          this.setState({QRCode: image});
-      
-      
-      }).catch(err => {console.log(err.data)})
-
-        //console.log(resp)
       }).catch(err => {console.log(err);});
 
-
-     }).catch(err => {console.log(err);});
-    
      //reset variables
     document.getElementById("Medication").value = "";
     document.getElementById("Dosage").value = "";
     document.getElementById("Repeats").value = "";
-    document.getElementById("FirstName").value = "";
-    document.getElementById("LastName").value = "";
+    document.getElementById("PatientName").value = "";
     document.getElementById("Instructions").value = "";
     document.getElementById("todaysDate").value = "";
+
+  
+  }
+
+  linkPatientPrescription(name, scriptID){
+    //Axios.put("http://localhost:8080/Patient/AddPrescription/7?prescriptionId=13").then(resp => {
+       // console.log(resp.data);
+    //});
+
+    Axios.get("http://localhost:8080/Patient/Name?name=Patient1").then(resp => {
+      const userID = resp.data[0].userId;
+      Axios.put("http://localhost:8080/Patient/AddPrescription/"+ userID +"?prescriptionId="+scriptID).then(resp => {
+        console.log(resp.data);
+      })
+
+    })
+
   }
 
   
@@ -116,11 +128,8 @@ class NewPrescription extends React.Component {
 
       <form className='form'>
 
-                    <label>First Name:</label>
-                    <input type="text" id="FirstName" />
-
-                    <label>Last Name:</label>
-                    <input type="text" id="LastName" />
+                    <label>Patient Name:</label>
+                    <input type="text" id="PatientName" />
 
                     <label>Date:</label>
                     <input type="date"  id="todaysDate" />
@@ -145,8 +154,6 @@ class NewPrescription extends React.Component {
                 
                  {/*RENDERS QR CODE */}
                   <img src={this.state.QRCode} className="span2"></img>
-
-               
                 
     </div>
   )}
