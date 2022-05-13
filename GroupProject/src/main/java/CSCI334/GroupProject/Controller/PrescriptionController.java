@@ -70,15 +70,5 @@ public class PrescriptionController {
 	public boolean validatePrescription(@PathVariable("prescriptionId") Long prescriptionId) {
 		return prescriptionService.validatePrescription(prescriptionId);
 	}
-	
-	/*
-	//CURRENTLY BROKEN
-	//put request to update a prescriptions treatment
-	@PutMapping("/Prescription/{prescriptionId}/Treatment/{treatmentId}")
-	public Prescription updatePrescriptionTreatment(
-					@PathVariable("prescriptionId") Long prescriptionId, 
-					@PathVariable("treatmentId") Long treatmentId) {
-		return prescriptionService.updatePrescriptionTreatment(prescriptionId, treatmentId);
-	}
-	*/
+
 }

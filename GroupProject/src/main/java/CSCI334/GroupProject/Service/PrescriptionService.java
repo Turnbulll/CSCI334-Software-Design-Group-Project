@@ -17,13 +17,11 @@ import CSCI334.GroupProject.Repository.TreatmentRepository;
 @Service
 public class PrescriptionService {
 	private final PrescriptionRepository prescriptionRepository;
-	private final TreatmentRepository treatmentRepository;
 	
 	//sets the treatment repository
 	@Autowired
-	public PrescriptionService(PrescriptionRepository prescriptionRepository, TreatmentRepository treatmentRepository) {
+	public PrescriptionService(PrescriptionRepository prescriptionRepository) {
 		this.prescriptionRepository = prescriptionRepository;
-		this.treatmentRepository = treatmentRepository;
 	}
 	
 	//returns a list of all prescriptions
@@ -70,16 +68,6 @@ public class PrescriptionService {
 	        }
 	        prescriptionRepository.save(prescription);
 	}
-	
-	/* // CURRENTLY BROKEN
-	//updates treatment for the prescription via id
-    public Prescription updatePrescriptionTreatment(@PathVariable Long prescriptionId, @PathVariable Long treatmentId) {
-        Treatment treatment = treatmentRepository.findById(prescriptionId).orElseThrow(RuntimeException::new);
-        Prescription prescription = prescriptionRepository.findById(prescriptionId).orElseThrow(RuntimeException::new);
-        prescription.setTreatment(treatment);
-        return prescriptionRepository.save(prescription);
-    }
-	*/ 
 	
 	//returns true if a prescription is found
 	public boolean validatePrescription(Long prescriptionId) {

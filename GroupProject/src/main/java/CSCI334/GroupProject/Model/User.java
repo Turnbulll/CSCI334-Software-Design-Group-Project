@@ -60,7 +60,7 @@ public abstract class User {
 		this.password = password;
 	}
 	
-	public void setUserType(String userType){ //TODO: ADD VALIDATION
+	public void setUserType(String userType){
 		this.userType = userType; 
 	}
 	
