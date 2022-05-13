@@ -79,9 +79,10 @@ class NewPrescription extends React.Component {
           this.setState({test: resp.data});
           console.log("QR MADE");
 
-          //var image = new Buffer(resp.data, 'binary').toString('base64');
+          //convert data to image
           const blob = new Blob([resp.data])
 
+          //get image url
           var image = URL.createObjectURL(blob);
           //console.log(image);
 
