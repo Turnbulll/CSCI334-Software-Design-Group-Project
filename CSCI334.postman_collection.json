@@ -294,6 +294,60 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add Prescription Via ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Patient/AddPrescription/7?prescriptionId=13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Patient",
+								"AddPrescription",
+								"7"
+							],
+							"query": [
+								{
+									"key": "prescriptionId",
+									"value": "13"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Treatment Via ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Patient/SetTreatment/7?treatmentId=16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Patient",
+								"SetTreatment",
+								"7"
+							],
+							"query": [
+								{
+									"key": "treatmentId",
+									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -492,7 +546,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"allergies\": [],\r\n    \"reactions\": []\r\n}",
+							"raw": "{\r\n    \"allergies\": [],\r\n    \"reactions\": [],\r\n    \"medicines\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -674,7 +728,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/Prescription/{id}?medicine=medicine",
+							"raw": "http://localhost:8080/Prescription/{id}?repeats=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -686,8 +740,8 @@
 							],
 							"query": [
 								{
-									"key": "medicine",
-									"value": "medicine"
+									"key": "repeats",
+									"value": "2"
 								}
 							]
 						}
