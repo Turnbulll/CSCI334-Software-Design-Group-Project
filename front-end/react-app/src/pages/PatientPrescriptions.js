@@ -43,14 +43,15 @@ class PatientPrescriptions extends React.Component {
     //TEMPORARY, NEEDS TO BE UPDATED TO ONLY GET CURRENT PATIENTS PRESCRIPTIONS
 
     const user = getUser();
-    const userID = user.userID;
+    //const userID = user.userID;
 
     //console.log(user.userId);
+    this.setState({list: user.prescriptions});
 
-    Axios.get("http://localhost:8080/Prescription").then(resp => {
-      this.setState({list: resp.data});
-      console.log(resp.data);
-    })
+    //Axios.get("http://localhost:8080/Prescription").then(resp => {
+     // this.setState({list: resp.data});
+      //console.log(resp.data);
+    //})
   }
 
   searchPrescription(){
