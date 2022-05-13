@@ -57,7 +57,7 @@ public class TreatmentService {
 	
 	//add an allergy
 	public String addAllergy(Long treatmentId, String allergy) {
-		Treatment treatment = treatmentRepository.getById(treatmentId);
+		Treatment treatment = treatmentRepository.findById(treatmentId).get();
 		treatment.addAllergy(allergy);
 		treatmentRepository.save(treatment);
 		return allergy + " added to treatment " + treatmentId.toString();
@@ -65,7 +65,7 @@ public class TreatmentService {
 	
 	//add a reaction
 	public String addReaction(Long treatmentId, String reaction) {
-		Treatment treatment = treatmentRepository.getById(treatmentId);
+		Treatment treatment = treatmentRepository.findById(treatmentId).get();
 		treatment.addReaction(reaction);
 		treatmentRepository.save(treatment);
 		return reaction + " added to treatment " + treatmentId.toString();

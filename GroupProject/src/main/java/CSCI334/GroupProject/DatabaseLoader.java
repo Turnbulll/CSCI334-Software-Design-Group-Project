@@ -55,6 +55,18 @@ public class DatabaseLoader implements CommandLineRunner {
 		treatments = new Treatment[3];
 		prescriptions = new Prescription[3];
 
+		ArrayList<String> allergies = new ArrayList<String>();
+		ArrayList<String> reactions = new ArrayList<String>();
+		ArrayList<String> medicines = new ArrayList<String>();
+		log.info("Treatments are being created...");
+		treatments[0] = new Treatment(allergies, reactions, medicines);
+		treatments[1] = new Treatment(allergies, reactions, medicines);
+		treatments[2] = new Treatment(allergies, reactions, medicines);
+		
+		log.info("Adding treatments to the database...");
+		treatmentService.addNewTreatments(treatments);
+		log.info("Finished adding treatments to the database");
+		
 		log.info("Hiring doctors..");
 		doctors[0] = new Doctor("Doctor1", "password", "Doctor");
 		doctors[1] = new Doctor("Doctor2", "password", "Doctor");
@@ -65,9 +77,9 @@ public class DatabaseLoader implements CommandLineRunner {
 		log.info("Finished adding doctors to the database");
 		
 		log.info("Patients are arriving..");
-		patients[0] = new Patient("Patient1", "password", "Patient");
-		patients[1] = new Patient("Patient2", "password", "Patient");
-		patients[2] = new Patient("Patient3", "password", "Patient");
+		patients[0] = new Patient("Patient1", "password", "Patient", treatments[0]);
+		patients[1] = new Patient("Patient2", "password", "Patient", treatments[1]);
+		patients[2] = new Patient("Patient3", "password", "Patient", treatments[2]);
 		
 		log.info("Adding patients to the database...");
 		patientService.addNewUsers(patients);
@@ -82,20 +94,11 @@ public class DatabaseLoader implements CommandLineRunner {
 		pharmacistService.addNewUsers(pharmacists);
 		log.info("Finished adding pharmacists to the database");
 		
-		log.info("Treatments are being created...");
-		treatments[0] = new Treatment(new ArrayList<String>(), new ArrayList<String>());
-		treatments[1] = new Treatment(new ArrayList<String>(), new ArrayList<String>());
-		treatments[2] = new Treatment(new ArrayList<String>(), new ArrayList<String>());
-		
-		log.info("Adding treatments to the database...");
-		treatmentService.addNewTreatments(treatments);
-		log.info("Finished adding treatments to the database");
-		
 		
 		log.info("Prescriptions are being created...");
-		prescriptions[0] = new Prescription("medicine1" , 1.0f, 3, treatments[0]);
-		prescriptions[1] = new Prescription("medicine2" , 1.0f, 3, treatments[1]);
-		prescriptions[2] = new Prescription("medicine3" , 1.0f, 3, treatments[2]);
+		prescriptions[0] = new Prescription("medicine1" , 1.0f, 3);
+		prescriptions[1] = new Prescription("medicine2" , 1.0f, 3);
+		prescriptions[2] = new Prescription("medicine3" , 1.0f, 3);
 		
 		log.info("Adding prescriptions to the database...");
 		prescriptionService.addNewPrescriptions(prescriptions);
