@@ -41,6 +41,8 @@ class NewPrescription extends React.Component {
       return;
     }
 
+
+
     const prescription_ = {
       prescriptionId: null,
       medicine: medicine_,
@@ -49,14 +51,14 @@ class NewPrescription extends React.Component {
       treatment : null
     };
 
-    this.setState({valid:true, prescription: prescription_, treatment: treatment_});
+    this.setState({prescription: prescription_, treatment: treatment_});
 
     //console.log(this.state.valid);
     this.saveData(prescription_, treatment_, name);
   }
 
  
-  saveData(prescription, treatment, name){
+  saveData(prescription, name){
     //console.log("LOL")
 
      Axios.post("http://localhost:8080/Prescription/New", prescription).then(resp => {
@@ -109,7 +111,7 @@ class NewPrescription extends React.Component {
        // console.log(resp.data);
     //});
 
-    Axios.get("http://localhost:8080/Patient/Name?name=Patient1").then(resp => {
+    Axios.get("http://localhost:8080/Patient/Name?name="+name).then(resp => {
       const userID = resp.data[0].userId;
       Axios.put("http://localhost:8080/Patient/AddPrescription/"+ userID +"?prescriptionId="+scriptID).then(resp => {
         console.log(resp.data);
