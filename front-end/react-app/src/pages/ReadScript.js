@@ -42,7 +42,6 @@ class ReadScript extends React.Component{
                             TreatmentInstruction: "TBD",
                             Medicine: respData.medicine,
                             Dosage: respData.dosage,
-                            TreatmentInstruction: respData.treatment.description,
                             Dispenses: respData.repeats
 
 
@@ -99,8 +98,19 @@ class ReadScript extends React.Component{
        // console.log(decodedText);
        // console.log(decodedResult);
        
+        decodedText = decodedText.replace('i', '');
+        decodedText = decodedText.replace('d', '');
+        decodedText = decodedText.replace(':', '');
+        decodedText = decodedText.replace('{', '');
+        decodedText = decodedText.replace('}', '');
+        decodedText = decodedText.replace(' ', '');
+        decodedText = decodedText.replaceAll('"', '');
+   
         document.getElementById("scriptCode").value = decodedText; 
+       
         this.setState({Code:  decodedText});
+        //automatically load script data
+        this.getScript();
     }
 
   render(){
@@ -131,8 +141,6 @@ class ReadScript extends React.Component{
             <br/>
             <br/>
 
-
-            {this.state.Code !== null ? this.getScript() : null }
            {this.state.loaded ? this.getElement()  : null}
            
         
