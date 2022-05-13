@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import React from 'react'
+import QRReader from '../components/QRReader';
 
 
 class ReadScript extends React.Component{
@@ -38,9 +39,9 @@ class ReadScript extends React.Component{
                             Code: respData.prescriptionId,
                             Date: "tbd",
                             Doctor: "tbd",
+                            TreatmentInstruction: "TBD",
                             Medicine: respData.medicine,
                             Dosage: respData.dosage,
-                            TreatmentInstruction: respData.treatment.description,
                             Dispenses: respData.repeats
 
 
@@ -85,22 +86,34 @@ class ReadScript extends React.Component{
         if (this.state.Dispenses > 0){
             const prescription = {};
 
-            //update dispenses left in backend
             Axios.put("http://localhost:8080/Prescription/"+ this.state.Code + "?repeats=" + (this.state.Dispenses - 1)).then(response => console.log(response.data));;
 
-            //update state
             this.setState({Dispenses: this.state.Dispenses - 1})
         }
-
-
 
         //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
     }
     
+    onNewScanResult = (decodedText, decodedResult) =>{
+       // console.log(decodedText);
+       // console.log(decodedResult);
+       
+        decodedText = decodedText.replace('i', '');
+        decodedText = decodedText.replace('d', '');
+        decodedText = decodedText.replace(':', '');
+        decodedText = decodedText.replace('{', '');
+        decodedText = decodedText.replace('}', '');
+        decodedText = decodedText.replace(' ', '');
+        decodedText = decodedText.replaceAll('"', '');
+   
+        document.getElementById("scriptCode").value = decodedText; 
+       
+        this.setState({Code:  decodedText});
+        //automatically load script data
+        this.getScript();
+    }
 
   render(){
-
-
 
     return (
         <div className="main">
@@ -115,13 +128,22 @@ class ReadScript extends React.Component{
                 </form>
 
                 <button onClick={this.getScript}>Submit</button>
+
+                   {/* QR READER FROM https://github.com/scanapp-org/html5-qrcode-react WE DO NOT CLAIM IT*/}
+
+                   
+                <QRReader fps={10}
+                qrbox={250}
+                disableFlip={false}
+                qrCodeSuccessCallback={this.onNewScanResult}/>
            </div>
 
             <br/>
             <br/>
 
            {this.state.loaded ? this.getElement()  : null}
-
+           
+        
         </div>
   )}
 

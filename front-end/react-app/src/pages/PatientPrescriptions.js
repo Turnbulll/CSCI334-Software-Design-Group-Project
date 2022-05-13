@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react'
 import {Link, Navigate} from "react-router-dom"
 
@@ -36,10 +37,13 @@ class PatientPrescriptions extends React.Component {
   }
 
   componentDidMount = () =>{
-    
-   
+    //TEMPORARY, NEEDS TO BE UPDATED TO ONLY GET CURRENT PATIENTS PRESCRIPTIONS
+    Axios.get("http://localhost:8080/Prescription").then(resp => {
+      this.setState({list: resp.data});
+      console.log(resp.data);
+    })
 
-    console.log(this.state.list)
+
   }
 
   searchPrescription(){
@@ -88,9 +92,7 @@ class PatientPrescriptions extends React.Component {
     
     <div className='main'>
       {/* route to sign in if no user type*/}
-      {this.loadData()}
 
-      
       <h2>PRESCRIPTIONS GO ERE</h2>
       <p>Hi how you doin?</p>
 
@@ -104,16 +106,18 @@ class PatientPrescriptions extends React.Component {
               <div>Doctor</div>
               <div>Medicine</div>
               <div>Dosage</div>
+              <div>Repeat Dispesnses</div>
               <div>Treatement Instructions</div>
           </li>
 
         {this.state.list.map(item => (
-            <li key={item.id} className="prescriptionListItem">
-              <div>{item.Date}</div>
-              <div>{item.Doctor}</div>
-              <div>{item.Medicine}</div>
-              <div>{item.Dosage}</div>
-              <div>{item.TreatmentInstruction}</div>
+            <li key={item.prescriptionId} className="prescriptionListItem">
+              <div>{/*item.Date*/} TBD</div>
+              <div>{/*item.Doctor*/}TBD</div>
+              <div>{item.medicine}</div>
+              <div>{item.dosage}</div>
+              <div>{item.repeats}</div>
+              <div>{/*item.TreatmentInstruction*/}TBD</div>
            </li>
           ))}
       </ul>
