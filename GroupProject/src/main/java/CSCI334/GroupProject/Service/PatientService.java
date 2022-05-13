@@ -100,13 +100,14 @@ public class PatientService implements UserServiceInterface<Patient> {
 		return new ResponseEntity<List<Patient>>(patientRepository.findByName(name), HttpStatus.OK);
 	}
 	
-	//add a prescription to a patient  BROKEN
+	//add a prescription to a patient
 	public void addPrescription(Long userId, Long prescriptionId) {
 		Patient patient = patientRepository.findById(userId).get();
 		Prescription prescription = prescriptionRepository.findById(prescriptionId).get();
 		if(patient != null && prescription != null) {
 			patient.addPrescription(prescription);
-			System.out.println(patient.toString());
+			System.out.println(patient);
+			patient.getTreatment().addMedicines(prescription.getMedicine());
 			patientRepository.save(patient);
 		}
 		else {
@@ -126,11 +127,5 @@ public class PatientService implements UserServiceInterface<Patient> {
 			log.info("failed to set treatment either treatment or patient is null" );
 		}
 	}
-	//TODO
-	/*
-	+ViewPrescriptions()
-	+InputMedication()
-	+InputReaction()
-	*/
 
 }
