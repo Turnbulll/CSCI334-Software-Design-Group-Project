@@ -28,7 +28,6 @@ class SignUp extends React.Component {
         var lastName = document.getElementById("LastName").value;
         var dob = document.getElementById("DOB").value;
      
-
         //get all the radio buttons
         var radioButtons = [document.getElementById('Patient'), document.getElementById('Doctor'), document.getElementById('Pharmacist')];
 
@@ -38,12 +37,6 @@ class SignUp extends React.Component {
                 userType_ = radioButtons[i].value;
             }
         }
-
-        //console.log(user_);
-        //console.log(password_);
-        //console.log(firstName);
-        //console.log(lastName);
-        //console.log(dob);
 
         //if value missing return
         if (user_ === "" || password_ === "" || firstName === "" || lastName === "" || dob === "" || userType_ === ""){
@@ -76,8 +69,7 @@ class SignUp extends React.Component {
   
                       //checks user isnt already in database
                       if (res1.length === 0 && res2.length === 0 & res3.length === 0){
-                          //if length of all arrays is 0 then user not in database
-                          //console.log("We did it reddit");
+                          //if length of all arrays is 0 then user not in databas
 
                           //console.log("SAVE THE USER");
                             //setup user object
@@ -115,12 +107,9 @@ class SignUp extends React.Component {
 
                             this.setState({valid: true}); //update the state
                           });
-
                       }else{
                           //maybe send error/notification
                       }
-  
-                     // console.log(res1, res2, res3);
   
                 }))
   
