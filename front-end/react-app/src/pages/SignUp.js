@@ -88,7 +88,32 @@ class SignUp extends React.Component {
                                 //post user object to database
                           Axios.post("http://localhost:8080/"+this.state.userType+"/New?", user).then(resp => {
                             //console.log(resp)
-                              this.setState({valid: true}); //update the state
+                                const userID = resp.data.userId;
+                                
+                              //if its a patient they need a treatment
+                              if (this.state.userType === "Patient"){
+                                  //post an empty treatment
+                                    Axios.post("http://localhost:8080/Treatment/New", {
+                                        "allergies": [],
+                                        "reactions": [],
+                                        "medicines": []
+                                    }).then(
+                                        resp => {
+                                            //get the treatment id
+                                            const treatmentID = resp.data.treatmentId;
+
+                                            //link the treatment to the patient
+                                            Axios.put("http://localhost:8080/Patient/SetTreatment/"+userID+"?treatmentId="+treatmentID).then(
+                                               resp => {
+                                                    //console.log("WE DID IT REDDIT");
+                                                }
+                                            )
+                                            
+                                        }
+                                    );
+                              }
+
+                            this.setState({valid: true}); //update the state
                           });
 
                       }else{
