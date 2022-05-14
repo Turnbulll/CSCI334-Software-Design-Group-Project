@@ -30,6 +30,13 @@ public abstract class User {
 		setUserType(userType);
 	}
 	
+	public User(Long userId, String name, String password, String userType) {
+		setUserId(userId);
+		setName(name);
+		setPassword(password);
+		setUserType(userType);
+	}
+	
 	//getters
 	public Long getUserId(){
 		return userId;
