@@ -34,6 +34,13 @@ public class Prescription {
 		this.setRepeats(repeats);
 	}
 	
+	public Prescription(Prescription prescription){
+		this.setPrescriptionId(prescription.getPrescriptionId());
+		this.setMedicine(prescription.getMedicine());
+		this.setDosage(prescription.getDosage());
+		this.setRepeats(prescription.getRepeats());
+	}
+	
 	//getters
 	
 	public Long getPrescriptionId() {

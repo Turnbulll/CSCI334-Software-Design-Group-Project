@@ -95,37 +95,48 @@ public class PatientService implements UserServiceInterface<Patient> {
 		return patientRepository.findById(userId).isPresent(); 
 	}
 	
+	//returns true if a treatment is found
+	public boolean validateTreatment(Long treatmentId) {
+		return treatmentRepository.findById(treatmentId).isPresent(); 
+	}
+	
+	//returns true if a prescription is found
+	public boolean validatePrescription(Long prescriptionId) {
+		return prescriptionRepository.findById(prescriptionId).isPresent(); 
+	}
+	
 	//find by name
 	public ResponseEntity<List<Patient>> getUsersByName(String name) {
 		return new ResponseEntity<List<Patient>>(patientRepository.findByName(name), HttpStatus.OK);
 	}
 	
+	//set treatmentPlan for patient
+	@Transactional
+	public void setTreatment(Long userId, Long treatmentId) {
+		if(validateUser(userId) && validateTreatment(treatmentId)) {
+			Patient patient = patientRepository.findById(userId).get();
+			Treatment treatment = treatmentRepository.findById(treatmentId).get();
+			patient.setTreatment(treatment);
+			patientRepository.saveAndFlush(patient);
+		}
+		else {
+			log.info("failed to set treatment either patient or treatment is not present" );
+		}
+	}
+	
 	//add a prescription to a patient
+	@Transactional
 	public void addPrescription(Long userId, Long prescriptionId) {
-		Patient patient = patientRepository.findById(userId).get();
-		Prescription prescription = prescriptionRepository.findById(prescriptionId).get();
-		if(patient != null && prescription != null) {
+		if(validateUser(userId) && validatePrescription(prescriptionId)) {
+			Patient patient = new Patient(patientRepository.findById(userId).get());
+			Prescription prescription = new Prescription (prescriptionRepository.findById(prescriptionId).get());
 			patient.addPrescription(prescription);
-			System.out.println(patient);
 			patient.getTreatment().addMedicines(prescription.getMedicine());
-			patientRepository.save(patient);
+			patientRepository.saveAndFlush(patient);
 		}
 		else {
 			log.info("failed to add prescription patient or prescription is null" );
 		}
 	}
 	
-	//set treatmentPlan for patient
-	public void setTreatment(Long userId, Long treatmentId) {
-		Patient patient = patientRepository.findById(userId).get();
-		Treatment treatment = treatmentRepository.findById(treatmentId).get();
-		if(patient != null && treatment != null) {
-			patient.setTreatment(treatment);
-			patientRepository.save(patient);
-		}
-		else {
-			log.info("failed to set treatment either treatment or patient is null" );
-		}
-	}
-
 }
