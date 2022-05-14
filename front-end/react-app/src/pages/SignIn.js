@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, { useEffect } from 'react'
 import { Navigate, Link} from "react-router-dom";
+import {getUser, setUser} from "../App.js"
 
 
 class SignIn extends React.Component {
@@ -21,8 +22,6 @@ class SignIn extends React.Component {
         
       //check data valid
        this.checkCredentials(username, password);
-
-    
     }
 
 
@@ -42,11 +41,13 @@ class SignIn extends React.Component {
             console.log(resp1.data, resp2.data, resp3.data);
 
             var userType;
+            var user;
                 //if patients return a value
             if (resp1.data.length !== 0){
                 if (resp1.data[0].password === password){
                     //update usertype and state
                     userType = resp1.data[0].userType;
+                    user = resp1.data[0];
                     this.setState({User: resp1.data[0],
                                     userType: resp1.data[0].userType});
                 }
@@ -59,6 +60,7 @@ class SignIn extends React.Component {
                 if (resp2.data[0].password === password){
                     //update usertype and state
                     userType = resp2.data[0].userType;
+                    user = resp2.data[0];
                     this.setState({User: resp2.data[0],
                         userType: resp2.data[0].userType});
                 }
@@ -69,16 +71,18 @@ class SignIn extends React.Component {
                     //update usertype and state
                 if (resp3.data[0].password === password){
                     userType = resp3.data[0].userType;
+                    user = resp3.data[0];
                     this.setState({User: resp3.data[0],
                         userType: resp3.data[0].userType});
                 }
 
             }   
 
+
+
             //work around for state async issue
                 if (userType === "Doctor"){
                     document.dispatchEvent(new Event("loggedInDoctor"));
-              
         
                }else if(userType === "Patient"){
                     document.dispatchEvent(new Event("loggedInPatient"));
@@ -86,7 +90,8 @@ class SignIn extends React.Component {
                }else if(userType === "Pharmacist"){
                      document.dispatchEvent(new Event("loggedInPharmacist"));
                 }
-            
+
+                setUser(user);
 
             })
         ).then((...responses) => {this.log()}).catch(errors => {

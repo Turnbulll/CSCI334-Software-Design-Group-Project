@@ -15,6 +15,18 @@ import DoctorPrescriptions from './pages/DoctorPrescriptions';
 import PharmacistHome from './pages/PharmacistHome';
 import ReadScript from './pages/ReadScript';
 
+export var User = {};
+
+export function getUser(){
+  return User;
+}
+
+export function setUser(user){
+  User = user;
+  //console.log("SET USER: ", User);
+}
+
+
 function App() {
   {/* add router components here to add other web pages */}
 

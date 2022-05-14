@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React from 'react'
 import {Link, Navigate} from "react-router-dom"
+import { getUser } from '../App';
 
 
 class PatientPrescriptions extends React.Component {
@@ -9,11 +10,13 @@ class PatientPrescriptions extends React.Component {
     super(props);
     this.state = {
       userType: "",
-      list: []
+      list: [],
+      user: null
     };
 
   }
 
+  //for testing
   loadData(){
 
     {/* NEED TO IMPLEMENT FUNCTIONALITY TO GET BACKEND HERE*/}
@@ -38,11 +41,17 @@ class PatientPrescriptions extends React.Component {
 
   componentDidMount = () =>{
     //TEMPORARY, NEEDS TO BE UPDATED TO ONLY GET CURRENT PATIENTS PRESCRIPTIONS
-    Axios.get("http://localhost:8080/Prescription").then(resp => {
-      this.setState({list: resp.data});
-      console.log(resp.data);
-    })
 
+    const user = getUser();
+    //const userID = user.userID;
+
+    //console.log(user.userId);
+    this.setState({list: user.prescriptions});
+
+    //Axios.get("http://localhost:8080/Prescription").then(resp => {
+     // this.setState({list: resp.data});
+      //console.log(resp.data);
+    //})
 
   }
 
