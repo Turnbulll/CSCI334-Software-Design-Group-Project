@@ -52,6 +52,7 @@ class PatientPrescriptions extends React.Component {
      // this.setState({list: resp.data});
       //console.log(resp.data);
     //})
+
   }
 
   searchPrescription(){
