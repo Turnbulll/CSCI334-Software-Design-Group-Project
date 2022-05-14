@@ -11,32 +11,10 @@ class PatientPrescriptions extends React.Component {
     this.state = {
       userType: "",
       list: [],
-      user: null
+      medicine: null,
+      QRCode: null
     };
 
-  }
-
-  //for testing
-  loadData(){
-
-    {/* NEED TO IMPLEMENT FUNCTIONALITY TO GET BACKEND HERE*/}
-
-    {/* Fore each prescription push it to the list*/}
-
-    this.state.list.push({id: 0,
-    Date: 1,
-    Doctor: 'vgislason@yahoo.com',
-    Medicine: 'Vanessa',
-    Dosage: "twice a day",
-    TreatmentInstruction: "looking for things for a long time"})
-
-    this.state.list.push({id: 1,
-      Date: 2,
-      Doctor: 'bongos',
-      Medicine: 'Randy',
-      Dosage: "bonckles",
-      TreatmentInstruction: "gatesworth"})
-    
   }
 
   componentDidMount = () =>{
@@ -47,6 +25,8 @@ class PatientPrescriptions extends React.Component {
 
     //console.log(user.userId);
     this.setState({list: user.prescriptions});
+
+    console.log(user.prescriptions);
 
     //Axios.get("http://localhost:8080/Prescription").then(resp => {
      // this.setState({list: resp.data});
@@ -96,14 +76,40 @@ class PatientPrescriptions extends React.Component {
     
   }
 
+  getQR(script){
+    //console.log("TEST ", scriptID);
+
+    const scriptID = script.prescriptionId;
+
+    Axios.post("http://localhost:8080/QR", {id: scriptID}, { responseType: 'arraybuffer' }).then(resp =>{
+    
+      //console.log(resp);
+      this.setState({test: resp.data});
+      //console.log("QR MADE");
+
+      //convert data to image
+      const blob = new Blob([resp.data])
+
+      //get image url
+      var image = URL.createObjectURL(blob);
+      //console.log(image);
+
+      this.setState({QRCode: image, medicine: "FOR: " + script.medicine});
+
+  }).catch(err => {console.log(err.data)})
+  }
+
   render(){
   return (
     
     <div className='main'>
       {/* route to sign in if no user type*/}
 
-      <h2>PRESCRIPTIONS GO ERE</h2>
-      <p>Hi how you doin?</p>
+      
+      <h2>QR CODE {this.state.medicine}</h2>
+      <img src={this.state.QRCode} className="span2"></img>
+
+      <h2>Search Prescriptions</h2>
 
       <input type="text" id="prescriptionSearch" className='searchBox' onKeyUp={this.searchPrescription} placeholder="Search prescriptions..."></input>
       <br/>
@@ -117,6 +123,7 @@ class PatientPrescriptions extends React.Component {
               <div>Dosage</div>
               <div>Repeat Dispesnses</div>
               <div>Treatement Instructions</div>
+              <div></div>
           </li>
 
         {this.state.list.map(item => (
@@ -127,11 +134,12 @@ class PatientPrescriptions extends React.Component {
               <div>{item.dosage}</div>
               <div>{item.repeats}</div>
               <div>{/*item.TreatmentInstruction*/}TBD</div>
+              <div className=''><button onClick={this.getQR.bind(this, item)}>QR CODE </button></div>
            </li>
           ))}
       </ul>
 
-     
+
 
       
     </div>

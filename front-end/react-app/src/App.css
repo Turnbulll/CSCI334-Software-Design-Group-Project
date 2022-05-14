@@ -117,10 +117,20 @@ input {
 .prescriptionListItem{
   width: 80%;
   display: inline-grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 0.5fr;
   padding: 10px;
   border: 1px solid rgb(185, 185, 185);
   
+}
+
+.prescriptionListItem button{
+  background-color: #1E98D7;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .doctorPrescriptionListItem{
