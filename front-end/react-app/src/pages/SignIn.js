@@ -1,3 +1,5 @@
+
+import logoBlack from '../logoBlack.png'
 import Axios from 'axios';
 import React, { useEffect } from 'react'
 import { Navigate, Link} from "react-router-dom";
@@ -111,9 +113,8 @@ class SignIn extends React.Component {
    render(){
        return(
 
-    
-            
            <div className='form'>
+
 
                {/* route to new page on login CURRENTLY BROKEN*/}
                {this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
@@ -121,6 +122,7 @@ class SignIn extends React.Component {
                {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null}
 
                 <form className='form'>
+                    <br/><br/>
                     <h1>Sign In</h1>
                     <label>Name:</label>
                     <input type="text" name="user" id="user" />
