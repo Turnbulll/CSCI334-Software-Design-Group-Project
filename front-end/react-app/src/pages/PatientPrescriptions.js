@@ -11,6 +11,7 @@ class PatientPrescriptions extends React.Component {
     this.state = {
       userType: "",
       list: [],
+      oldList: [],
       medicine: null,
       QRCode: null
     };
@@ -24,7 +25,22 @@ class PatientPrescriptions extends React.Component {
     //const userID = user.userID;
 
     //console.log(user.userId);
-    this.setState({list: user.prescriptions});
+    var prescriptions = user.prescriptions;
+    var newList = [];
+    var oldList = [];
+
+    for (var i =0; i < prescriptions.length; i++){
+      if (prescriptions[i].repeats > 0){
+        newList.push(prescriptions[i]);
+      }else{
+        oldList.push(prescriptions[i]);
+      }
+    }
+
+
+
+    this.setState({list: newList,
+                  oldList: oldList});
 
     console.log(user.prescriptions);
 
@@ -123,7 +139,7 @@ class PatientPrescriptions extends React.Component {
               <div>Dosage</div>
               <div>Repeat Dispesnses</div>
               <div>Treatement Instructions</div>
-              <div></div>
+              <div>QR</div>
           </li>
 
         {this.state.list.map(item => (
@@ -135,6 +151,32 @@ class PatientPrescriptions extends React.Component {
               <div>{item.repeats}</div>
               <div>{/*item.TreatmentInstruction*/}TBD</div>
               <div className=''><button onClick={this.getQR.bind(this, item)}>QR CODE </button></div>
+           </li>
+          ))}
+      </ul>
+
+      <br/>
+      <br/>
+      <h2>Old Prescriptions</h2>
+      <ul className='prescriptionList'>
+        
+          <li className="prescriptionListItemOld">
+              <div>Date</div>
+              <div>Doctor</div>
+              <div>Medicine</div>
+              <div>Dosage</div>
+              <div>Repeat Dispesnses</div>
+              <div>Treatement Instructions</div>
+          </li>
+
+        {this.state.oldList.map(item => (
+            <li key={item.prescriptionId} className="prescriptionListItemOld">
+              <div>{/*item.Date*/} TBD</div>
+              <div>{/*item.Doctor*/}TBD</div>
+              <div>{item.medicine}</div>
+              <div>{item.dosage}</div>
+              <div>{item.repeats}</div>
+              <div>{/*item.TreatmentInstruction*/}TBD</div>
            </li>
           ))}
       </ul>
