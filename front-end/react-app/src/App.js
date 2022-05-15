@@ -14,6 +14,20 @@ import DoctorHome from './pages/DoctorHome';
 import DoctorPrescriptions from './pages/DoctorPrescriptions';
 import PharmacistHome from './pages/PharmacistHome';
 import ReadScript from './pages/ReadScript';
+import PharmacistPatientData from './pages/PharmacistPatientData';
+import TreatmentPlan from './pages/TreatmentPlan';
+
+export var User = {};
+
+export function getUser(){
+  return User;
+}
+
+export function setUser(user){
+  User = user;
+  //console.log("SET USER: ", User);
+}
+
 
 function App() {
   {/* add router components here to add other web pages */}
@@ -23,6 +37,9 @@ function App() {
       <div className="App">
         {/*set the name of the app*/}
         <div>
+          
+        <script src="html5-qrcode.min.js"></script>
+
           <NavBar/>
             <div>
             <Routes>
@@ -32,15 +49,16 @@ function App() {
               <Route path="/Profile" element={<PatientProfile />} />
               <Route path="/PatientHome" element={<PatientHome />} />
               <Route path="/PatientPrescriptions" element={<PatientPrescriptions />}/>
+              <Route path="/TreatmentPlan" element={<TreatmentPlan />} />
 
               <Route path="/DoctorHome" element={<DoctorHome />} />
               <Route path="/NewPrescription" element={<NewPrescription />}/>
               <Route path="/DoctorPrescriptions" element={<DoctorPrescriptions />}/>
-           
               <Route path="/Patients" element={<Patients />}/>
 
               <Route path="/PharmacistHome" element={<PharmacistHome />} />
               <Route path="/ReadScript" element={<ReadScript />} />
+              <Route path="/PatientClinicalData" element={<PharmacistPatientData />} />
             </Routes>
             </div>
         </div>

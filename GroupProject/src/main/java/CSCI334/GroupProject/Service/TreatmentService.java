@@ -1,5 +1,6 @@
 package CSCI334.GroupProject.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -48,21 +49,25 @@ public class TreatmentService {
 	public void addNewTreatment(Treatment treatment) {
 		treatmentRepository.save(treatment);
 	}
-
-	//updates a treatment
-	@Transactional
-	public void updateTreatment(Long treatmentId, String description) {
-		Treatment treatment = treatmentRepository.findById(treatmentId)
-	                .orElseThrow(()-> new IllegalStateException("treatment with id " + treatmentId + " does not exist" ));
-	        
-	        if(description != null && treatment.getDescription().length() > 0 && !Objects.equals(treatment.getDescription(), description)){
-	        	treatment.setDescription(description);
-	        }
-	        treatmentRepository.save(treatment);
-	}
 	
 	//returns true if a treatment is found
 	public boolean validateTreatment(Long treatmentId) {
 		return treatmentRepository.findById(treatmentId).isPresent(); 
+	}
+	
+	//add an allergy
+	public String addAllergy(Long treatmentId, String allergy) {
+		Treatment treatment = treatmentRepository.findById(treatmentId).get();
+		treatment.addAllergy(allergy);
+		treatmentRepository.save(treatment);
+		return allergy + " added to treatment " + treatmentId.toString();
+	}
+	
+	//add a reaction
+	public String addReaction(Long treatmentId, String reaction) {
+		Treatment treatment = treatmentRepository.findById(treatmentId).get();
+		treatment.addReaction(reaction);
+		treatmentRepository.save(treatment);
+		return reaction + " added to treatment " + treatmentId.toString();
 	}
 }

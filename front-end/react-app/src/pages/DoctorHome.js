@@ -13,7 +13,7 @@ class DoctorHome extends React.Component {
 
   componentDidMount(){
 
-    console.log("HOME: " + this.state.userType);
+    //console.log("HOME: " + this.state.userType);
   }
 
 

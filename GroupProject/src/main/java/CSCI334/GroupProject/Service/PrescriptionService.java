@@ -17,13 +17,11 @@ import CSCI334.GroupProject.Repository.TreatmentRepository;
 @Service
 public class PrescriptionService {
 	private final PrescriptionRepository prescriptionRepository;
-	private final TreatmentRepository treatmentRepository;
 	
 	//sets the treatment repository
 	@Autowired
-	public PrescriptionService(PrescriptionRepository prescriptionRepository, TreatmentRepository treatmentRepository) {
+	public PrescriptionService(PrescriptionRepository prescriptionRepository) {
 		this.prescriptionRepository = prescriptionRepository;
-		this.treatmentRepository = treatmentRepository;
 	}
 	
 	//returns a list of all prescriptions
@@ -56,7 +54,7 @@ public class PrescriptionService {
 
 	//updates a prescription
 	@Transactional
-	public void updatePrescription(@PathVariable Long prescriptionId, @PathVariable String medicine, @PathVariable Float dosage) {
+	public void updatePrescription(@PathVariable Long prescriptionId, @PathVariable String medicine, @PathVariable Float dosage, @PathVariable Integer repeats) {
 		Prescription prescription = prescriptionRepository.findById(prescriptionId)
 	                .orElseThrow(()-> new IllegalStateException("prescription with id " + prescriptionId + " does not exist" ));
 			if(medicine != null && prescription.getMedicine().length() > 0 && !Objects.equals(prescription.getMedicine(), medicine)){
@@ -65,18 +63,11 @@ public class PrescriptionService {
 	        if(dosage != null && prescription.getDosage() >= 0 && !Objects.equals(prescription.getDosage(), dosage)){  
 	        	prescription.setDosage(dosage);
 	        }
+	        if(repeats != null && prescription.getRepeats()  >= 0 && !Objects.equals(prescription.getRepeats(), repeats)){  
+	        	prescription.setRepeats(repeats);
+	        }
 	        prescriptionRepository.save(prescription);
 	}
-	
-	/* // CURRENTLY BROKEN
-	//updates treatment for the prescription via id
-    public Prescription updatePrescriptionTreatment(@PathVariable Long prescriptionId, @PathVariable Long treatmentId) {
-        Treatment treatment = treatmentRepository.findById(prescriptionId).orElseThrow(RuntimeException::new);
-        Prescription prescription = prescriptionRepository.findById(prescriptionId).orElseThrow(RuntimeException::new);
-        prescription.setTreatment(treatment);
-        return prescriptionRepository.save(prescription);
-    }
-	*/ 
 	
 	//returns true if a prescription is found
 	public boolean validatePrescription(Long prescriptionId) {

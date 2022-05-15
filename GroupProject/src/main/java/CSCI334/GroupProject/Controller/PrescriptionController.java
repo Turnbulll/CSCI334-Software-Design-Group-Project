@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import CSCI334.GroupProject.Model.Prescription;
 import CSCI334.GroupProject.Service.PrescriptionService;
 import CSCI334.GroupProject.Service.TreatmentService;
 
+@CrossOrigin("*")//had to ass this to get frontend communication working. there's deffo a better way to do it. If you work it out lemme know
 @RestController
 public class PrescriptionController {
 	PrescriptionService prescriptionService;
@@ -40,26 +42,27 @@ public class PrescriptionController {
 	
 	//post request to add a list of new prescription
 	@PostMapping("/Prescriptions/New")
-	public String addNewPrescriptions(@RequestBody Prescription[] prescriptions) {
+	public Prescription[] addNewPrescriptions(@RequestBody Prescription[] prescriptions) {
 		prescriptionService.addNewPrescriptions(prescriptions);
-		return "New list of prescriptions added";
+		return prescriptions;
 	}
 	
 	//post request to add a new prescription
 	@PostMapping("/Prescription/New")
-	public String addNewPrescription(@RequestBody Prescription prescription) {
+	public Prescription addNewPrescription(@RequestBody Prescription prescription) {
 		prescriptionService.addNewPrescription(prescription);
-		return prescription.toString() + " added \n";
+		return prescription;
 	}
 
 	//put request to update a prescription information
 	@PutMapping("Prescription/{prescriptionId}")
-	public String updatePrescripton(
+	public Optional<Prescription> updatePrescripton(
 		@PathVariable("prescriptionId") Long prescriptionId,
         @RequestParam(required = false) String medicine,
-        @RequestParam(required = false) Float dosage){
-		prescriptionService.updatePrescription(prescriptionId, medicine, dosage);
-			return prescriptionService.findPrescriptionById(prescriptionId).toString() + " updated \n";
+        @RequestParam(required = false) Float dosage,
+        @RequestParam(required = false) Integer repeats){
+		prescriptionService.updatePrescription(prescriptionId, medicine, dosage, repeats);
+			return prescriptionService.findPrescriptionById(prescriptionId);
 	}
 
 	//get request that returns a true if a prescription is found
@@ -67,15 +70,5 @@ public class PrescriptionController {
 	public boolean validatePrescription(@PathVariable("prescriptionId") Long prescriptionId) {
 		return prescriptionService.validatePrescription(prescriptionId);
 	}
-	
-	/*
-	//CURRENTLY BROKEN
-	//put request to update a prescriptions treatment
-	@PutMapping("/Prescription/{prescriptionId}/Treatment/{treatmentId}")
-	public Prescription updatePrescriptionTreatment(
-					@PathVariable("prescriptionId") Long prescriptionId, 
-					@PathVariable("treatmentId") Long treatmentId) {
-		return prescriptionService.updatePrescriptionTreatment(prescriptionId, treatmentId);
-	}
-	*/
+
 }

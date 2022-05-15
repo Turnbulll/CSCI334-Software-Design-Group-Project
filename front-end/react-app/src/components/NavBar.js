@@ -71,11 +71,14 @@ class NavBar extends React.Component{
                 {/*Patient*/}
                 {/*Imagine this as an if statement
                     if            A   =    B                {do this}                     else {}*/}
+
                 {this.state.userType === "patient" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
                 {this.state.userType === "patient" ? <li><h2>Patient Name</h2></li> : null}
-                {this.state.userType === "patient" ? <li><Link to="/PatientHome" >Home</Link></li> : null}
-                {this.state.userType === "patient" ? <li><Link to="/Profile" >Profile</Link></li> : null}
-                {this.state.userType === "patient" ? <li><Link to="/PatientPrescriptions" >Prescriptions</Link></li> : null}
+    
+                {this.state.userType === "patient" ? <li><Link to="/PatientHome">Home</Link></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/Profile">Profile</Link></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/PatientPrescriptions">Prescriptions</Link></li> : null}
+                {this.state.userType === "patient" ? <li><Link to="/TreatmentPlan">Treatment Plan</Link></li> : null}
 
                 
                 {/*Doctor Navigation*/}
@@ -88,10 +91,14 @@ class NavBar extends React.Component{
                 {this.state.userType === "doctor" ? <li><Link to="/Patients" >Patients</Link></li> : null}
 
                 {/*Pharmacist Navigation*/}
+
                 {this.state.userType === "pharmacist" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
                 {this.state.userType === "pharmacist" ? <li><h2>Pharmacist Name</h2></li> : null}
-                {this.state.userType === "pharmacist" ? <li><Link to="/PharmacistHome" >Home</Link></li> : null}
-                {this.state.userType === "pharmacist" ? <li><Link to="/ReadScript" >Load Prescriptions</Link></li> : null}
+            
+                {this.state.userType === "pharmacist" ? <li><Link to="/PharmacistHome">Home</Link></li> : null}
+                {this.state.userType === "pharmacist" ? <li><Link to="/ReadScript">Load Prescriptions</Link></li> : null}
+                {this.state.userType === "pharmacist" ? <li><Link to="/PatientClinicalData">Patient Clinical</Link></li> : null}
+
 
                 
                 {/* Common */}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import CSCI334.GroupProject.Model.Treatment;
 import CSCI334.GroupProject.Service.TreatmentService;
 
+
+@CrossOrigin("*")//had to ass this to get frontend communication working. there's deffo a better way to do it. If you work it out lemme know
 @RestController
 public class TreatmentController {
 	TreatmentService treatmentService;
@@ -39,30 +42,33 @@ public class TreatmentController {
 	
 	//post request to add a list of new treatment
 	@PostMapping("/Treatments/New")
-	public String addNewTreatments(@RequestBody Treatment[] treatments) {
+	public Treatment[] addNewTreatments(@RequestBody Treatment[] treatments) {
 		treatmentService.addNewTreatments(treatments);
-		return "New list of treatments added";
+		return treatments;
 	}
 	
 	//post request to add a new treatment
 	@PostMapping("/Treatment/New")
-	public String addNewTreatment(@RequestBody Treatment treatment) {
+	public Treatment addNewTreatment(@RequestBody Treatment treatment) {
 		treatmentService.addNewTreatment(treatment);
-		return treatment.toString() + " added \n";
-	}
-
-	//put request to update a treatment information
-	@PutMapping("Treatment/{treatmentId}")
-	public String updateTreatment(
-		@PathVariable("treatmentId") Long treatmentId,
-        @RequestParam(required = false) String description){
-		treatmentService.updateTreatment(treatmentId, description);
-			return treatmentService.findTreatmentById(treatmentId).toString() + " updated \n";
+		return treatment;
 	}
 
 	//get request that returns a true if a treatment is found
 	@GetMapping("/Treatment/Valid/{treatmentId}")
 	public boolean validateTreatment(@PathVariable("treatmentId") Long treatmentId) {
 		return treatmentService.validateTreatment(treatmentId);
+	}
+	
+	//add an allergy
+	@PutMapping("/Treatment/Allergy")
+	public String addAllergy(@RequestParam(required = true) Long treatmentId, @RequestParam(required = true) String allergy) {
+		return treatmentService.addAllergy(treatmentId, allergy);
+	}
+	
+	//add a reaction
+	@PutMapping("/Treatment/Reaction")
+	public String addReaction(@RequestParam(required = true) Long treatmentId, @RequestParam(required = true) String reaction) {
+		return treatmentService.addReaction(treatmentId, reaction);
 	}
 }

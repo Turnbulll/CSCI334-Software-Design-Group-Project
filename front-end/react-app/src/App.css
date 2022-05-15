@@ -104,6 +104,21 @@ input {
   background-color: #2788ba;
 }
 
+.blueButton{
+  grid-column: span 2;
+  background-color: #1E98D7;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.blueButton:hover{
+  background-color: #2788ba;
+}
+
 .form .SignUpLink{
   grid-column: span 2;
 }
@@ -118,10 +133,29 @@ input {
 .prescriptionListItem{
   width: 80%;
   display: inline-grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 0.5fr;
   padding: 10px;
   border: 1px solid rgb(185, 185, 185);
   
+}
+
+.prescriptionListItemOld{
+  width: 80%;
+  display: inline-grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
+  
+}
+
+.prescriptionListItem button{
+  background-color: #1E98D7;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .doctorPrescriptionListItem{
@@ -140,6 +174,21 @@ input {
   padding: 13px;
   border: 1px solid rgba(221, 221, 221, 0.863);
   margin-bottom: 5px;
+}
+
+/* Treatment plan */
+.treatmentPlan{
+  display: inline-grid;
+  width: 100%;
+}
+
+.treatmentPlanItem{
+  width: 80%;
+  display: inline-grid;
+  grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
+  
 }
 
 /* loaded Prescription */
@@ -171,6 +220,38 @@ input {
 
 .span2{
   grid-column: span 2;
+}
+
+.radioDiv{
+  display: flex;
+  align-items: left;
+}
+
+.dataGrid{
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap:7px;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
+}
+
+.dataGridCol{
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  grid-gap:7px;
+  border: 1px solid rgb(185, 185, 185);
+}
+
+.dataGridCol li{
+  margin-left: -50px;
+}
+
+.center{
+  text-align: center;
+}
+
+.dataGrid ul{
+  list-style-type: none;
 }
 
 @keyframes App-logo-spin {

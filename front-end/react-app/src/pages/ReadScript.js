@@ -1,4 +1,6 @@
+import Axios from 'axios';
 import React from 'react'
+import QRReader from '../components/QRReader';
 
 
 class ReadScript extends React.Component{
@@ -8,12 +10,12 @@ class ReadScript extends React.Component{
 		super(props);
 		this.state = {
             loaded: false,
-            Code: "12345678",
-            Date: "12/03/2001",
-            Doctor: "Box",
-            Medicine: "option3",
-            Dosage: "Test Phrase",
-            TreatmentInstruction: "Eat it lol",
+            Code: null,
+            Date: null,
+            Doctor: null,
+            Medicine: null,
+            Dosage: null,
+            TreatmentInstruction: null,
             Dispenses: 2
     
 		};
@@ -22,7 +24,39 @@ class ReadScript extends React.Component{
 	}
 
     getScript  = (event) => {
-        this.setState({loaded: true});
+        var prescriptionID = document.getElementById("scriptCode").value;
+
+        Axios.get("http://localhost:8080/Prescription/" + prescriptionID).then(resp =>
+                {
+                    const respData = resp.data;
+
+                    if ((respData.length > 1) === false){
+                        //do nothing
+                        //console.log("do that");
+
+                        this.setState({
+                            loaded: true,
+                            Code: respData.prescriptionId,
+                            Date: "tbd",
+                            Doctor: "tbd",
+                            TreatmentInstruction: "TBD",
+                            Medicine: respData.medicine,
+                            Dosage: respData.dosage,
+                            Dispenses: respData.repeats
+
+
+                        })
+
+                        
+
+                        //console.log(respData);
+                    }
+
+                    
+                }
+            );
+
+        //this.setState({loaded: true});
     }
 
     getElement(){
@@ -50,14 +84,36 @@ class ReadScript extends React.Component{
         console.log("Dispensed LOL");
 
         if (this.state.Dispenses > 0){
+            const prescription = {};
+
+            Axios.put("http://localhost:8080/Prescription/"+ this.state.Code + "?repeats=" + (this.state.Dispenses - 1)).then(response => console.log(response.data));;
+
             this.setState({Dispenses: this.state.Dispenses - 1})
         }
+
+        //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
     }
     
+    onNewScanResult = (decodedText, decodedResult) =>{
+       // console.log(decodedText);
+       // console.log(decodedResult);
+       
+        decodedText = decodedText.replace('i', '');
+        decodedText = decodedText.replace('d', '');
+        decodedText = decodedText.replace(':', '');
+        decodedText = decodedText.replace('{', '');
+        decodedText = decodedText.replace('}', '');
+        decodedText = decodedText.replace(' ', '');
+        decodedText = decodedText.replaceAll('"', '');
+   
+        document.getElementById("scriptCode").value = decodedText; 
+       
+        this.setState({Code:  decodedText});
+        //automatically load script data
+        this.getScript();
+    }
 
   render(){
-
-
 
     return (
         <div className="main">
@@ -67,18 +123,27 @@ class ReadScript extends React.Component{
                 <form className='form'>
 
                     <label>Manual Code:</label>
-                    <input type="text" name="Email" />
+                    <input type="text" id="scriptCode"/>
                    
                 </form>
 
                 <button onClick={this.getScript}>Submit</button>
+
+                   {/* QR READER FROM https://github.com/scanapp-org/html5-qrcode-react WE DO NOT CLAIM IT*/}
+
+                   
+                <QRReader fps={10}
+                qrbox={250}
+                disableFlip={false}
+                qrCodeSuccessCallback={this.onNewScanResult}/>
            </div>
 
             <br/>
             <br/>
 
            {this.state.loaded ? this.getElement()  : null}
-
+           
+        
         </div>
   )}
 

@@ -4,22 +4,36 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Objects;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import CSCI334.GroupProject.DatabaseLoader;
+import CSCI334.GroupProject.Model.Doctor;
 import CSCI334.GroupProject.Model.Patient;
+import CSCI334.GroupProject.Model.Prescription;
+import CSCI334.GroupProject.Model.Treatment;
 import CSCI334.GroupProject.Repository.PatientRepository;
+import CSCI334.GroupProject.Repository.PrescriptionRepository;
+import CSCI334.GroupProject.Repository.TreatmentRepository;
 
 
 @Service
 public class PatientService implements UserServiceInterface<Patient> {
 	private final PatientRepository patientRepository;
+	private final PrescriptionRepository prescriptionRepository;
+	private final TreatmentRepository treatmentRepository;
+	final org.slf4j.Logger log = LoggerFactory.getLogger(PatientService.class);
 	
 	//sets the patient repository
 	@Autowired
-	public PatientService(PatientRepository patientRepository) {
+	public PatientService(PatientRepository patientRepository, PrescriptionRepository prescriptionRepository, TreatmentRepository treatmentRepository) {
 		this.patientRepository = patientRepository;
+		this.prescriptionRepository = prescriptionRepository;
+		this.treatmentRepository = treatmentRepository;
 	}
 	
 	//returns a list of all patients
@@ -81,11 +95,48 @@ public class PatientService implements UserServiceInterface<Patient> {
 		return patientRepository.findById(userId).isPresent(); 
 	}
 	
-	//TODO
-	/*
-	+ViewPrescriptions()
-	+InputMedication()
-	+InputReaction()
-	*/
-
+	//returns true if a treatment is found
+	public boolean validateTreatment(Long treatmentId) {
+		return treatmentRepository.findById(treatmentId).isPresent(); 
+	}
+	
+	//returns true if a prescription is found
+	public boolean validatePrescription(Long prescriptionId) {
+		return prescriptionRepository.findById(prescriptionId).isPresent(); 
+	}
+	
+	//find by name
+	public ResponseEntity<List<Patient>> getUsersByName(String name) {
+		return new ResponseEntity<List<Patient>>(patientRepository.findByName(name), HttpStatus.OK);
+	}
+	
+	//set treatmentPlan for patient
+	@Transactional
+	public void setTreatment(Long userId, Long treatmentId) {
+		if(validateUser(userId) && validateTreatment(treatmentId)) {
+			Patient patient = patientRepository.findById(userId).get();
+			Treatment treatment = treatmentRepository.findById(treatmentId).get();
+			patient.setTreatment(treatment);
+			patientRepository.saveAndFlush(patient);
+		}
+		else {
+			log.info("failed to set treatment either patient or treatment is not present" );
+		}
+	}
+	
+	//add a prescription to a patient
+	@Transactional
+	public void addPrescription(Long userId, Long prescriptionId) {
+		if(validateUser(userId) && validatePrescription(prescriptionId)) {
+			Patient patient = new Patient(patientRepository.findById(userId).get());
+			Prescription prescription = new Prescription (prescriptionRepository.findById(prescriptionId).get());
+			patient.addPrescription(prescription);
+			patient.getTreatment().addMedicines(prescription.getMedicine());
+			patientRepository.saveAndFlush(patient);
+		}
+		else {
+			log.info("failed to add prescription patient or prescription is null" );
+		}
+	}
+	
 }

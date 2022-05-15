@@ -5,9 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "PRESCRIPTION_TABLE")
@@ -16,24 +19,26 @@ public class Prescription {
 	private @Id @GeneratedValue Long prescriptionId;
 	private String medicine;
 	private Float dosage;
+	private int repeats;
 	
-	
-	@OneToOne(cascade=CascadeType.MERGE)
-    @JoinColumn(name = "treatment_id", referencedColumnName= "treatmentId")
-	private Treatment treatment;
+	@ManyToOne
+    @JsonIgnore
+    private Patient patient;
 	
 	public Prescription() {};
 	
-	//constructor without treatment
-	public Prescription(String medicine, Float dosage){
+	//constructor 
+	public Prescription(String medicine, Float dosage, int repeats){
 		this.setMedicine(medicine);
 		this.setDosage(dosage);
+		this.setRepeats(repeats);
 	}
 	
-	public Prescription(String medicine, Float dosage, Treatment treatment){
-		this.setMedicine(medicine);
-		this.setDosage(dosage);
-		this.setTreatment(treatment);
+	public Prescription(Prescription prescription){
+		this.setPrescriptionId(prescription.getPrescriptionId());
+		this.setMedicine(prescription.getMedicine());
+		this.setDosage(prescription.getDosage());
+		this.setRepeats(prescription.getRepeats());
 	}
 	
 	//getters
@@ -49,12 +54,20 @@ public class Prescription {
 	public float getDosage() {
 		return dosage;
 	}
-
-	public Treatment getTreatment() {
-		return treatment;
+	
+	public int getRepeats() {
+		return repeats;
+	}
+	
+	public Patient getPatient() {
+		return patient;
 	}
 	
 	//setters
+	public void setPrescriptionId(Long prescriptionId) {
+		this.prescriptionId = prescriptionId;
+	}
+	
 	public void setMedicine(String medicine) {
 		this.medicine = medicine;
 	}
@@ -62,19 +75,17 @@ public class Prescription {
 	public void setDosage(Float dosage) {
 		this.dosage = dosage;
 	}
-
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
+	
+	public void setRepeats(int repeats) {
+		this.repeats = repeats;
+	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 	
 	public String toString(){
-		
-		if(treatment == null) {
-			return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + "}"; 
-		}
-		else {
-			return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + "}, " + treatment.toString(); 
-		}
+		return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + ", repeats= " + repeats +"})"; 
 	}
 	
 }
