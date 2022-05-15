@@ -103,6 +103,21 @@ input {
   background-color: #2788ba;
 }
 
+.blueButton{
+  grid-column: span 2;
+  background-color: #1E98D7;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.blueButton:hover{
+  background-color: #2788ba;
+}
+
 .form .SignUpLink{
   grid-column: span 2;
 }
