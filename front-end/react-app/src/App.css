@@ -202,6 +202,33 @@ input {
   align-items: left;
 }
 
+.dataGrid{
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap:7px;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
+}
+
+.dataGridCol{
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  grid-gap:7px;
+  border: 1px solid rgb(185, 185, 185);
+}
+
+.dataGridCol li{
+  margin-left: -50px;
+}
+
+.center{
+  text-align: center;
+}
+
+.dataGrid ul{
+  list-style-type: none;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

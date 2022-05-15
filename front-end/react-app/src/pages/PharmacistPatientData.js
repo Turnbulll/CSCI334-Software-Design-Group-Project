@@ -34,49 +34,132 @@ class PharmacistPatientData extends React.Component {
                 treatment: treatment, 
                 allergies: allergies, 
                 medicines: medicines,
-                 reactions: reactions});
+                reactions: reactions});
         })
 
 
+      }
+
+      addAlergy = () =>{
+
+        if (this.state.treatment === null){
+          return;
+        }
+
+        const treatmentId = this.state.treatment.treatmentId;
+        
+        var allergy = document.getElementById("allergy").value;
+
+        if (allergy === ""){
+          return;
+        }
+
+        Axios.put("http://localhost:8080/Treatment/Allergy?treatmentId="+treatmentId+"&allergy="+allergy).then(
+          resp => {
+            console.log(resp);
+            this.getPatientData();
+          }
+        );
+
+
+        document.getElementById("allergy").value = "";
+      }
+
+      addReaction = () =>{
+        if (this.state.treatment === null){
+          return;
+        }
+
+        const treatmentId = this.state.treatment.treatmentId;
+        
+        var reaction = document.getElementById("reaction").value;
+
+        if (reaction === ""){
+          return;
+        }
+
+        Axios.put("http://localhost:8080/Treatment/Reaction?treatmentId="+treatmentId+"&reaction="+reaction).then(
+          resp => {
+            console.log(resp);
+            this.getPatientData();
+          }
+        );
+
+
+        document.getElementById("reaction").value = "";
       }
 
 
   
     render(){return (
     <div className='main'>
-        <h2>Patient Clinical Data</h2>
-      <form className='form'>
-        <label>Patient:</label>
-        <input type="text" id="name" />
-      </form>
-      <br/>
-      <button className='blueButton' onClick={this.getPatientData}>Submit</button>
+
+      <h2>Patient Clinical Data</h2>
+      <div className='form'>
+          <form className='form'>
+            <label>Patient:</label>
+            <input type="text" id="name" />
+          </form>
+              <button className='blueButton' onClick={this.getPatientData}>Submit</button>
       
+      </div>
+
+      <br/>
+      <br/>
+
+      <div className='dataGrid'>
+            <div className='dataGridCol'>
+            <h3>Allergies</h3>
+
+            <ul >
+                {this.state.allergies.map(item => (
+                    <li key={item}>{item}</li>
+                ))}
+            </ul>
         
-        <h3>Allergies</h3>
+            </div>
 
-        <ul>
-            {this.state.allergies.map(item => (
-                <li key={item}>{item}</li>
-            ))}
-        </ul>
 
-        <h3>Reactions</h3>
-        {this.state.reactions.map(item => (
-                <li key={item}>{item}</li>
-            ))}
-        <ul>
+            <div className='dataGridCol'>
+            <h3 className='center'>Reactions</h3>
+            
+            <ul>
+            {this.state.reactions.map(item => (
+                        <li className='center' key={item}>{item}</li>
+                    ))}
+            </ul>
+            </div>
 
-        </ul>
+            <div className='dataGridCol'>
+            <h3 className='center'>Medicines Taken</h3>
+            
+            <ul className>
+                {this.state.medicines.map(item => (
+                                    <li className key={item}>{item}</li>
+                                ))}
+            </ul>
+            </div>
+      </div>
+          
+      <br />
+      <br />
+      <br />
 
-        <h3>Medicines Taken</h3>
-        {this.state.medicines.map(item => (
-                <li key={item}>{item}</li>
-            ))}
-        <ul>
+      <h3>Add Medication Effect</h3>
+      <div className='form'>
 
-        </ul>
-
+      <form className='form'>
+        <label>Allergy:</label>
+        <input type="text" id="allergy" />
+      </form>
+      <button className='blueButton' onClick={this.addAlergy}>Add Allergy</button>
+        
+      <form className='form'>
+        <label>Reaction:</label>
+        <input type="text" id="reaction" />
+      </form>
+      <button className='blueButton' onClick={this.addReaction}>Add REaction</button>
+      </div>
 
     </div>
   )}

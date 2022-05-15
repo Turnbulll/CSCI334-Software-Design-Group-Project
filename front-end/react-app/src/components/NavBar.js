@@ -78,6 +78,7 @@ class NavBar extends React.Component{
                 {/*Pharmacist Navigation*/}
                 {this.state.userType === "pharmacist" ? <li><Link to="/PharmacistHome">Home</Link></li> : null}
                 {this.state.userType === "pharmacist" ? <li><Link to="/ReadScript">Load Prescriptions</Link></li> : null}
+                {this.state.userType === "pharmacist" ? <li><Link to="/PatientClinicalData">Patient Clinical</Link></li> : null}
 
                 
                 {/* Common */}
