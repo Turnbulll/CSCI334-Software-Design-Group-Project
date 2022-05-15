@@ -25,10 +25,13 @@ class PatientPrescriptions extends React.Component {
     //const userID = user.userID;
 
     //console.log(user.userId);
+
+    //get all the users prescriptions
     var prescriptions = user.prescriptions;
     var newList = [];
     var oldList = [];
 
+    //seperate prescriptions into old and new lis
     for (var i =0; i < prescriptions.length; i++){
       if (prescriptions[i].repeats > 0){
         newList.push(prescriptions[i]);
