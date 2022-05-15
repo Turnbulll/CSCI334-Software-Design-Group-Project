@@ -15,6 +15,7 @@ import DoctorPrescriptions from './pages/DoctorPrescriptions';
 import PharmacistHome from './pages/PharmacistHome';
 import ReadScript from './pages/ReadScript';
 import PharmacistPatientData from './pages/PharmacistPatientData';
+import TreatmentPlan from './pages/TreatmentPlan';
 
 export var User = {};
 
@@ -48,11 +49,11 @@ function App() {
               <Route path="/Profile" element={<PatientProfile />} />
               <Route path="/PatientHome" element={<PatientHome />} />
               <Route path="/PatientPrescriptions" element={<PatientPrescriptions />}/>
+              <Route path="/TreatmentPlan" element={<TreatmentPlan />} />
 
               <Route path="/DoctorHome" element={<DoctorHome />} />
               <Route path="/NewPrescription" element={<NewPrescription />}/>
               <Route path="/DoctorPrescriptions" element={<DoctorPrescriptions />}/>
-           
               <Route path="/Patients" element={<Patients />}/>
 
               <Route path="/PharmacistHome" element={<PharmacistHome />} />

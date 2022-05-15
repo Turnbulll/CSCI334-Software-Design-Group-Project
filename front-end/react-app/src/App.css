@@ -175,6 +175,21 @@ input {
   margin-bottom: 5px;
 }
 
+/* Treatment plan */
+.treatmentPlan{
+  display: inline-grid;
+  width: 100%;
+}
+
+.treatmentPlanItem{
+  width: 80%;
+  display: inline-grid;
+  grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr;
+  padding: 10px;
+  border: 1px solid rgb(185, 185, 185);
+  
+}
+
 /* loaded Prescription */
 .loadedPrescription{
   display: inline-grid;
