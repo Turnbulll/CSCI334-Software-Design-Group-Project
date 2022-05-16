@@ -88,15 +88,19 @@ class ReadScript extends React.Component{
         console.log("Dispensed LOL");
 
         if (this.state.Dispenses > 0){
-            const prescription = {};
 
+            //set the amount of repeats left
             Axios.put("http://localhost:8080/Prescription/"+ this.state.Code + "?repeats=" + (this.state.Dispenses - 1)).then(response => console.log(response.data));;
 
-            this.setState({Dispenses: this.state.Dispenses - 1})
-        }else{
-            this.removeMedicine();
+            var currentCount = this.state.Dispenses - 1;
+            this.setState({Dispenses: currentCount})
+            //if the prescription is out of repeats remove it from the medicines arary
+            if (currentCount === 0){
+                this.removeMedicine();
+            }
+            
         }
-
+            
         //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
     }
 
@@ -113,7 +117,7 @@ class ReadScript extends React.Component{
         var text = decodedText.split("patientID");
         
         decodedText = text[0];
-       
+       //split code from qr
         decodedText = decodedText.replace('i', '');
         decodedText = decodedText.replace('d', '');
         decodedText = decodedText.replace(':', '');
