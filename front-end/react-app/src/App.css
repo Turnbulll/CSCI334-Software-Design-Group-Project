@@ -272,6 +272,19 @@ input {
 
 }
 
+.happyPopup{
+  position: fixed;
+  text-align: center;
+  align-items: center;
+  top: 10%;
+  left: 35%;
+  padding: 20px;
+  width: 40%;
+  font-size: 30px;
+  overflow: hidden;
+  background-color: rgb(178, 255, 163);
+}
+
 .centerText{
   text-align: center;
 }

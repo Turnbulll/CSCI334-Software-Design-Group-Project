@@ -12,8 +12,10 @@ class NewPrescription extends React.Component {
       treatment: null,
       QRCode:null,
       name:null,
-      prescriptionPopup: false,
-      inputPopup: false
+      errorPopUp: false,
+      error: "",
+      inputPopup: false,
+      savedPopup: false
 
     };
 
@@ -101,27 +103,33 @@ class NewPrescription extends React.Component {
         document.getElementById("Instructions").value = "";
         document.getElementById("todaysDate").value = "";
 
-
+        this.toggleSavedPopup();
 
       }).catch(err => {
         console.log(err);
-        this.toggleScriptAlert();
+        this.toggleErrorAlert("Contraindiction Error. Cannot Assign Patient Prescription. \nPatient may be allergic, have a bad reaction or are currently taking a conflicting medicine");
 
       })
 
+    }).catch(err =>{
+      this.toggleErrorAlert("Patient Not Found");
     })
 
   }
 
-  toggleScriptAlert = () =>{
-    this.setState({prescriptionPopup: !this.state.prescriptionPopup})
+  toggleErrorAlert = (error) =>{
+    this.setState({errorPopUp: !this.state.errorPopUp,
+                    error: error})
+                    console.log("TEST");
   }
 
   toggleInputAlert = () =>{
     this.setState({inputPopup: !this.state.inputPopup})
   }
 
- 
+  toggleSavedPopup = () =>{
+    this.setState({savedPopup: !this.state.savedPopup});
+  }
   
   render(){
   return (
@@ -157,12 +165,11 @@ class NewPrescription extends React.Component {
 
                 <button onClick={this.checkValidInput}>Submit </button>
 
-            <Modal show={this.state.prescriptionPopup}>
+            <Modal show={this.state.errorPopUp}>
               <div className='popup'>
                 <h2 className='centerText'>ERROR</h2>
-                <p className='centerText'>Contraindiction Error. Cannot Assign Patient Prescription.</p>
-                <p className='centerText'>Patient may be allergic, have a bad reaction or are currently taking a conflicting medicine</p>
-                <button onClick={this.toggleScriptAlert} className='blueButton'>Ok</button>
+                <p className='centerText'>{this.state.error}</p>
+                <button onClick={this.toggleErrorAlert.bind(this, "")} className='blueButton'>Ok</button>
               </div>
             
             </Modal>
@@ -170,9 +177,15 @@ class NewPrescription extends React.Component {
             <Modal show={this.state.inputPopup}>
               <div className='popup'>
                 <h2 className='centerText'>Missing Input</h2>
-                <button onClick={this.toggleInputAlert} className='blueButton'>Ok</button>
+                <button onClick={()=> this.toggleErrorAlert("")} className='blueButton'>Ok</button>
               </div>
-            
+            </Modal>
+
+            <Modal show={this.state.savedPopup}>
+              <div className='happyPopup'>
+                <h2 className='centerText'>Prescription Saved</h2>
+                <button onClick={this.toggleSavedPopup} className='blueButton'>Ok</button>
+              </div>
             </Modal>
                 
     </div>
