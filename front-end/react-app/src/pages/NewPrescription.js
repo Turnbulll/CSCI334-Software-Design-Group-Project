@@ -12,7 +12,8 @@ class NewPrescription extends React.Component {
       treatment: null,
       QRCode:null,
       name:null,
-      prescriptionPopup: false
+      prescriptionPopup: false,
+      inputPopup: false
 
     };
 
@@ -39,6 +40,7 @@ class NewPrescription extends React.Component {
 
     if (medicine_ === "" || dosage_ === "" || repeats_ === "" || name === "" || instructions_ === "" || date_ === ""){
       console.log("MISSING INPUT");
+      this.toggleInputAlert();
       return;
     }
 
@@ -75,15 +77,6 @@ class NewPrescription extends React.Component {
  
       //console.log(resp)
       }).catch(err => {console.log(err);});
-
-     //reset variables
-    document.getElementById("Medication").value = "";
-    document.getElementById("Dosage").value = "";
-    document.getElementById("Repeats").value = "";
-    document.getElementById("PatientName").value = "";
-    document.getElementById("Instructions").value = "";
-    document.getElementById("todaysDate").value = "";
-
   
   }
 
@@ -96,12 +89,23 @@ class NewPrescription extends React.Component {
       const userID = resp.data[0].userId;
       Axios.put("http://localhost:8080/Patient/AddPrescription/"+ userID +"?prescriptionId="+scriptID).then(resp => {
         //check if prescription can be added
-        console.log(resp);
+        //console.log(resp);
 
         console.log(resp.data);
+
+        //reset variables
+        document.getElementById("Medication").value = "";
+        document.getElementById("Dosage").value = "";
+        document.getElementById("Repeats").value = "";
+        document.getElementById("PatientName").value = "";
+        document.getElementById("Instructions").value = "";
+        document.getElementById("todaysDate").value = "";
+
+
+
       }).catch(err => {
         console.log(err);
-        this.toggleAlert();
+        this.toggleScriptAlert();
 
       })
 
@@ -109,10 +113,13 @@ class NewPrescription extends React.Component {
 
   }
 
-  toggleAlert = () =>{
+  toggleScriptAlert = () =>{
     this.setState({prescriptionPopup: !this.state.prescriptionPopup})
   }
 
+  toggleInputAlert = () =>{
+    this.setState({inputPopup: !this.state.inputPopup})
+  }
 
  
   
@@ -149,14 +156,21 @@ class NewPrescription extends React.Component {
                 </form>
 
                 <button onClick={this.checkValidInput}>Submit </button>
-            <Modal show={this.state.prescriptionPopup} onHide={this.showAlert}>
+
+            <Modal show={this.state.prescriptionPopup}>
               <div className='popup'>
-                <h1>ERROR</h1>
+                <h2 className='centerText'>ERROR</h2>
                 <p className='centerText'>Contraindiction Error. Cannot Assign Patient Prescription.</p>
                 <p className='centerText'>Patient may be allergic, have a bad reaction or are currently taking a conflicting medicine</p>
-                <button onClick={this.toggleAlert} className='blueButton'>Ok</button>
-              
-              
+                <button onClick={this.toggleScriptAlert} className='blueButton'>Ok</button>
+              </div>
+            
+            </Modal>
+
+            <Modal show={this.state.inputPopup}>
+              <div className='popup'>
+                <h2 className='centerText'>Missing Input</h2>
+                <button onClick={this.toggleInputAlert} className='blueButton'>Ok</button>
               </div>
             
             </Modal>
