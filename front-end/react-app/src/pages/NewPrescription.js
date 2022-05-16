@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import React from 'react'
+import Modal from 'react-overlays/Modal'
 
 class NewPrescription extends React.Component {
   
@@ -10,13 +11,16 @@ class NewPrescription extends React.Component {
       prescription: null,
       treatment: null,
       QRCode:null,
-      name:null
+      name:null,
+      errorPopUp: false,
+      error: "",
+      inputPopup: false,
+      savedPopup: false
 
     };
 
 
   }
-
 
   checkValidInput = () =>{
      //get user input
@@ -38,6 +42,7 @@ class NewPrescription extends React.Component {
 
     if (medicine_ === "" || dosage_ === "" || repeats_ === "" || name === "" || instructions_ === "" || date_ === ""){
       console.log("MISSING INPUT");
+      this.toggleInputAlert();
       return;
     }
 
@@ -71,42 +76,13 @@ class NewPrescription extends React.Component {
 
       this.linkPatientPrescription(name, scriptID);
       
-      //GENERATE QRCODE
-          Axios.post("http://localhost:8080/QR", {id: scriptID}, { responseType: 'arraybuffer' }).then(resp =>{
-              //console.log(resp);
-              this.setState({test: resp.data});
-              //console.log("QR MADE");
-
-              //convert data to image
-              const blob = new Blob([resp.data])
-
-              //get image url
-              var image = URL.createObjectURL(blob);
-              //console.log(image);
-
-              this.setState({QRCode: image});
-    
-          }).catch(err => {console.log(err.data)})
-
-      
-        
-    
  
       //console.log(resp)
       }).catch(err => {console.log(err);});
-
-     //reset variables
-    document.getElementById("Medication").value = "";
-    document.getElementById("Dosage").value = "";
-    document.getElementById("Repeats").value = "";
-    document.getElementById("PatientName").value = "";
-    document.getElementById("Instructions").value = "";
-    document.getElementById("todaysDate").value = "";
-
   
   }
 
-  linkPatientPrescription(name, scriptID){
+  linkPatientPrescription = (name, scriptID) => {
     //Axios.put("http://localhost:8080/Patient/AddPrescription/7?prescriptionId=13").then(resp => {
        // console.log(resp.data);
     //});
@@ -114,17 +90,53 @@ class NewPrescription extends React.Component {
     Axios.get("http://localhost:8080/Patient/Name?name="+name).then(resp => {
       const userID = resp.data[0].userId;
       Axios.put("http://localhost:8080/Patient/AddPrescription/"+ userID +"?prescriptionId="+scriptID).then(resp => {
-        console.log(resp.data);
+        //check if prescription can be added
+        //console.log(resp);
+
+        //console.log(resp.data);
+
+        //reset variables
+        document.getElementById("Medication").value = "";
+        document.getElementById("Dosage").value = "";
+        document.getElementById("Repeats").value = "";
+        document.getElementById("PatientName").value = "";
+        document.getElementById("Instructions").value = "";
+        document.getElementById("todaysDate").value = "";
+
+        //send alert
+        this.toggleSavedPopup();
+
+      }).catch(err => {
+        console.log(err);
+        //send alert
+        this.toggleErrorAlert("Contraindiction Error. Cannot Assign Patient Prescription. \nPatient may be allergic, have a bad reaction or are currently taking a conflicting medicine");
+
       })
 
+    }).catch(err =>{
+      //send alert
+      this.toggleErrorAlert("Patient Not Found");
     })
 
   }
 
+  toggleErrorAlert = (error) =>{
+    this.setState({errorPopUp: !this.state.errorPopUp,
+                    error: error})
+  }
+
+  toggleInputAlert = () =>{
+    this.setState({inputPopup: !this.state.inputPopup})
+  }
+
+  toggleSavedPopup = () =>{
+    this.setState({savedPopup: !this.state.savedPopup});
+  }
   
   render(){
   return (
     <div className='form'>
+     
 
       <h1>New Prescription</h1>
 
@@ -153,9 +165,29 @@ class NewPrescription extends React.Component {
                 </form>
 
                 <button onClick={this.checkValidInput}>Submit </button>
-                
-                 {/*RENDERS QR CODE */}
-                  <img src={this.state.QRCode} className="span2"></img>
+
+            <Modal show={this.state.errorPopUp}>
+              <div className='popup'>
+                <h2 className='centerText'>ERROR</h2>
+                <p className='centerText'>{this.state.error}</p>
+                <button onClick={this.toggleErrorAlert.bind(this, "")} className='blueButton'>Ok</button>
+              </div>
+            
+            </Modal>
+
+            <Modal show={this.state.inputPopup}>
+              <div className='popup'>
+                <h2 className='centerText'>Missing Input</h2>
+                <button onClick={()=> this.toggleErrorAlert("")} className='blueButton'>Ok</button>
+              </div>
+            </Modal>
+
+            <Modal show={this.state.savedPopup}>
+              <div className='happyPopup'>
+                <h2 className='centerText'>Prescription Saved</h2>
+                <button onClick={this.toggleSavedPopup} className='blueButton'>Ok</button>
+              </div>
+            </Modal>
                 
     </div>
   )}
