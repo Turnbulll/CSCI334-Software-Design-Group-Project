@@ -2,7 +2,10 @@
 .App {
   text-align: center;
 }
-
+.App h1, h2, p {
+  text-align: left;
+  padding-left: 15px;
+}
 .App-link {
   color: #61dafb;
 }
