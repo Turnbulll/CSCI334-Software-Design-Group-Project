@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link, Navigate} from "react-router-dom"
+import {getUser, setUser} from "../App.js"
 
 class PatientHome extends React.Component {
 
@@ -10,14 +11,13 @@ class PatientHome extends React.Component {
     };
 
   }
-
   componentDidMount(){
-
     console.log("HOME: " + this.state.userType);
   }
 
 
   render(){
+    var user = getUser();
   return (
   
     <div className='main'>
@@ -25,7 +25,7 @@ class PatientHome extends React.Component {
       
 
       
-      <h2>Welcome Back X!</h2>
+      <h2>Welcome Back </h2>
       <p>Hi how you doin?</p>
 
       
