@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import React from 'react'
+import Modal from 'react-overlays/Modal'
 
 class NewPrescription extends React.Component {
   
@@ -10,13 +11,13 @@ class NewPrescription extends React.Component {
       prescription: null,
       treatment: null,
       QRCode:null,
-      name:null
+      name:null,
+      prescriptionPopup: false
 
     };
 
 
   }
-
 
   checkValidInput = () =>{
      //get user input
@@ -86,7 +87,7 @@ class NewPrescription extends React.Component {
   
   }
 
-  linkPatientPrescription(name, scriptID){
+  linkPatientPrescription = (name, scriptID) => {
     //Axios.put("http://localhost:8080/Patient/AddPrescription/7?prescriptionId=13").then(resp => {
        // console.log(resp.data);
     //});
@@ -94,18 +95,32 @@ class NewPrescription extends React.Component {
     Axios.get("http://localhost:8080/Patient/Name?name="+name).then(resp => {
       const userID = resp.data[0].userId;
       Axios.put("http://localhost:8080/Patient/AddPrescription/"+ userID +"?prescriptionId="+scriptID).then(resp => {
+        //check if prescription can be added
+        console.log(resp);
+
         console.log(resp.data);
+      }).catch(err => {
+        console.log(err);
+        this.toggleAlert();
+
       })
 
     })
 
   }
 
+  toggleAlert = () =>{
+    this.setState({prescriptionPopup: !this.state.prescriptionPopup})
+  }
+
+
  
   
   render(){
   return (
     <div className='form'>
+
+     
 
       <h1>New Prescription</h1>
 
@@ -134,7 +149,17 @@ class NewPrescription extends React.Component {
                 </form>
 
                 <button onClick={this.checkValidInput}>Submit </button>
+            <Modal show={this.state.prescriptionPopup} onHide={this.showAlert}>
+              <div className='popup'>
+                <h1>ERROR</h1>
+                <p className='centerText'>Contraindiction Error. Cannot Assign Patient Prescription.</p>
+                <p className='centerText'>Patient may be allergic, have a bad reaction or are currently taking a conflicting medicine</p>
+                <button onClick={this.toggleAlert} className='blueButton'>Ok</button>
+              
+              
+              </div>
             
+            </Modal>
                 
     </div>
   )}
