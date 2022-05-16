@@ -3,6 +3,7 @@ package CSCI334.GroupProject.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,28 +86,33 @@ public class PatientController implements UserControllerInterface<Patient> {
 	
 	//put request to add a new prescription to a patient
 	@PutMapping("/Patient/AddPrescription/{userId}")
-	public Optional<Patient> addPrescription(
+	public ResponseEntity<String> addPrescription(
 			@PathVariable("userId") Long userId,
 			@RequestParam(required = true) Long prescriptionId){
-		patientService.addPrescription(userId, prescriptionId);
-		return patientService.findUserById(userId);
+		if (patientService.addPrescription(userId, prescriptionId)) {
+			return new ResponseEntity<>(patientService.findUserById(userId).toString(), HttpStatus.OK);
+		}
+		else
+			return new ResponseEntity<>("Failed to add prescription to patient " + userId.toString() + " check if patient is allergic or has reaction to a medicine in prescription " + prescriptionId , HttpStatus.BAD_REQUEST);
 	}
 	
 	//set treatment plan
 	//put request to add a new prescription to a patient
-		@PutMapping("/Patient/SetTreatment/{userId}")
-		public Optional<Patient> setTreatment(
-				@PathVariable("userId") Long userId,
-				@RequestParam(required = true) Long treatmentId){
-			patientService.setTreatment(userId, treatmentId);
-			return patientService.findUserById(userId);
-		}
-	/*TODO
-	+ViewPrescriptions()
-	+InputMedication()
-	+InputReaction()
-	 */
-
+	@PutMapping("/Patient/SetTreatment/{userId}")
+	public Optional<Patient> setTreatment(
+			@PathVariable("userId") Long userId,
+			@RequestParam(required = true) Long treatmentId){
+		patientService.setTreatment(userId, treatmentId);
+		return patientService.findUserById(userId);
+	}
+	
+	//remove medicine from patient treatment
+	@PutMapping("/Patient/RemoveMedicine/{userId}")
+	public boolean removeMedicineFromPatientTreatment(
+			@PathVariable("userId") Long userId,
+			@RequestParam(required = true) String medicine) {
+		return patientService.removeMedicineFromPatientTreatment(userId, medicine);
+	}
 
 }
 

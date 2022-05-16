@@ -65,6 +65,37 @@ public class Patient extends User {
 		this.prescriptions.add(prescription);
 	}
 	
+	//check allergy
+	public boolean isAllergic(String medicine) {
+		for(int i = 0; i < getTreatment().getAllergies().size(); i++ ) {
+			if(getTreatment().getAllergies().get(i).equals(medicine)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//check reactions
+	public boolean isReaction(String medicine) {
+		for(int i = 0; i < getTreatment().getReactions().size(); i++ ) {
+			if(getTreatment().getReactions().get(i).equals(medicine)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//remove medicine
+	public boolean removeMedicineFromPatientTreatment(String medicine) {
+		for(int i = 0; i < getTreatment().getMedicines().size(); i++ ) {
+			if(getTreatment().getMedicines().get(i).equals(medicine)) {
+				getTreatment().getMedicines().remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return super.toString() + ", " + treatment.toString() + ", Prescriptions{ "+ prescriptions.toString() + " }"; 
