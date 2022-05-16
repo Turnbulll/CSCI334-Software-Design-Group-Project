@@ -13,7 +13,8 @@ class PatientPrescriptions extends React.Component {
       list: [],
       oldList: [],
       medicine: null,
-      QRCode: null
+      QRCode: null,
+      user: null
     };
 
   }
@@ -43,7 +44,8 @@ class PatientPrescriptions extends React.Component {
 
 
     this.setState({list: newList,
-                  oldList: oldList});
+                  oldList: oldList,
+                  user: user});
 
     console.log(user.prescriptions);
 
@@ -99,8 +101,9 @@ class PatientPrescriptions extends React.Component {
     //console.log("TEST ", scriptID);
 
     const scriptID = script.prescriptionId;
+    const userId = this.state.user.userId;
 
-    Axios.post("http://localhost:8080/QR", {id: scriptID}, { responseType: 'arraybuffer' }).then(resp =>{
+    Axios.post("http://localhost:8080/QR", {id: scriptID, patientID: "|"+userId}, { responseType: 'arraybuffer' }).then(resp =>{
     
       //console.log(resp);
       this.setState({test: resp.data});
