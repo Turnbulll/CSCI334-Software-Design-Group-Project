@@ -71,26 +71,6 @@ class NewPrescription extends React.Component {
 
       this.linkPatientPrescription(name, scriptID);
       
-      //GENERATE QRCODE
-          Axios.post("http://localhost:8080/QR", {id: scriptID}, { responseType: 'arraybuffer' }).then(resp =>{
-              //console.log(resp);
-              this.setState({test: resp.data});
-              //console.log("QR MADE");
-
-              //convert data to image
-              const blob = new Blob([resp.data])
-
-              //get image url
-              var image = URL.createObjectURL(blob);
-              //console.log(image);
-
-              this.setState({QRCode: image});
-    
-          }).catch(err => {console.log(err.data)})
-
-      
-        
-    
  
       //console.log(resp)
       }).catch(err => {console.log(err);});
@@ -121,6 +101,7 @@ class NewPrescription extends React.Component {
 
   }
 
+ 
   
   render(){
   return (
@@ -153,9 +134,7 @@ class NewPrescription extends React.Component {
                 </form>
 
                 <button onClick={this.checkValidInput}>Submit </button>
-                
-                 {/*RENDERS QR CODE */}
-                  <img src={this.state.QRCode} className="span2"></img>
+            
                 
     </div>
   )}
