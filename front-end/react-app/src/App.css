@@ -1,10 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 .App {
   text-align: center;
-}
-.App h1, h2, p {
-  text-align: left;
-  padding-left: 15px;
 }
 .App-link {
   color: #61dafb;
@@ -16,6 +14,7 @@
 
 input {
   margin-left:50px;
+  
 }
 
 /* Navbar inspired by https://www.w3schools.com/css/css_navbar_vertical.asp */
@@ -27,6 +26,7 @@ input {
   height: 100vh;
   background-color: #E84E36;
   float: left;
+  justify-content: space-between;
 }
 
 .navBar li a {
@@ -40,15 +40,14 @@ input {
   color:white;
 }
 /*lets logout be positioned at the bottom*/
-.navBar .spacer {
-  padding:90%;
-}
+
 .navBar li {
   margin-right: auto;
 }
-/* Changes color on hover*/
+/* Changes color and jumps out on hover*/
 .navBar li a:hover {
   background-color: #BE4332;
+  transform: translateY(-2px);
 }
 /*profile and logo*/
 .navBar li .profile {
@@ -77,7 +76,8 @@ input {
 .form{
   display: inline-grid;
   grid-template-columns: max-content max-content;
-  grid-gap:7px;
+  grid-gap:8px;
+  padding-top:3vh;
   
 }
 .form input{
@@ -287,16 +287,6 @@ input {
 
 .centerText{
   text-align: center;
-}
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 /* base styles */
 * {

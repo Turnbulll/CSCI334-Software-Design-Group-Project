@@ -1,7 +1,47 @@
 import React from 'react'
-import logoTranSmall from '../logoTranSmall.png';
-import homeIcon from '../homeIcon.png';
+import logoTranSmall from '../imgs/logoTranSmall.png';
+import homeIcon from '../imgs/homeIcon.png';
+import patProfile from '../imgs/patientprofile.jpg';
+import docProfile from '../imgs/docprofile.jpg';
+import pharmProfile from '../imgs/pharmprofile.jpg';
+import styled from 'styled-components';
 import { Link, NavLink } from "react-router-dom";
+
+/*so the log out button scales with the window height*/
+const Log = styled.li`
+    padding-top: 0vh;
+    @media screen and (min-height: 400px) {
+        padding-top: 15vh;
+    }
+    @media screen and (min-height: 450px) {
+        padding-top: 24vh;
+    }
+    @media screen and (min-height: 500px) {
+        padding-top: 32vh;
+    }
+    @media screen and (min-height: 550px) {
+        padding-top: 38vh;
+    }
+    @media screen and (min-height: 650px) {
+        padding-top: 47vh;
+    }
+    @media screen and (min-height: 750px) {
+        padding-top: 54vh;
+    }
+    @media screen and (min-height: 850px) {
+        padding-top: 60vh;
+    }
+    @media screen and (min-height: 1000px) {
+        padding-top: 66vh;
+    }
+    @media screen and (min-height: 1250px) {
+        padding-top: 73vh;
+    }
+    @media screen and (min-height: 1500px) {
+        padding-top: 77vh;
+    }
+`;
+
 
 class NavBar extends React.Component{
 
@@ -63,7 +103,7 @@ class NavBar extends React.Component{
 
                 
                 {/*if usertype null render signin and signup*/}
-                {this.state.userType === "" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
+                {this.state.userType === "" ? <li><img src={logoTranSmall} alt="logoTranSmall" className="profile"></img></li> : null}
                 {this.state.userType === "" ? <li><h2>Welcome</h2></li> : null}
                 {this.state.userType === "" ? <li><Link to="/" >Sign In</Link></li> : null}
                 {this.state.userType === "" ? <li><Link to="/SignUp" >Sign Up</Link></li> : null}
@@ -72,7 +112,7 @@ class NavBar extends React.Component{
                 {/*Imagine this as an if statement
                     if            A   =    B                {do this}                     else {}*/}
 
-                {this.state.userType === "patient" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
+                {this.state.userType === "patient" ? <li><img src={patProfile} alt="patProfile" className="profile"/></li> : null}
                 {this.state.userType === "patient" ? <li><h2>Patient Name</h2></li> : null}
     
                 {this.state.userType === "patient" ? <li><Link to="/PatientHome">Home</Link></li> : null}
@@ -83,7 +123,7 @@ class NavBar extends React.Component{
                 
                 {/*Doctor Navigation*/}
                 {/*I intend for these logos to turn into the profile pictures of users-just gotta change the source*/}
-                {this.state.userType === "doctor" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
+                {this.state.userType === "doctor" ? <li><img src={docProfile} alt="docProfile" className="profile"/></li> : null}
                 {this.state.userType === "doctor" ? <li><h2>Doctor Name</h2></li> : null}
                 {this.state.userType === "doctor" ? <li><Link to="/DoctorHome" >Home</Link></li> : null}
                 {this.state.userType === "doctor" ? <li><Link to="/DoctorPrescriptions" >Prescriptions</Link></li> : null}
@@ -92,7 +132,7 @@ class NavBar extends React.Component{
 
                 {/*Pharmacist Navigation*/}
 
-                {this.state.userType === "pharmacist" ? <li><img src={logoTranSmall} className="profile"/></li> : null}
+                {this.state.userType === "pharmacist" ? <li><img src={pharmProfile} alt="logoTranSmall" className="profile"/></li> : null}
                 {this.state.userType === "pharmacist" ? <li><h2>Pharmacist Name</h2></li> : null}
             
                 {this.state.userType === "pharmacist" ? <li><Link to="/PharmacistHome">Home</Link></li> : null}
@@ -102,8 +142,7 @@ class NavBar extends React.Component{
 
                 
                 {/* Common */}
-                {this.state.userType !== "" ? <li className="spacer"></li> : null}
-                {this.state.userType !== "" ? <li onClick={() => this.logout()}><Link to="/">Log Out <br/><img src={homeIcon} alt="homeIcon"/></Link></li> : null}
+                {this.state.userType === "" ? <Log onClick={() => this.logout()}><Link to="/">Log Out <br/><img src={homeIcon} alt="homeIcon"/></Link></Log> : null}
 
 
             </ul>

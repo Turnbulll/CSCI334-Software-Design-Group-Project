@@ -28,7 +28,6 @@ export function setUser(user){
   //console.log("SET USER: ", User);
 }
 
-
 function App() {
   {/* add router components here to add other web pages */}
 

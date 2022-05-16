@@ -1,9 +1,16 @@
 
-import logoBlack from '../logoBlack.png'
+import logoBlack from '../imgs/logoBlack.png'
 import Axios from 'axios';
 import React, { useEffect } from 'react'
+import styled from 'styled-components' 
 import { Navigate, Link} from "react-router-dom";
 import {getUser, setUser} from "../App.js"
+
+{/*styled components for making looks look nicer*/}
+const Logo = styled.img`
+    width: 50vw;
+    object-fit: contain;
+`
 
 
 class SignIn extends React.Component {
@@ -112,28 +119,31 @@ class SignIn extends React.Component {
 
    render(){
        return(
-
+           
            <div className='form'>
-
-
-               {/* route to new page on login CURRENTLY BROKEN*/}
+               <br/><br/>
+               <Logo src={logoBlack} alt="logoTranSmall"></Logo><br/>
+                
+                    {/* route to new page on login CURRENTLY BROKEN*/}
                {this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
                {this.state.userType === "Doctor" ? < Navigate to="/DoctorHome" /> : null }
                {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null}
+               <div>
+                    <form className='form'>
+                    
+                        <br/>
+                        <h1>Sign In</h1>
+                        <label>Name:</label>
+                        <input type="text" name="user" id="user" />
 
-                <form className='form'>
-                    <br/><br/>
-                    <h1>Sign In</h1>
-                    <label>Name:</label>
-                    <input type="text" name="user" id="user" />
+                        <label>Password:</label>
+                        <input type="password" name="password" id="password"/>
 
-                    <label>Password:</label>
-                    <input type="password" name="password" id="password"/>
+                        <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
 
-                    <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
-                   
-                </form>
-                <button onClick={this.login}  onMouseDown={this.login} >Submit</button>
+                    </form><br/><br/>
+                    <button onClick={this.login}  onMouseDown={this.login} >Submit</button>
+                </div>
            </div>
        )
    }
