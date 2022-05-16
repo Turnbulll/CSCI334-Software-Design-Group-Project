@@ -47,12 +47,11 @@ class ReadScript extends React.Component{
                             TreatmentInstruction: "TBD",
                             Medicine: respData.medicine,
                             Dosage: respData.dosage,
-                            Dispenses: respData.repeats
+                            Dispenses: respData.repeats,
+                            patientID: patientID
 
 
                         })
-
-                        
 
                         //console.log(respData);
                     }
@@ -95,7 +94,7 @@ class ReadScript extends React.Component{
 
             this.setState({Dispenses: this.state.Dispenses - 1})
         }else{
-
+            this.removeMedicine();
         }
 
         //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
