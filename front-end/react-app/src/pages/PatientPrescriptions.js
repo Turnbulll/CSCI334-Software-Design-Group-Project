@@ -103,7 +103,7 @@ class PatientPrescriptions extends React.Component {
     const scriptID = script.prescriptionId;
     const userId = this.state.user.userId;
 
-    Axios.post("http://localhost:8080/QR", {id: scriptID, patientID: "|"+userId}, { responseType: 'arraybuffer' }).then(resp =>{
+    Axios.post("http://localhost:8080/QR", {id: scriptID, patientID:+userId}, { responseType: 'arraybuffer' }).then(resp =>{
     
       //console.log(resp);
       this.setState({test: resp.data});

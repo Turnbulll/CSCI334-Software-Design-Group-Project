@@ -16,7 +16,8 @@ class ReadScript extends React.Component{
             Medicine: null,
             Dosage: null,
             TreatmentInstruction: null,
-            Dispenses: 2
+            Dispenses: 2,
+            patientID: null
     
 		};
 
@@ -24,7 +25,11 @@ class ReadScript extends React.Component{
 	}
 
     getScript  = (event) => {
-        var prescriptionID = document.getElementById("scriptCode").value;
+        var scriptCode = document.getElementById("scriptCode").value.split('pID');
+
+        var prescriptionID = scriptCode[0].replace('mID', '');
+        var patientID = scriptCode[1];
+
 
         Axios.get("http://localhost:8080/Prescription/" + prescriptionID).then(resp =>
                 {
@@ -89,14 +94,26 @@ class ReadScript extends React.Component{
             Axios.put("http://localhost:8080/Prescription/"+ this.state.Code + "?repeats=" + (this.state.Dispenses - 1)).then(response => console.log(response.data));;
 
             this.setState({Dispenses: this.state.Dispenses - 1})
+        }else{
+
         }
 
         //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
+    }
+
+    removeMedicine = () =>{
+        Axios.put("http://localhost:8080/Patient/RemoveMedicine/"+this.state.patientID+"?medicine="+this.state.Medicine).then(resp => {
+            console.log(resp.data)
+        })
     }
     
     onNewScanResult = (decodedText, decodedResult) =>{
        // console.log(decodedText);
        // console.log(decodedResult);
+        console.log(decodedText);
+        var text = decodedText.split("patientID");
+        
+        decodedText = text[0];
        
         decodedText = decodedText.replace('i', '');
         decodedText = decodedText.replace('d', '');
@@ -104,11 +121,20 @@ class ReadScript extends React.Component{
         decodedText = decodedText.replace('{', '');
         decodedText = decodedText.replace('}', '');
         decodedText = decodedText.replace(' ', '');
+        decodedText = decodedText.replace(',', '');
         decodedText = decodedText.replaceAll('"', '');
    
-        document.getElementById("scriptCode").value = decodedText; 
-       
-        this.setState({Code:  decodedText});
+        var patientID = text[1];
+        patientID = patientID.replace(':', '');
+        patientID = patientID.replace('}', '');
+        patientID = patientID.replace(',', '');
+        patientID = patientID.replace('"', '');
+
+
+        var code = "mID"+decodedText+"pID"+patientID;
+        document.getElementById("scriptCode").value = code; 
+
+        this.setState({Code:  code});
         //automatically load script data
         this.getScript();
     }
