@@ -85,6 +85,17 @@ public class Patient extends User {
 		return false;
 	}
 	
+	//remove medicine
+	public boolean removeMedicineFromPatientTreatment(String medicine) {
+		for(int i = 0; i < getTreatment().getMedicines().size(); i++ ) {
+			if(getTreatment().getMedicines().get(i).equals(medicine)) {
+				getTreatment().getMedicines().remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return super.toString() + ", " + treatment.toString() + ", Prescriptions{ "+ prescriptions.toString() + " }"; 

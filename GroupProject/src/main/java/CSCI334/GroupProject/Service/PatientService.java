@@ -148,7 +148,22 @@ public class PatientService implements UserServiceInterface<Patient> {
 			
 		}
 		else {
-			log.info("failed to add prescription patient or prescription is null" );
+			log.error("failed to add prescription patient or prescription is null" );
+			return false;
+		}
+	}
+	
+	//remove medicine from patient treatment
+	@Transactional
+	public boolean removeMedicineFromPatientTreatment(Long userId, String medicine) {
+		if(validateUser(userId)) {
+			Patient patient = new Patient(patientRepository.findById(userId).get());
+			patient.removeMedicineFromPatientTreatment(medicine);
+			patientRepository.saveAndFlush(patient);
+			return true;
+		}
+		else {
+			log.info("patient is null" );
 			return false;
 		}
 	}

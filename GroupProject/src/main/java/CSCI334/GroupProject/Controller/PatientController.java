@@ -98,13 +98,21 @@ public class PatientController implements UserControllerInterface<Patient> {
 	
 	//set treatment plan
 	//put request to add a new prescription to a patient
-		@PutMapping("/Patient/SetTreatment/{userId}")
-		public Optional<Patient> setTreatment(
-				@PathVariable("userId") Long userId,
-				@RequestParam(required = true) Long treatmentId){
-			patientService.setTreatment(userId, treatmentId);
-			return patientService.findUserById(userId);
-		}
+	@PutMapping("/Patient/SetTreatment/{userId}")
+	public Optional<Patient> setTreatment(
+			@PathVariable("userId") Long userId,
+			@RequestParam(required = true) Long treatmentId){
+		patientService.setTreatment(userId, treatmentId);
+		return patientService.findUserById(userId);
+	}
+	
+	//remove medicine from patient treatment
+	@PutMapping("/Patient/RemoveMedicine/{userId}")
+	public boolean removeMedicineFromPatientTreatment(
+			@PathVariable("userId") Long userId,
+			@RequestParam(required = true) String medicine) {
+		return patientService.removeMedicineFromPatientTreatment(userId, medicine);
+	}
 
 }
 
