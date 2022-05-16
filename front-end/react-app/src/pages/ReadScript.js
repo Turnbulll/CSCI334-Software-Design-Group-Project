@@ -16,7 +16,8 @@ class ReadScript extends React.Component{
             Medicine: null,
             Dosage: null,
             TreatmentInstruction: null,
-            Dispenses: 2
+            Dispenses: 2,
+            patientID: null
     
 		};
 
@@ -24,7 +25,15 @@ class ReadScript extends React.Component{
 	}
 
     getScript  = (event) => {
-        var prescriptionID = document.getElementById("scriptCode").value;
+        //get the script code
+        var scriptCode = document.getElementById("scriptCode").value.split('pID');
+
+        //get the prescriptions id
+        var prescriptionID = scriptCode[0].replace('mID', '');
+
+        //get the patients id
+        var patientID = scriptCode[1];
+
 
         Axios.get("http://localhost:8080/Prescription/" + prescriptionID).then(resp =>
                 {
@@ -42,12 +51,11 @@ class ReadScript extends React.Component{
                             TreatmentInstruction: "TBD",
                             Medicine: respData.medicine,
                             Dosage: respData.dosage,
-                            Dispenses: respData.repeats
+                            Dispenses: respData.repeats,
+                            patientID: patientID
 
 
                         })
-
-                        
 
                         //console.log(respData);
                     }
@@ -84,31 +92,57 @@ class ReadScript extends React.Component{
         console.log("Dispensed LOL");
 
         if (this.state.Dispenses > 0){
-            const prescription = {};
 
+            //set the amount of repeats left
             Axios.put("http://localhost:8080/Prescription/"+ this.state.Code + "?repeats=" + (this.state.Dispenses - 1)).then(response => console.log(response.data));;
 
-            this.setState({Dispenses: this.state.Dispenses - 1})
+            var currentCount = this.state.Dispenses - 1;
+            this.setState({Dispenses: currentCount})
+            //if the prescription is out of repeats remove it from the medicines arary
+            if (currentCount === 0){
+                this.removeMedicine();
+            }
+            
         }
-
+            
         //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
+    }
+
+    removeMedicine = () =>{
+        //removes the medicine from the treatment object
+        Axios.put("http://localhost:8080/Patient/RemoveMedicine/"+this.state.patientID+"?medicine="+this.state.Medicine).then(resp => {
+            console.log(resp.data)
+        })
     }
     
     onNewScanResult = (decodedText, decodedResult) =>{
        // console.log(decodedText);
        // console.log(decodedResult);
-       
+        console.log(decodedText);
+        var text = decodedText.split("patientID");
+        
+        decodedText = text[0];
+       //split code from qr
         decodedText = decodedText.replace('i', '');
         decodedText = decodedText.replace('d', '');
         decodedText = decodedText.replace(':', '');
         decodedText = decodedText.replace('{', '');
         decodedText = decodedText.replace('}', '');
         decodedText = decodedText.replace(' ', '');
+        decodedText = decodedText.replace(',', '');
         decodedText = decodedText.replaceAll('"', '');
    
-        document.getElementById("scriptCode").value = decodedText; 
-       
-        this.setState({Code:  decodedText});
+        var patientID = text[1];
+        patientID = patientID.replace(':', '');
+        patientID = patientID.replace('}', '');
+        patientID = patientID.replace(',', '');
+        patientID = patientID.replace('"', '');
+
+
+        var code = "mID"+decodedText+"pID"+patientID;
+        document.getElementById("scriptCode").value = code; 
+
+        this.setState({Code:  code});
         //automatically load script data
         this.getScript();
     }
