@@ -25,9 +25,13 @@ class ReadScript extends React.Component{
 	}
 
     getScript  = (event) => {
+        //get the script code
         var scriptCode = document.getElementById("scriptCode").value.split('pID');
 
+        //get the prescriptions id
         var prescriptionID = scriptCode[0].replace('mID', '');
+
+        //get the patients id
         var patientID = scriptCode[1];
 
 
@@ -105,6 +109,7 @@ class ReadScript extends React.Component{
     }
 
     removeMedicine = () =>{
+        //removes the medicine from the treatment object
         Axios.put("http://localhost:8080/Patient/RemoveMedicine/"+this.state.patientID+"?medicine="+this.state.Medicine).then(resp => {
             console.log(resp.data)
         })
