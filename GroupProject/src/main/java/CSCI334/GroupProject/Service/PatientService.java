@@ -126,16 +126,30 @@ public class PatientService implements UserServiceInterface<Patient> {
 	
 	//add a prescription to a patient
 	@Transactional
-	public void addPrescription(Long userId, Long prescriptionId) {
+	public boolean addPrescription(Long userId, Long prescriptionId) {
 		if(validateUser(userId) && validatePrescription(prescriptionId)) {
 			Patient patient = new Patient(patientRepository.findById(userId).get());
 			Prescription prescription = new Prescription (prescriptionRepository.findById(prescriptionId).get());
-			patient.addPrescription(prescription);
-			patient.getTreatment().addMedicines(prescription.getMedicine());
-			patientRepository.saveAndFlush(patient);
+			if(!patient.isAllergic(prescription.getMedicine()) && !patient.isReaction(prescription.getMedicine())) {
+				patient.addPrescription(prescription);
+				patient.getTreatment().addMedicines(prescription.getMedicine());
+				patientRepository.saveAndFlush(patient);
+				return true;
+			}
+			else {
+				if(patient.isAllergic(prescription.getMedicine())) {
+					log.error("failed to add prescription patient " + patient.getName() + "is allergic to " + prescription.getMedicine() );
+				}
+				if(patient.isReaction(prescription.getMedicine())) {
+					log.error("failed to add prescription patient " + patient.getName() + "is has a reaction to " + prescription.getMedicine());
+				}
+				return false;
+			}
+			
 		}
 		else {
 			log.info("failed to add prescription patient or prescription is null" );
+			return false;
 		}
 	}
 	
