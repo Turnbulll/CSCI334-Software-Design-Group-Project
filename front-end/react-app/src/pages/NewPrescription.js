@@ -93,7 +93,7 @@ class NewPrescription extends React.Component {
         //check if prescription can be added
         //console.log(resp);
 
-        console.log(resp.data);
+        //console.log(resp.data);
 
         //reset variables
         document.getElementById("Medication").value = "";
@@ -103,15 +103,18 @@ class NewPrescription extends React.Component {
         document.getElementById("Instructions").value = "";
         document.getElementById("todaysDate").value = "";
 
+        //send alert
         this.toggleSavedPopup();
 
       }).catch(err => {
         console.log(err);
+        //send alert
         this.toggleErrorAlert("Contraindiction Error. Cannot Assign Patient Prescription. \nPatient may be allergic, have a bad reaction or are currently taking a conflicting medicine");
 
       })
 
     }).catch(err =>{
+      //send alert
       this.toggleErrorAlert("Patient Not Found");
     })
 
@@ -120,7 +123,6 @@ class NewPrescription extends React.Component {
   toggleErrorAlert = (error) =>{
     this.setState({errorPopUp: !this.state.errorPopUp,
                     error: error})
-                    console.log("TEST");
   }
 
   toggleInputAlert = () =>{
@@ -134,7 +136,6 @@ class NewPrescription extends React.Component {
   render(){
   return (
     <div className='form'>
-
      
 
       <h1>New Prescription</h1>
