@@ -140,6 +140,13 @@ input {
   overflow-x: hidden;
 }
 
+.almostFullScrollDiv{
+  width: 100%;
+  height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 
 .prescriptionListItem{
   width: 80%;
