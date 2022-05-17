@@ -106,7 +106,7 @@ class PharmacistPatientData extends React.Component {
 
       <br/>
       <br/>
-
+      <div className='smallScrollDiv'>
       <div className='dataGrid'>
             <div className='dataGridCol'>
             <h3>Allergies</h3>
@@ -139,6 +139,7 @@ class PharmacistPatientData extends React.Component {
                                 ))}
             </ul>
             </div>
+      </div>
       </div>
           
       <br />

@@ -151,7 +151,9 @@ class ReadScript extends React.Component{
 
     return (
         <div className="main">
+            <div className='almostFullScrollDiv'>
             <h1>READ THE SCRIPT HERE</h1>    
+         
             <div className="form">
 
                 <form className='form'>
@@ -177,7 +179,7 @@ class ReadScript extends React.Component{
 
            {this.state.loaded ? this.getElement()  : null}
            
-        
+           </div>
         </div>
   )}
 

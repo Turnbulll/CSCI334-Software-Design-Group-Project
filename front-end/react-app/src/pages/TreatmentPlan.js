@@ -97,7 +97,7 @@ class TreatmentPlan extends React.Component {
 
     <div className='main'>
       <h2>Search Treatment Plan</h2>
-      <div className='scriptScrollDiv'>
+      <div className='almostFullScrollDiv'>
 
         <input type="text" id="searchBar" className='searchBox' onKeyUp={this.search} placeholder="Search treatment plan..."></input>
 

@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react'
 
 class Patients extends React.Component {
@@ -17,6 +18,12 @@ class Patients extends React.Component {
 
     {/* Fore each prescription push it to the list*/}
 
+
+    Axios.get("http://localhost:8080/Patient").then(resp => {
+      this.setState({list: resp.data});
+    })
+
+    /* test data
     this.state.list.push({
       id: 0,
       Email: 'vgislason@yahoo.com',
@@ -29,16 +36,17 @@ class Patients extends React.Component {
       Email: 'randybonckles@yahoo.com',
       FirstName: 'Randy',
       LastName: 'bonckles',
-      Score: 1})
+      Score: 1})*/
     
   }
 
   componentDidMount = () =>{
-    
+    this.loadData();
     console.log(this.state.list)
   }
 
-  searchPrescription(){
+  //CURRENTLY ONLY SEARCHES BY NAME. NOT ID
+  searchPatients(){
 
     //inspired by https://www.w3schools.com/howto/howto_js_filter_lists.asp
     var input, filter, ul, listData, li ,txtValue;
@@ -54,7 +62,7 @@ class Patients extends React.Component {
       
       //get all div elements inside list element
       var divs = li[i].getElementsByTagName("div");
-      for (var j = 0; j < divs.length - 1 ; j++){
+      for (var j = 1; j < 4 ; j++){
         //get the data from the div
         listData = divs[j];
         //add the text inside th div to the text value
@@ -83,32 +91,33 @@ class Patients extends React.Component {
     <div className='main'>
       <h1>Doctors list of patients</h1>
 
-      {this.loadData()}
 
-      <input type="text" id="prescriptionSearch" className='searchBox' onKeyUp={this.searchPrescription} placeholder="Search prescriptions..."></input>
+      <input type="text" id="prescriptionSearch" className='searchBox' onKeyUp={this.searchPatients} placeholder="Search patients..."></input>
       <br/>
 
-      <ul className='prescriptionList' id="prescriptionList">
-        
-          <li className="prescriptionListItem">
-              <div>ID</div>
-              <div>Email</div>
-              <div>First Name</div>
-              <div>Last Name</div>
-              <div>Score</div>
-          </li>
+      <div className='almostFullScrollDiv'>
 
-        {this.state.list.map(item => (
-            <li key={item.id} className="prescriptionListItem">
-              <div>{item.id}</div>
-              <div>{item.Email}</div>
-              <div>{item.FirstName}</div>
-              <div>{item.LastName}</div>
-              <div>{item.Score}</div>
-           </li>
-          ))}
-      </ul>
+        <ul className='prescriptionList' id="prescriptionList">
 
+            <li className="prescriptionListItem">
+                <div>ID</div>
+                <div>Email</div>
+                <div>First Name</div>
+                <div>Last Name</div>
+                <div>Score</div>
+            </li>
+
+          {this.state.list.map(item => (
+              <li key={item.userId} className="prescriptionListItem">
+                <div>{item.userId}</div>
+                <div>TBD</div>
+                <div>{item.name}</div>
+                <div>TBD</div>
+                <div>TBD</div>
+             </li>
+            ))}
+        </ul>
+      </div>
     </div>
   )}
 }
