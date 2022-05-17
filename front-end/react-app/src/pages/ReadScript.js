@@ -35,6 +35,24 @@ class ReadScript extends React.Component{
         //get the patients id
         var patientID = scriptCode[1];
 
+        console.log("Patient ID", patientID);
+
+        if (patientID === "" || "0"){
+            this.setErrorText("Error invalid code");
+            return;
+        }
+
+        
+        Axios.get("http://localhost:8080/Patient/").then(resp => {
+
+            console.log(resp.data);
+
+            if (resp.data === ""){
+                this.setErrorText("Error invalid code");
+                return;
+            }
+        })
+
 
         Axios.get("http://localhost:8080/Prescription/" + prescriptionID).then(resp =>
                 {
