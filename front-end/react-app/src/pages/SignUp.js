@@ -85,10 +85,12 @@ class SignUp extends React.Component {
                               //if its a patient they need a treatment
                               if (this.state.userType === "Patient"){
                                   //post an empty treatment
+                                  var empty = "";
                                     Axios.post("http://localhost:8080/Treatment/New", {
                                         "allergies": [],
                                         "reactions": [],
-                                        "medicines": []
+                                        "medicines": [],
+                                        "physicalCondition": ""
                                     }).then(
                                         resp => {
                                             //get the treatment id
