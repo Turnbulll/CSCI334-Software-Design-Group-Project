@@ -43,8 +43,8 @@ class TreatmentPlan extends React.Component {
                         currentPrescriptions: currentTreatments});
     }
 
-  componentDidMount(){
-     this.loadPrescriptions();
+  componentDidMount = () =>{
+      this.setState({user: getUser()})
   }
 
   
@@ -95,7 +95,7 @@ class TreatmentPlan extends React.Component {
   render(){return (
 
     <div className='main'>
-
+    <div>{this.state.user.name}</div>
     <h2>Search Treatment Plan</h2>
     <input type="text" id="searchBar" className='searchBox' onKeyUp={this.search} placeholder="Search treatment plan..."></input>
 
