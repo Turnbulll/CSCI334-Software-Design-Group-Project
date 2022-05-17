@@ -131,6 +131,7 @@ class PatientPrescriptions extends React.Component {
       <h2>QR CODE {this.state.medicine}</h2>
       <img src={this.state.QRCode} className="span2"></img>
 
+      <div className='scriptScrollDiv'>
       <h2>Search Prescriptions</h2>
 
       <input type="text" id="prescriptionSearch" className='searchBox' onKeyUp={this.searchPrescription} placeholder="Search prescriptions..."></input>
@@ -187,7 +188,7 @@ class PatientPrescriptions extends React.Component {
           ))}
       </ul>
 
-
+      </div>
 
       
     </div>

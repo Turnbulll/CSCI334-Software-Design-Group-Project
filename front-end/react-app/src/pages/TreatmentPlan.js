@@ -45,6 +45,7 @@ class TreatmentPlan extends React.Component {
 
   componentDidMount = () =>{
       this.setState({user: getUser()})
+      this.loadPrescriptions();
   }
 
   
@@ -95,35 +96,37 @@ class TreatmentPlan extends React.Component {
   render(){return (
 
     <div className='main'>
-    <div>{this.state.user.name}</div>
-    <h2>Search Treatment Plan</h2>
-    <input type="text" id="searchBar" className='searchBox' onKeyUp={this.search} placeholder="Search treatment plan..."></input>
+      <h2>Search Treatment Plan</h2>
+      <div className='scriptScrollDiv'>
 
-        <div className='treatmentPlan'>
-          
+        <input type="text" id="searchBar" className='searchBox' onKeyUp={this.search} placeholder="Search treatment plan..."></input>
 
-            <ul className='treatmentPlan' id="treatmentList">
+          <div className='treatmentPlan'>
 
-                <li className='treatmentPlanItem'>
-                    <div></div>
-                    <div>Type</div>
-                    <div>Name</div>
-                    <div>Date</div>
-                    <div>Dosage (if Applicable)</div>
-                </li>
 
-                {this.state.currentPrescriptions.map((item, index) => (
-                 <li key={item.prescriptionId} className="treatmentPlanItem">
-                    <div>{index + 1}</div>
-                    <div>{item.type}</div>
-                    <div>{item.name}</div>
-                    <div>{item.date}</div>
-                    <div>{item.dosage}</div>
-                </li>
-            ))}
-            </ul> 
-        </div>
-    
+              <ul className='treatmentPlan' id="treatmentList">
+
+                  <li className='treatmentPlanItem'>
+                      <div></div>
+                      <div>Type</div>
+                      <div>Name</div>
+                      <div>Date</div>
+                      <div>Dosage (if Applicable)</div>
+                  </li>
+
+                  {this.state.currentPrescriptions.map((item, index) => (
+                   <li key={item.prescriptionId} className="treatmentPlanItem">
+                      <div>{index + 1}</div>
+                      <div>{item.type}</div>
+                      <div>{item.name}</div>
+                      <div>{item.date}</div>
+                      <div>{item.dosage}</div>
+                  </li>
+              ))}
+              </ul> 
+          </div>
+      </div>
+                  
    </div>
 
   )}

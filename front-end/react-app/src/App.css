@@ -133,6 +133,14 @@ input {
   width: 100%;
 }
 
+.scriptScrollDiv{
+  width: 90%;
+  height:60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
 .prescriptionListItem{
   width: 80%;
   display: inline-grid;
@@ -295,7 +303,6 @@ input {
   font-weight: bold;
   color: red;
 }
-
 
 /* base styles */
 * {
