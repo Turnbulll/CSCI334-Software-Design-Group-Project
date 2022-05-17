@@ -70,4 +70,12 @@ public class TreatmentService {
 		treatmentRepository.save(treatment);
 		return reaction + " added to treatment " + treatmentId.toString();
 	}
+	
+	//add a physical condition
+	public String addPhysicalCondition(Long treatmentId, String physicalCondition) {
+		Treatment treatment = treatmentRepository.findById(treatmentId).get();
+		treatment.addPhysicalCondition(physicalCondition);
+		treatmentRepository.save(treatment);
+		return physicalCondition + " added to treatment " + treatmentId.toString();
+	}
 }

@@ -61,9 +61,9 @@ public class DatabaseLoader implements CommandLineRunner {
 		ArrayList<String> medicines = new ArrayList<String>();
 		
 		log.info("Treatments are being created...");
-		treatments[0] = new Treatment(allergies, reactions, medicines);
-		treatments[1] = new Treatment(allergies, reactions, medicines);
-		treatments[2] = new Treatment(allergies, reactions, medicines);
+		treatments[0] = new Treatment(allergies, reactions, medicines, "");
+		treatments[1] = new Treatment(allergies, reactions, medicines, "");
+		treatments[2] = new Treatment(allergies, reactions, medicines, "");
 		log.info("Adding treatments to the database...");
 		treatmentService.addNewTreatments(treatments);
 		log.info("Finished adding treatments to the database");

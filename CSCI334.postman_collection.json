@@ -301,7 +301,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/Patient/AddPrescription/7?prescriptionId=13",
+							"raw": "http://localhost:8080/Patient/AddPrescription/7?prescriptionId=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -315,7 +315,7 @@
 							"query": [
 								{
 									"key": "prescriptionId",
-									"value": "13"
+									"value": "5"
 								}
 							]
 						}
@@ -343,6 +343,33 @@
 								{
 									"key": "treatmentId",
 									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Medicine from Treatment for Patient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Patient/RemoveMedicine/7?medicine=medicine2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Patient",
+								"RemoveMedicine",
+								"7"
+							],
+							"query": [
+								{
+									"key": "medicine",
+									"value": "medicine2"
 								}
 							]
 						}
@@ -595,7 +622,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/Treatment/Allergy?treatmentId=10&allergy=panadol",
+							"raw": "http://localhost:8080/Treatment/Allergy?treatmentId=1&allergy=medicine1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -608,11 +635,11 @@
 							"query": [
 								{
 									"key": "treatmentId",
-									"value": "10"
+									"value": "1"
 								},
 								{
 									"key": "allergy",
-									"value": "panadol"
+									"value": "medicine1"
 								}
 							]
 						}
@@ -625,7 +652,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/Treatment/Reaction?treatmentId=10&reaction=panadol",
+							"raw": "http://localhost:8080/Treatment/Reaction?treatmentId=2&reaction=medicine2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -638,11 +665,41 @@
 							"query": [
 								{
 									"key": "treatmentId",
-									"value": "10"
+									"value": "2"
 								},
 								{
 									"key": "reaction",
-									"value": "panadol"
+									"value": "medicine2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Physical Condition",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Treatment/PhysicalCondition?treatmentId=2&physicalCondition=im sick",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Treatment",
+								"PhysicalCondition"
+							],
+							"query": [
+								{
+									"key": "treatmentId",
+									"value": "2"
+								},
+								{
+									"key": "physicalCondition",
+									"value": "im sick"
 								}
 							]
 						}
@@ -781,7 +838,7 @@
 					"raw": "{\r\n    \"medicine\": \"medicine\",\r\n    \"dosage\": \"1.0f\"\r\n}",
 					"options": {
 						"raw": {
-							"language": "json"
+							"language": "text"
 						}
 					}
 				},
