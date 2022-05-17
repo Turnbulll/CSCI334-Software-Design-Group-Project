@@ -15,6 +15,14 @@ const Logo = styled.img`
 
 class SignIn extends React.Component {
     
+    constructor(props) {
+		super(props);
+		this.state = {
+			userType: ""
+		};
+
+    
+	}
     
     login = () =>{
 

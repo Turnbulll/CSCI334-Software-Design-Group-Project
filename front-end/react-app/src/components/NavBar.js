@@ -47,6 +47,7 @@ class NavBar extends React.Component{
     constructor(props) {
 		super(props);
 		this.state = {
+            user: {},
 			userType: ""
 		};
 
@@ -55,7 +56,7 @@ class NavBar extends React.Component{
     
 
     componentDidMount() {
-        console.log(this.state.userType);
+        //console.log(this.state.userType);
 	}
 
     updateState(type){
@@ -65,8 +66,11 @@ class NavBar extends React.Component{
 
     logout(){
         console.log("TEST");
+        //setUser("");
         this.updateState("");
     }
+
+
     render(){
     return (
         <div>
@@ -78,21 +82,21 @@ class NavBar extends React.Component{
             {/*listens for patient to be logged in */}
             {document.addEventListener("loggedInPatient", () => {
                     this.setState({ userType: "patient" });
-                    this.setState({user: getUser()}); {/*this is the bogus line probably*/}
+                    //this.setState({user: getUser()}); {/*this is the bogus line probably*/}
                     this.updateState("patient")
 		        })}
 
             {/*listens for docotor to be logged in */}
             {document.addEventListener("loggedInDoctor", () => {
                     this.setState({ userType: "doctor" });
-                    this.setState({user: getUser()}); {/*this is the bogus line probably*/}
+                    //this.setState({user: getUser()}); {/*this is the bogus line probably*/}
                     this.updateState("doctor")
 		        })}
 
             {/*listens for pharmacist to be logged in */}
             {document.addEventListener("loggedInPharmacist", () => {
                     this.setState({ userType: "pharmacist" }); 
-                    this.setState({user: getUser()}); {/*this is the bogus line probably*/}
+                    //this.setState({user: getUser()}); {/*this is the bogus line probably*/}
                     this.updateState("pharmacist")
 		        })}
 
@@ -115,7 +119,7 @@ class NavBar extends React.Component{
                     if            A   =    B                {do this}                     else {}*/}
 
                 {this.state.userType === "patient" ? <li><img src={patProfile} alt="patProfile" className="profile"/></li> : null}
-                {this.state.userType === "patient" ? <li><h2>{this.state.user.name}</h2></li> : null}
+                {this.state.userType === "patient" ? <li><h2>{getUser().name}</h2></li> : null}
     
                 {this.state.userType === "patient" ? <li><Link to="/PatientHome">Home</Link></li> : null}
                 {this.state.userType === "patient" ? <li><Link to="/Profile">Profile</Link></li> : null}
@@ -126,7 +130,7 @@ class NavBar extends React.Component{
                 {/*Doctor Navigation*/}
                 {/*I intend for these logos to turn into the profile pictures of users-just gotta change the source*/}
                 {this.state.userType === "doctor" ? <li><img src={docProfile} alt="docProfile" className="profile"/></li> : null}
-                {this.state.userType === "doctor" ? <li><h2>{this.state.user.name}</h2></li> : null}
+                {this.state.userType === "doctor" ? <li><h2>{getUser().name}</h2></li> : null}
 
                 {this.state.userType === "doctor" ? <li><Link to="/DoctorHome" >Home</Link></li> : null}
                 {this.state.userType === "doctor" ? <li><Link to="/DoctorPrescriptions" >Prescriptions</Link></li> : null}
@@ -136,7 +140,7 @@ class NavBar extends React.Component{
                 {/*Pharmacist Navigation*/}
 
                 {this.state.userType === "pharmacist" ? <li><img src={pharmProfile} alt="logoTranSmall" className="profile"/></li> : null}
-                {this.state.userType === "pharmacist" ? <li><h2>{this.state.user.name}</h2></li> : null}
+                {this.state.userType === "pharmacist" ? <li><h2>{getUser().name}</h2></li> : null}
             
                 {this.state.userType === "pharmacist" ? <li><Link to="/PharmacistHome">Home</Link></li> : null}
                 {this.state.userType === "pharmacist" ? <li><Link to="/ReadScript">Load Prescriptions</Link></li> : null}
