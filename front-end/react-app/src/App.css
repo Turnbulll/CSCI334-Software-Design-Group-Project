@@ -288,6 +288,15 @@ input {
 .centerText{
   text-align: center;
 }
+
+/* error text */
+.errorText{
+  grid-column: span 2;
+  font-weight: bold;
+  color: red;
+}
+
+
 /* base styles */
 * {
   margin: 5;
