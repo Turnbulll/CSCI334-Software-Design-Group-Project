@@ -7,21 +7,22 @@ class PatientProfile extends React.Component {
 }
   render(){
   return (
-    <div className='main'>
-      <h1>X's Profile</h1>
-      {/*format rows and columns so it looks better*/}
-      <div>{this.state.user.name}</div>
+    <div className='PatientProfile'>
+      <h1>{this.state.user.name}'s Profile</h1>
+      <h2>Current Data:</h2>
       <table>
-        <label>allergies:</label>
-        <input type="text" name="user" id="user" />
-        <label> medication taking records:</label>
-        <input type="text" name="user" id="user" />
-        {/*how are we recording different types of medicine? list?*/}
-        <label> over the counter medication:</label>
-        <input type="text" name="user" id="user" />
-        <label> description of physical condition:</label>
-        <input type="text" name="user" id="user" />
-        
+        <li>allergies:
+          <p>{this.state.user.userType}</p>
+        </li>
+        <li> medication taking records:
+          <p>{this.state.user.userType}</p>
+        </li>
+        <li> over the counter medication:
+          <p>{this.state.user.userType}</p>
+        </li>
+        <li> description of physical condition:
+          <p>{this.state.user.userType}</p>
+        </li>
       </table>
     </div>
   )

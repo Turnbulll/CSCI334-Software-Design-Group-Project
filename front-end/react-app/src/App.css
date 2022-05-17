@@ -26,13 +26,13 @@ input {
   height: 100vh;
   background-color: #E84E36;
   float: left;
-  justify-content: space-between;
+  
 }
 
 .navBar li a {
   display: block;
   color: white;
-  padding: 8px 16px;
+  padding: 6px 12px;
   text-decoration: none;
 }
 /*more nav bar CSS for profiles*/
@@ -58,14 +58,12 @@ input {
   border-radius: 50%;
 }
 /*house icon*/
-.navBar li img {
+.navBar .house {
   max-width: 25px;
   max-height: 25px;
   align-self:center;
   padding:2px;
 }
-
-
 .home{
   display: inline-grid;
   text-align: center;
@@ -191,6 +189,16 @@ input {
   padding: 10px;
   border: 1px solid rgb(185, 185, 185);
   
+}
+/*Patient Profile Data*/
+.PatientProfile{
+  text-align:left;
+}
+.PatientProfile h1, h2 {
+  text-align:center;
+}
+.PatientProfile li {
+  padding-left:20px;
 }
 
 /* loaded Prescription */
