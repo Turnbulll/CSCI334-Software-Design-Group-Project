@@ -71,4 +71,10 @@ public class TreatmentController {
 	public String addReaction(@RequestParam(required = true) Long treatmentId, @RequestParam(required = true) String reaction) {
 		return treatmentService.addReaction(treatmentId, reaction);
 	}
+	
+	//add a physical condition
+	@PutMapping("/Treatment/PhysicalCondition")
+	public String addPhysicalCondition(@RequestParam(required = true) Long treatmentId, @RequestParam(required = true) String physicalCondition) {
+		return treatmentService.addPhysicalCondition(treatmentId, physicalCondition);
+	}
 }
