@@ -84,30 +84,30 @@ class DoctorPrescriptions extends React.Component {
 
       <input type="text" id="prescriptionSearch" className='searchBox' onKeyUp={this.searchPrescription} placeholder="Search prescriptions..."></input>
       <br/>
-
-      <ul className='prescriptionList' id="prescriptionList">
-        
-          <li className="doctorPrescriptionListItem">
-              <div>ID</div>
-              <div>Date</div>
-              <div>Doctor</div>
-              <div>Medicine</div>
-              <div>Dosage</div>
-              <div>Treatement Instructions</div>
-          </li>
-
-        {this.state.list.map(prescription => (
-            <li key={prescription.id} className="doctorPrescriptionListItem">
-              <div>{prescription.id}</div>
-              <div>{prescription.Date}</div>
-              <div>{prescription.Doctor}</div>
-              <div>{prescription.Medicine}</div>
-              <div>{prescription.Dosage}</div>
-              <div>{prescription.TreatmentInstruction}</div>
-           </li>
-          ))}
-      </ul>
-
+      <div className='almostFullScrollDiv'>
+        <ul className='prescriptionList' id="prescriptionList">
+          
+            <li className="doctorPrescriptionListItem">
+                <div>ID</div>
+                <div>Date</div>
+                <div>Doctor</div>
+                <div>Medicine</div>
+                <div>Dosage</div>
+                <div>Treatement Instructions</div>
+            </li>
+    
+          {this.state.list.map(prescription => (
+              <li key={prescription.id} className="doctorPrescriptionListItem">
+                <div>{prescription.id}</div>
+                <div>{prescription.Date}</div>
+                <div>{prescription.Doctor}</div>
+                <div>{prescription.Medicine}</div>
+                <div>{prescription.Dosage}</div>
+                <div>{prescription.TreatmentInstruction}</div>
+             </li>
+            ))}
+        </ul>
+      </div>
 
     </div>
   )}
