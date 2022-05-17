@@ -78,7 +78,6 @@ input {
   grid-template-columns: max-content max-content;
   grid-gap:8px;
   padding-top:3vh;
-  
 }
 .form input{
   border: 2px solid;
