@@ -82,21 +82,21 @@ class NavBar extends React.Component{
             {/*listens for patient to be logged in */}
             {document.addEventListener("loggedInPatient", () => {
                     this.setState({ userType: "patient" });
-                    //this.setState({user: getUser()}); {/*this is the bogus line probably*/}
+                    this.setState({user: getUser()}); {/*this is the bogus line probably*/}
                     this.updateState("patient")
 		        })}
 
             {/*listens for docotor to be logged in */}
             {document.addEventListener("loggedInDoctor", () => {
                     this.setState({ userType: "doctor" });
-                    //this.setState({user: getUser()}); {/*this is the bogus line probably*/}
+                    this.setState({user: getUser()}); {/*this is the bogus line probably*/}
                     this.updateState("doctor")
 		        })}
 
             {/*listens for pharmacist to be logged in */}
             {document.addEventListener("loggedInPharmacist", () => {
                     this.setState({ userType: "pharmacist" }); 
-                    //this.setState({user: getUser()}); {/*this is the bogus line probably*/}
+                    this.setState({user: getUser()}); {/*this is the bogus line probably*/}
                     this.updateState("pharmacist")
 		        })}
 
