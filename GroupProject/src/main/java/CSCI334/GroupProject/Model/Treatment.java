@@ -21,6 +21,7 @@ public class Treatment {
 	private ArrayList<String> allergies;
 	private ArrayList<String> reactions;
 	private ArrayList<String> medicines;
+	private String physicalCondition;
 	
     @OneToOne(mappedBy = "treatment")
     @JsonIgnore
@@ -28,10 +29,11 @@ public class Treatment {
 	
     public Treatment(){};
     
-	public Treatment(ArrayList<String> allergies, ArrayList<String> reactions, ArrayList<String> medicines){
+	public Treatment(ArrayList<String> allergies, ArrayList<String> reactions, ArrayList<String> medicines, String physicalCondition){
 		this.setAllergies(allergies);
 		this.setReactions(reactions);
 		this.setMedicines(medicines);
+		this.setPhysicalCondition(physicalCondition);
 	}
 	
 	//setter 
@@ -51,6 +53,10 @@ public class Treatment {
 		this.medicines = medicines;
 	}
 	
+	public void setPhysicalCondition(String physicalCondition){
+		this.physicalCondition = physicalCondition;
+	}
+	
 	//getter
 	public Long getTreatmentId() {
 		return treatmentId;
@@ -68,6 +74,11 @@ public class Treatment {
 		return medicines;
 	}
 	
+	public String getPhysicalConditionCondition(){
+		return physicalCondition;
+	}
+	
+	
 	//add an allergy
 	public void addAllergy(String allergy) {
 		allergies.add(allergy);
@@ -83,7 +94,12 @@ public class Treatment {
 		medicines.add(medicine);
 	}
 	
+	//add to physical condition
+	public void addPhysicalCondition(String physicalCondition) {
+		this.physicalCondition += " " + physicalCondition;
+	}
+	
 	public String toString(){
-		return "Treatment { treatmentId= " + treatmentId + ", allergies= " + allergies + ", reactions= " + reactions + ", medicines= " + medicines +"}"; 
+		return "Treatment { treatmentId= " + treatmentId + ", allergies= " + allergies + ", reactions= " + reactions + ", medicines= " + medicines + ", physcicalCondition= " + physicalCondition +"}"; 
 	}
 }
