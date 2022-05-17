@@ -9,6 +9,7 @@ class ReadScript extends React.Component{
     constructor(props) {
 		super(props);
 		this.state = {
+            error: "",
             loaded: false,
             Code: null,
             Date: null,
@@ -34,10 +35,33 @@ class ReadScript extends React.Component{
         //get the patients id
         var patientID = scriptCode[1];
 
+        console.log("Patient ID", patientID);
+
+        if (patientID === "" || "0"){
+            this.setErrorText("Error invalid code");
+            return;
+        }
+
+        
+        Axios.get("http://localhost:8080/Patient/").then(resp => {
+
+            console.log(resp.data);
+
+            if (resp.data === ""){
+                this.setErrorText("Error invalid code");
+                return;
+            }
+        })
+
 
         Axios.get("http://localhost:8080/Prescription/" + prescriptionID).then(resp =>
                 {
                     const respData = resp.data;
+
+                    if (resp.data === ""){
+                        this.setErrorText("Error invalid code");
+                        return;
+                    }
 
                     if ((respData.length > 1) === false){
                         //do nothing
@@ -62,7 +86,7 @@ class ReadScript extends React.Component{
 
                     
                 }
-            );
+            ).catch(error => {this.setErrorText("Error Invalid Id")});
 
         //this.setState({loaded: true});
     }
@@ -147,6 +171,10 @@ class ReadScript extends React.Component{
         this.getScript();
     }
 
+    setErrorText = (text) => {
+        this.setState({error: text});
+    }
+
   render(){
 
     return (
@@ -160,6 +188,7 @@ class ReadScript extends React.Component{
 
                     <label>Manual Code:</label>
                     <input type="text" id="scriptCode"/>
+                    <div className='errorText'>{this.state.error}</div>
                    
                 </form>
 
