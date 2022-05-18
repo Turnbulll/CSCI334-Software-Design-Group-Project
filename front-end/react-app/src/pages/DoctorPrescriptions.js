@@ -15,19 +15,25 @@ class DoctorPrescriptions extends React.Component {
 
   loadData(){
 
-    {/* For each prescription push it to the list*/}
+    /* For each prescription push it to the list*/
+
+    //get all patients from backend
     Axios.get("http://localhost:8080/Patient").then(resp => {
        var id = 0;
        const patients = resp.data;
        var list = [];
        //console.log(resp.data);
+       //for each patient
         for (var i = 0; i < patients.length; i++){
 
+          //check if they have any prescriptiosn
           if (patients[i].prescriptions.length === 0){
             continue;
           }
 
+          //for each of their prescriptions
           for (var j = 0; j < patients[i].prescriptions.length; j++){
+            //push a new json object to the list
             list.push({ id: id,
               name: patients[i].name,
               prescription: patients[i].prescriptions[j]
@@ -37,6 +43,7 @@ class DoctorPrescriptions extends React.Component {
 
         } 
         //console.log(list);
+        //save the list to state
         this.setState({list:list});
     });
 
