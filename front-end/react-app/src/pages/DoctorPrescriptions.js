@@ -14,14 +14,9 @@ class DoctorPrescriptions extends React.Component {
 
 
   loadData(){
-
-    /* For each prescription push it to the list*/
-
     //get all patients from backend
     Axios.get("http://localhost:8080/Patient").then(resp => {
-       var id = 0;
        const patients = resp.data;
-       var list = [];
        //console.log(resp.data);
        //for each patient
         for (var i = 0; i < patients.length; i++){
@@ -31,23 +26,33 @@ class DoctorPrescriptions extends React.Component {
             continue;
           }
 
-          //for each of their prescriptions
-          for (var j = 0; j < patients[i].prescriptions.length; j++){
-            //push a new json object to the list
-            list.push({ id: id,
-              name: patients[i].name,
-              prescription: patients[i].prescriptions[j]
-            });
-            id++;
-          }
-
+          this.savePatientScripts(patients[i]);
         } 
         //console.log(list);
-        //save the list to state
-        this.setState({list:list});
+        //save the list to stat
     });
 
   }
+
+  //gets prescriptions from patient
+  savePatientScripts = (patient) => {
+      //for each of their prescriptions
+      for (var j = 0; j < patient.prescriptions.length; j++){
+        //push a new json object to the list
+        //console.log(patient.prescriptions[j]);
+        
+        //get the current prescription
+        const prescription = patient.prescriptions[j];
+     
+        this.setState(prevState => ({
+                      list: [...prevState.list, { id: (patient.name+"-"+j),  
+                      name: patient.name,
+                      prescription: prescription}]
+        }))
+      }
+  }
+
+
 
 
   searchPrescription(){
@@ -109,6 +114,7 @@ class DoctorPrescriptions extends React.Component {
   return (
     <div className='main'>
       {/* load data from backend */}
+      {console.log(this.state.list)}
 
       <h1>Prescriptions For Doctor</h1>
 
