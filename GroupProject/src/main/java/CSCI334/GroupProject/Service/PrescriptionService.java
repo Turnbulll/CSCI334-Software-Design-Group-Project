@@ -73,4 +73,9 @@ public class PrescriptionService {
 	public boolean validatePrescription(Long prescriptionId) {
 		return prescriptionRepository.findById(prescriptionId).isPresent(); 
 	}
+	
+	//report on service
+	public Long report() {
+		return prescriptionRepository.count();
+	}
 }

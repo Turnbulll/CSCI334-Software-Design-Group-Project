@@ -88,5 +88,9 @@ public class DoctorService implements UserServiceInterface<Doctor> {
 	public ResponseEntity<List<Doctor>> getUsersByName(String name) {
 		return new ResponseEntity<List<Doctor>>(doctorRepository.findByName(name), HttpStatus.OK);
 	}
-
+	
+	//report on service
+	public Long report() {
+		return doctorRepository.count();
+	}
 }

@@ -78,4 +78,9 @@ public class TreatmentService {
 		treatmentRepository.save(treatment);
 		return physicalCondition + " added to treatment " + treatmentId.toString();
 	}
+	
+	//report on service
+	public Long report() {
+		return treatmentRepository.count();
+	}
 }
