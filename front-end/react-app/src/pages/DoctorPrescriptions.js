@@ -31,7 +31,6 @@ class DoctorPrescriptions extends React.Component {
         //console.log(list);
         //save the list to stat
     });
-
   }
 
   //gets prescriptions from patient
@@ -39,11 +38,11 @@ class DoctorPrescriptions extends React.Component {
       //for each of their prescriptions
       for (var j = 0; j < patient.prescriptions.length; j++){
         //push a new json object to the list
-        //console.log(patient.prescriptions[j]);
         
-        //get the current prescription
+        //get the current prescription. Have to use a temporary variable here because setState is asyncronus
         const prescription = patient.prescriptions[j];
-     
+        
+        //push the prescription to the state
         this.setState(prevState => ({
                       list: [...prevState.list, { id: (patient.name+"-"+j),  
                       name: patient.name,
