@@ -136,7 +136,7 @@ class PharmacistPatientData extends React.Component {
     <div className='main'>
 
       <h2>Patient Clinical Data</h2>
-
+      <div className='almostFullScrollDiv'>
   
 
       <div className='form'>
@@ -152,7 +152,7 @@ class PharmacistPatientData extends React.Component {
 
       <br/>
       <br/>
-      <div className='smallScrollDiv'>
+      
       <div className='dataGrid'>
             <div className='dataGridCol'>
             <h3>Allergies</h3>
@@ -185,7 +185,7 @@ class PharmacistPatientData extends React.Component {
                                 ))}
             </ul>
             </div>
-      </div>
+      
       </div>
           
       <br />
@@ -208,6 +208,7 @@ class PharmacistPatientData extends React.Component {
       <button className='blueButton' onClick={this.addReaction}>Add Reaction</button>
       </div>
 
+      </div>
     </div>
   )}
 }
