@@ -60,7 +60,7 @@ class Reports extends React.Component {
     }
 
     //generates a report counting medicines
-    generateMedicinesReport= () =>{
+    generateMedicinesReport = () =>{
       //get all scripts from backend
       Axios.get("http://localhost:8080/Prescription").then(resp =>
       { 
