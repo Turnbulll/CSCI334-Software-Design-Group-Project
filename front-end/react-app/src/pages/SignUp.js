@@ -10,7 +10,8 @@ class SignUp extends React.Component {
         this.state = {user: "",
                       password: "",
                       userType: "Patient",
-                      valid: false};
+                      valid: false,
+                      error: ""};
   
       }
 
@@ -41,7 +42,7 @@ class SignUp extends React.Component {
         //if value missing return
         if (user_ === "" || password_ === "" || firstName === "" || lastName === "" || dob === "" || userType_ === ""){
             //,aybe send error notification
-            console.log("MISSING INPUT");
+            this.callError("Missing Input");
             return;
         }
 
@@ -85,10 +86,12 @@ class SignUp extends React.Component {
                               //if its a patient they need a treatment
                               if (this.state.userType === "Patient"){
                                   //post an empty treatment
+                                  var empty = "";
                                     Axios.post("http://localhost:8080/Treatment/New", {
                                         "allergies": [],
                                         "reactions": [],
-                                        "medicines": []
+                                        "medicines": [],
+                                        "physicalCondition": ""
                                     }).then(
                                         resp => {
                                             //get the treatment id
@@ -114,6 +117,11 @@ class SignUp extends React.Component {
                 }))
   
     }
+
+    callError = (txt) =>{
+        this.setState({error: txt});
+    }
+
 
 
    render(){
@@ -153,6 +161,7 @@ class SignUp extends React.Component {
                     <label>Password:</label>
                     <input type="password" id="Password" />
 
+                    <x className='errorText'>{this.state.error}</x>
                    
                 </form>
                 <button onClick={this.checkCredentials}>Submit</button>

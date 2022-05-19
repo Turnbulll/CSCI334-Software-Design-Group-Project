@@ -16,6 +16,7 @@ import PharmacistHome from './pages/PharmacistHome';
 import ReadScript from './pages/ReadScript';
 import PharmacistPatientData from './pages/PharmacistPatientData';
 import TreatmentPlan from './pages/TreatmentPlan';
+import Reports from './pages/Reports';
 
 export var User = {};
 
@@ -58,6 +59,10 @@ function App() {
               <Route path="/PharmacistHome" element={<PharmacistHome />} />
               <Route path="/ReadScript" element={<ReadScript />} />
               <Route path="/PatientClinicalData" element={<PharmacistPatientData />} />
+
+
+
+              <Route path="/SuperSecretReportsPageYouShouldOnlySeeWhileTesting" element={<Reports />} />
             </Routes>
             </div>
         </div>

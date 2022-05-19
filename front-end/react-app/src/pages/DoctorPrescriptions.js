@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react'
 
 class DoctorPrescriptions extends React.Component {
@@ -11,27 +12,47 @@ class DoctorPrescriptions extends React.Component {
 
   }
 
+
   loadData(){
+    //get all patients from backend
+    Axios.get("http://localhost:8080/Patient").then(resp => {
+       const patients = resp.data;
+       //console.log(resp.data);
+       //for each patient
+        for (var i = 0; i < patients.length; i++){
 
-    {/* NEED TO IMPLEMENT FUNCTIONALITY TO GET BACKEND HERE*/}
+          //check if they have any prescriptiosn
+          if (patients[i].prescriptions.length === 0){
+            continue;
+          }
 
-    {/* Fore each prescription push it to the list*/}
-
-    this.state. list.push({id: 0,
-    Date: 1,
-    Doctor: 'vgislason@yahoo.com',
-    Medicine: 'Vanessa',
-    Dosage: "twice a day",
-    TreatmentInstruction: "looking for things for a long time"})
-
-    this.state.list.push({id: 1,
-      Date: 2,
-      Doctor: 'bongos',
-      Medicine: 'Randy',
-      Dosage: "bonckles",
-      TreatmentInstruction: "gatesworth"})
-    
+          this.savePatientScripts(patients[i]);
+        } 
+        //console.log(list);
+        //save the list to stat
+    });
   }
+
+  //gets prescriptions from patient
+  savePatientScripts = (patient) => {
+      //for each of their prescriptions
+      for (var j = 0; j < patient.prescriptions.length; j++){
+        //push a new json object to the list
+        
+        //get the current prescription. Have to use a temporary variable here because setState is asyncronus
+        const prescription = patient.prescriptions[j];
+        
+        //push the prescription to the state
+        this.setState(prevState => ({
+                      list: [...prevState.list, { id: (patient.name+"-"+j),  
+                      name: patient.name,
+                      prescription: prescription}]
+        }))
+      }
+  }
+
+
+
 
   searchPrescription(){
 
@@ -49,12 +70,22 @@ class DoctorPrescriptions extends React.Component {
       
       //get all div elements inside list element
       var divs = li[i].getElementsByTagName("div");
-      for (var j = 0; j < divs.length; j++){
-        //get the data from the div
-        listData = divs[j];
-        //add the text inside th div to the text value
-        txtValue += listData.textContent || listData.innerText;
-      }
+      
+       //get the data from the div
+       listData = divs[0];
+       //add the text inside th div to the text value
+       txtValue += listData.textContent || listData.innerText;
+
+      //get the data from the div
+      listData = divs[1];
+      //add the text inside th div to the text value
+      txtValue += listData.textContent || listData.innerText;
+
+       //get the data from the div
+       listData = divs[3];
+       //add the text inside th div to the text value
+       txtValue += listData.textContent || listData.innerText;
+      
       
       
       //make the text value uppercase for comparison
@@ -73,41 +104,45 @@ class DoctorPrescriptions extends React.Component {
 
     
   }
+
+  componentDidMount(){
+    this.loadData();
+  }
   
   render(){
   return (
     <div className='main'>
       {/* load data from backend */}
-      {this.loadData()}
+      {console.log(this.state.list)}
 
-      <h1>Prescriptions For Docoter</h1>
+      <h1>Prescriptions For Doctor</h1>
 
       <input type="text" id="prescriptionSearch" className='searchBox' onKeyUp={this.searchPrescription} placeholder="Search prescriptions..."></input>
       <br/>
-
-      <ul className='prescriptionList' id="prescriptionList">
-        
-          <li className="doctorPrescriptionListItem">
-              <div>ID</div>
-              <div>Date</div>
-              <div>Doctor</div>
-              <div>Medicine</div>
-              <div>Dosage</div>
-              <div>Treatement Instructions</div>
-          </li>
-
-        {this.state.list.map(prescription => (
-            <li key={prescription.id} className="doctorPrescriptionListItem">
-              <div>{prescription.id}</div>
-              <div>{prescription.Date}</div>
-              <div>{prescription.Doctor}</div>
-              <div>{prescription.Medicine}</div>
-              <div>{prescription.Dosage}</div>
-              <div>{prescription.TreatmentInstruction}</div>
-           </li>
-          ))}
-      </ul>
-
+      <div className='almostFullScrollDiv'>
+        <ul className='prescriptionList' id="prescriptionList">
+          
+            <li className="doctorPrescriptionListItem">
+                <div>ID</div>
+                <div>Patient</div>
+                <div>Date</div>
+                <div>Medicine</div>
+                <div>Dosage</div>
+                <div>Treatement Instructions</div>
+            </li>
+    
+          {this.state.list.map(data => (
+              <li key={data.id} className="doctorPrescriptionListItem">
+                <div>{data.prescription.prescriptionId}</div>
+                <div>{data.name}</div>
+                <div>TBD</div>
+                <div>{data.prescription.medicine}</div>
+                <div>{data.prescription.dosage}</div>
+                <div>TBD</div>
+             </li>
+            ))}
+        </ul>
+      </div>
 
     </div>
   )}

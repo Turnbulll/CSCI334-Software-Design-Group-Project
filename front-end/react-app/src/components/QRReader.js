@@ -4,15 +4,15 @@ import React from 'react';
 const qrcodeRegionId = "html5qr-code-full-region";
 
 //reader code from https://github.com/mebjas/html5-qrcode
-//WE DO NOT CLAIME THIS CODE TO BE OURS
+//WE DO NOT CLAIM THIS CODE TO BE OURS
+//ALL CODE BELOW IS REQUIRED FOR QR SCANNING TO WORK. WE HAVE IMPLEMENTED IT FROM A LIBRARY
 class QRReader extends React.Component {
     render() {
         return <div id={qrcodeRegionId} />;
     }
 
     componentWillUnmount() {
-        // TODO(mebjas): See if there is a better way to handle
-        //  promise in `componentWillUnmount`.
+    
         this.html5QrcodeScanner.clear().catch(error => {
             console.error("Failed to clear html5QrcodeScanner. ", error);
         });
@@ -21,6 +21,7 @@ class QRReader extends React.Component {
     componentDidMount() {
         // Creates the configuration object for Html5QrcodeScanner.
         function createConfig(props) {
+            //set the config variables
             var config = {};
             if (props.fps) {
                 config.fps = props.fps;
@@ -37,16 +38,20 @@ class QRReader extends React.Component {
             return config;
         }
 
+        //create the cibfug
         var config = createConfig(this.props);
         var verbose = this.props.verbose === true;
 
-        // Suceess callback is required.
+        //callback is required.
         if (!(this.props.qrCodeSuccessCallback )) {
             throw "qrCodeSuccessCallback is required callback.";
         }
 
+        //create new reader
         this.html5QrcodeScanner = new Html5QrcodeScanner(
             qrcodeRegionId, config, verbose);
+
+            //renders the component
         this.html5QrcodeScanner.render(
             this.props.qrCodeSuccessCallback,
             this.props.qrCodeErrorCallback);

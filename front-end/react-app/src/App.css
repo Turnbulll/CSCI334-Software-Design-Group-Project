@@ -130,6 +130,28 @@ input {
   width: 100%;
 }
 
+.scriptScrollDiv{
+  width: 90%;
+  height:60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.almostFullScrollDiv{
+  width: 100%;
+  height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.smallScrollDiv{
+  width: 100%;
+  height: 27vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
 .prescriptionListItem{
   width: 80%;
   display: inline-grid;
@@ -298,6 +320,14 @@ input {
 .centerText{
   text-align: center;
 }
+
+/* error text */
+.errorText{
+  grid-column: span 2;
+  font-weight: bold;
+  color: red;
+}
+
 /* base styles */
 * {
   margin: 5;

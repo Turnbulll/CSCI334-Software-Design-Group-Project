@@ -573,7 +573,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"allergies\": [],\r\n    \"reactions\": [],\r\n    \"medicines\": []\r\n}",
+							"raw": "{\r\n    \"allergies\": [],\r\n    \"reactions\": [],\r\n    \"medicines\": [],\r\n    \"physicalCondition\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -821,6 +821,111 @@
 								"Prescription",
 								"Valid",
 								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Doctor Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Report/Doctor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Report",
+								"Doctor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patient Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Report/Patient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Report",
+								"Patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pharmacist Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Report/Pharmacist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Report",
+								"Pharmacist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prescription Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Report/Prescription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Report",
+								"Prescription"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Treatment Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Report/Treatment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Report",
+								"Treatment"
 							]
 						}
 					},

@@ -168,4 +168,9 @@ public class PatientService implements UserServiceInterface<Patient> {
 		}
 	}
 	
+	//report on service
+	public Long report() {
+		return patientRepository.count();
+	}
+	
 }

@@ -88,6 +88,11 @@ public class PharmacistService implements UserServiceInterface<Pharmacist> {
 		return new ResponseEntity<List<Pharmacist>>(pharmacistRepository.findByName(name), HttpStatus.OK);
 	}
 	
+	//report on service
+	public Long report() {
+		return pharmacistRepository.count();
+	}
+	
 	/*TODO
 	+UpdatePresciption()
 	+MonitorPatient()

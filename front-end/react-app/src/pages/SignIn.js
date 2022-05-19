@@ -16,19 +16,29 @@ const Logo = styled.img`
 class SignIn extends React.Component {
     
     constructor(props) {
-		super(props);
-		this.state = {
-			userType: ""
-		};
-
-    
-	}
-    
+        super(props);
+        this.state = {User: null,
+                    userType: null,
+                    error: ""};
+  
+      }
     login = () =>{
 
        //get data from input
        var username = document.getElementById("user").value;
        var password = document.getElementById("password").value;
+
+       //if testing is ticked enter testing mod
+       if (document.getElementById("testing").checked){
+            setUser({userType: "Testing"});
+            this.setState({userType: "Testing"});
+            return;
+       }
+
+       if (username === "" || password === ""){
+            this.callError("Missing Input");
+            return;
+       }
         
       //check data valid
        this.checkCredentials(username, password);
@@ -36,6 +46,8 @@ class SignIn extends React.Component {
 
 
     async checkCredentials(username, password){
+
+
         //fetch requests for all user types
         var req1 = Axios.get("http://localhost:8080/Patient/Name?name="+username);
         var req2 = Axios.get("http://localhost:8080/Doctor/Name?name="+username);
@@ -44,7 +56,7 @@ class SignIn extends React.Component {
         //fetch all the requests
         Axios.all([req1, req2, req3]).then(
             Axios.spread((...responses) => {
-
+            this.setState({userType: ""});
             const resp1 = responses[0];
             const resp2 = responses[1];
             const resp3 = responses[2];
@@ -60,6 +72,8 @@ class SignIn extends React.Component {
                     user = resp1.data[0];
                     this.setState({User: resp1.data[0],
                                     userType: resp1.data[0].userType});
+                }else{
+                    this.callError("Invalid Username or Password");
                 }
                
             }
@@ -73,6 +87,8 @@ class SignIn extends React.Component {
                     user = resp2.data[0];
                     this.setState({User: resp2.data[0],
                         userType: resp2.data[0].userType});
+                }else{
+                    this.callError("Invalid Username or Password");
                 }
             }
 
@@ -84,11 +100,12 @@ class SignIn extends React.Component {
                     user = resp3.data[0];
                     this.setState({User: resp3.data[0],
                         userType: resp3.data[0].userType});
+                }else{
+                    this.callError("Invalid Username or Password");
                 }
 
-            }   
-
-
+            }  
+                
 
             //work around for state async issue
                 if (userType === "Doctor"){
@@ -103,6 +120,7 @@ class SignIn extends React.Component {
 
                 setUser(user);
 
+
             })
         ).then((...responses) => {this.log()}).catch(errors => {
              // react on errors.
@@ -110,13 +128,10 @@ class SignIn extends React.Component {
         });
     }
 
-    componentDidMount(){
-
+    callError = (txt) =>{
+        this.setState({error: txt});
     }
 
-  
-
-   
 
    render(){
        return(
@@ -129,6 +144,8 @@ class SignIn extends React.Component {
                {this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
                {this.state.userType === "Doctor" ? < Navigate to="/DoctorHome" /> : null }
                {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null}
+               {this.state.userType === "Testing" ? < Navigate to="/SuperSecretReportsPageYouShouldOnlySeeWhileTesting" /> : null}
+
                <div>
                     <form className='form'>
                     
@@ -140,9 +157,14 @@ class SignIn extends React.Component {
                         <label>Password:</label>
                         <input type="password" name="password" id="password"/>
 
-                        <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
+                        <label>Testing/Reports</label>
+                        <input type="checkbox" id="testing"></input>
+                        <label className='span2'>Only shown for demonstration purposes</label>
 
+                        <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
+                        <x className='errorText'>{this.state.error}</x>
                     </form><br/><br/>
+
                     <button onClick={this.login}  onMouseDown={this.login} >Submit</button>
                 </div>
            </div>
