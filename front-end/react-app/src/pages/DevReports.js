@@ -91,6 +91,56 @@ class DevReports extends React.Component {
 
 
     }
+
+    generateAllergiesReport = () =>{
+      Axios.get("http://localhost:8080/Treatment").then(resp =>
+      {
+        
+        var string = "====================================================================\n";
+       
+        var allergiesMap = new Map();
+        var allergiesCount = 0;
+
+        const treatments = resp.data;
+        for (var i = 0; i < treatments.length; i++){
+
+          if (treatments[i].allergies.length < 1){
+            continue;
+          }
+
+          var allergies = treatments[i].allergies;
+
+          for (var j = 0; j < allergies.length; j++){
+            //add allergy to string
+            if (allergiesMap.has(allergies[j])){
+              allergiesMap.set(allergies[j], allergiesMap.get(allergies[j]) + 1)
+            }else{
+              allergiesMap.set(allergies[j], 1);
+            }
+            allergiesCount++;
+          }
+
+        }
+
+        string += "Common Allergies\n";
+        string += "Total Unique Allergies: " + allergiesMap.size + "\n"; 
+        string += "Total Allergies: " + allergiesCount + "\n";
+        string += "====================================================================\n";
+      
+        allergiesMap.forEach((value, key) => {
+          string += key + ": " + value + "\n";
+        })
+
+
+        string += "====================================================================\n";
+        //console.log(allergiesMap);
+        this.createFile(string, "Allergy Report");
+
+        
+
+      });
+
+    }
    
 
 
@@ -123,6 +173,7 @@ class DevReports extends React.Component {
 
        <h2>Reports/Data</h2>
         <button onClick={this.generateMedicinesReport} className='blueButton'>Download Medicine Report</button>
+        <button onClick={this.generateAllergiesReport} className='blueButton'>Download Allergies Report</button>
 
 
 
