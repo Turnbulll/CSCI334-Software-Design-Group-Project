@@ -30,14 +30,17 @@ class SignIn extends React.Component {
        var username = document.getElementById("user").value;
        var password = document.getElementById("password").value;
 
+       if (document.getElementById("testing").checked){
+            setUser({userType: "Testing"});
+            this.setState({userType: "Testing"});
+            return;
+       }
+
        if (username === "" || password === ""){
             this.callError("Missing Input");
             return;
 
             //hard coded dev account. ONLY FOR ASSIGNMENT DEMO PURPOSES
-       }else if (username === "DeveloperAccount1923" || password === "Alligator7"){
-            this.devMode();
-            return;
        }
         
       //check data valid
@@ -153,7 +156,7 @@ class SignIn extends React.Component {
                {this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
                {this.state.userType === "Doctor" ? < Navigate to="/DoctorHome" /> : null }
                {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null}
-               {this.state.userType === "Developer" ? < Navigate to="/DevSuperSecretReportsPageYourNotAllowedToSee" /> : null}
+               {this.state.userType === "Testing" ? < Navigate to="/DevSuperSecretReportsPageYourNotAllowedToSee" /> : null}
 
                <div>
                     <form className='form'>
@@ -165,6 +168,9 @@ class SignIn extends React.Component {
 
                         <label>Password:</label>
                         <input type="password" name="password" id="password"/>
+
+                        <label>Testing/Reports</label>
+                        <input type="checkbox" id="testing"></input>
 
                         <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
                         <x className='errorText'>{this.state.error}</x>

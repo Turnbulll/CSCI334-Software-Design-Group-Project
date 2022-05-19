@@ -181,7 +181,7 @@ class DevReports extends React.Component {
   render(){return (
     <div className='main'>
         <h1>REPORTS PAGE</h1>
-        {/*this.state.userType !== "Developer" ? < Navigate to="/" /> : null */}
+        {this.state.userType !== "Testing" ? < Navigate to="/" /> : null}
       <div className='almostFullScrollDiv'>
 
         <h2>Stats</h2>
