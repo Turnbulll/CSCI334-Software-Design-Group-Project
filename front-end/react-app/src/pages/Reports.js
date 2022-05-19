@@ -3,7 +3,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom';
 import { getUser } from '../App';
 
-class DevReports extends React.Component {
+class Reports extends React.Component {
     
     constructor(props) {
         super(props);
@@ -206,4 +206,4 @@ class DevReports extends React.Component {
     }
 }
 
-export default DevReports
+export default Reports

@@ -157,7 +157,7 @@ class SignIn extends React.Component {
                {this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
                {this.state.userType === "Doctor" ? < Navigate to="/DoctorHome" /> : null }
                {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null}
-               {this.state.userType === "Testing" ? < Navigate to="/DevSuperSecretReportsPageYourNotAllowedToSee" /> : null}
+               {this.state.userType === "Testing" ? < Navigate to="/SuperSecretReportsPageYouShouldOnlySeeWhileTesting" /> : null}
 
                <div>
                     <form className='form'>

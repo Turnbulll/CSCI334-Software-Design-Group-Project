@@ -62,7 +62,7 @@ function App() {
 
 
 
-              <Route path="/SuperSecretReportsPageYourNotAllowedToSee" element={<Reports />} />
+              <Route path="/SuperSecretReportsPageYouShouldOnlySeeWhileTesting" element={<Reports />} />
             </Routes>
             </div>
         </div>
