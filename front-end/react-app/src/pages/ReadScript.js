@@ -25,7 +25,7 @@ class ReadScript extends React.Component{
     
 	}
 
-    getScript  = (event) => {
+    getScript  = () => {
         //get the script code
         var scriptCode = document.getElementById("scriptCode").value.split('pID');
 
