@@ -59,7 +59,7 @@ class DevReports extends React.Component {
 
     }
 
-    generatePrescriptionReport= () =>{
+    generateMedicinesReport= () =>{
 
       Axios.get("http://localhost:8080/Prescription").then(resp =>
       {
@@ -93,34 +93,6 @@ class DevReports extends React.Component {
     }
    
 
-    generateDoctorReport = () =>{
-      console.log("Triggered");
-  
-
-      Axios.get("http://localhost:8080/Doctor").then(resp => {
-          var reportText = "==================================\n"
-          reportText += "Doctor Count: " + this.state.doctorCount + "\n";
-          reportText += "==================================\n"
-
-            var doctorObj = "----------------------------------\n";
-
-            const doctorsArray = resp.data;
-
-            doctorsArray.forEach(element => {
-              doctorObj += "Name: " + element.name + "\n";
-              doctorObj += "id: " + element.userId + "\n";
-              doctorObj += "userType: " + element.userType + "\n";
-              doctorObj +=  "----------------------------------\n";
-            });
-
-            reportText += doctorObj;
-
-          reportText += "==================================\n"
-
-          this.createFile(reportText, "DoctorReport.txt");
-      })
-  
-    }
 
     createFile(reportText, filename){
          //inspired by https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
@@ -150,7 +122,7 @@ class DevReports extends React.Component {
 
 
        <h2>Reports/Data</h2>
-        <button onClick={this.generatePrescriptionReport} className='blueButton'>Download Medicine Report</button>
+        <button onClick={this.generateMedicinesReport} className='blueButton'>Download Medicine Report</button>
 
 
 
