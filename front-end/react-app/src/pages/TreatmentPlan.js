@@ -42,13 +42,10 @@ class TreatmentPlan extends React.Component {
         this.setState({user: user,
                         currentPrescriptions: currentTreatments});
     }
-
   componentDidMount = () =>{
       this.setState({user: getUser()})
       this.loadPrescriptions();
   }
-
-  
   //text searches list
   search(){
 
@@ -126,7 +123,6 @@ class TreatmentPlan extends React.Component {
               </ul> 
           </div>
       </div>
-                  
    </div>
 
   )}

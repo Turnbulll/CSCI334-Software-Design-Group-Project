@@ -14,7 +14,7 @@ const Logo = styled.img`
 
 
 class SignIn extends React.Component {
-
+    
     constructor(props) {
         super(props);
         this.state = {User: null,
@@ -22,8 +22,6 @@ class SignIn extends React.Component {
                     error: ""};
   
       }
-
-
     login = () =>{
 
        //get data from input
