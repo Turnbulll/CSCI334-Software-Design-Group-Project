@@ -33,10 +33,21 @@ class SignIn extends React.Component {
        if (username === "" || password === ""){
             this.callError("Missing Input");
             return;
+
+            //hard coded dev account. ONLY FOR ASSIGNMENT DEMO PURPOSES
+       }else if (username === "DeveloperAccount1923" || password === "Alligator7"){
+            this.devMode();
+            return;
        }
         
       //check data valid
        this.checkCredentials(username, password);
+    }
+
+    devMode = () =>{
+        setUser({userType: "Developer", name:"TEST123"});
+        this.setState({userType: "Developer"});
+
     }
 
 
@@ -142,6 +153,8 @@ class SignIn extends React.Component {
                {this.state.userType === "Patient" ? < Navigate to="/PatientHome" /> : null }
                {this.state.userType === "Doctor" ? < Navigate to="/DoctorHome" /> : null }
                {this.state.userType === "Pharmacist" ? < Navigate to="/PharmacistHome" /> : null}
+               {this.state.userType === "Developer" ? < Navigate to="/DevSuperSecretReportsPageYourNotAllowedToSee" /> : null}
+
                <div>
                     <form className='form'>
                     
