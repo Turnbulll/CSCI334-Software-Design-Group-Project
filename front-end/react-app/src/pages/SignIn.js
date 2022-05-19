@@ -30,6 +30,7 @@ class SignIn extends React.Component {
        var username = document.getElementById("user").value;
        var password = document.getElementById("password").value;
 
+       //if testing is ticked enter testing mod
        if (document.getElementById("testing").checked){
             setUser({userType: "Testing"});
             this.setState({userType: "Testing"});
@@ -171,6 +172,7 @@ class SignIn extends React.Component {
 
                         <label>Testing/Reports</label>
                         <input type="checkbox" id="testing"></input>
+                        <label className='span2'>Only shown for demonstration purposes</label>
 
                         <text className='SignUpLink'>Don't Have an account? <Link to ="/SignUp">Click here to Sign Up</Link></text>
                         <x className='errorText'>{this.state.error}</x>
