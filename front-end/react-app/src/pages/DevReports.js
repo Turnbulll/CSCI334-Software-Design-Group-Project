@@ -13,7 +13,7 @@ class DevReports extends React.Component {
                       patientCount: "",
                       pharmacistCount: "",
                       prescriptionCount: "",
-                      treatmentCount: ""
+                      treatmentCount: "",
         }
                  
 
@@ -59,24 +59,77 @@ class DevReports extends React.Component {
 
     }
 
+    generatePrescriptionReport= () =>{
+
+      Axios.get("http://localhost:8080/Prescription").then(resp =>
+      {
+        const prescriptions = resp.data;
+        var medicineMap = new Map();
+
+        var string = "====================================================================\n";
+        string += "Count of total times each medicine is in a prescription \n";
+        string += "Total prescriptions: " + this.state.prescriptionCount +"\n";
+        string += "====================================================================\n";
+
+        prescriptions.forEach(element => {
+            if (medicineMap.has(element.medicine)){
+              medicineMap.set(element.medicine, medicineMap.get(element.medicine) + 1)
+            }else{
+              medicineMap.set(element.medicine, 1);
+            }
+        });
+
+        medicineMap.forEach((value, key) => {
+          string += key + ": " + value + "\n";
+        })
+        string += "====================================================================\n";
+       // console.log(string);
+
+       this.createFile(string, "Medicines Report");
+
+      });
+
+
+    }
    
 
     generateDoctorReport = () =>{
       console.log("Triggered");
-      var reportText = "==================================\n"
-      reportText += "Doctor Count: " + this.state.doctorCount + "\n";
-      reportText += "==================================\n"
+  
 
+      Axios.get("http://localhost:8080/Doctor").then(resp => {
+          var reportText = "==================================\n"
+          reportText += "Doctor Count: " + this.state.doctorCount + "\n";
+          reportText += "==================================\n"
 
-      //inspired by https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
-      const report = document.createElement("a");
-      const newFile = new Blob([reportText], {type: 'text/plain'});
-      report.href = URL.createObjectURL(newFile);
-      report.download = "DoctorsReport.txt";
-      document.body.appendChild(report); 
-      report.click();
+            var doctorObj = "----------------------------------\n";
 
+            const doctorsArray = resp.data;
 
+            doctorsArray.forEach(element => {
+              doctorObj += "Name: " + element.name + "\n";
+              doctorObj += "id: " + element.userId + "\n";
+              doctorObj += "userType: " + element.userType + "\n";
+              doctorObj +=  "----------------------------------\n";
+            });
+
+            reportText += doctorObj;
+
+          reportText += "==================================\n"
+
+          this.createFile(reportText, "DoctorReport.txt");
+      })
+  
+    }
+
+    createFile(reportText, filename){
+         //inspired by https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
+         const report = document.createElement("a");
+         const newFile = new Blob([reportText], {type: 'text/plain'});
+         report.href = URL.createObjectURL(newFile);
+         report.download = filename;
+         document.body.appendChild(report); 
+         report.click();
     }
     
 
@@ -97,7 +150,7 @@ class DevReports extends React.Component {
 
 
        <h2>Reports/Data</h2>
-        <button onClick={this.generateDoctorReport} className='blueButton'>BIG TEST BUTTON</button>
+        <button onClick={this.generatePrescriptionReport} className='blueButton'>Download Medicine Report</button>
 
 
 
