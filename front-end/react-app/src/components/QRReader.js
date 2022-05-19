@@ -21,6 +21,7 @@ class QRReader extends React.Component {
     componentDidMount() {
         // Creates the configuration object for Html5QrcodeScanner.
         function createConfig(props) {
+            //set the config variables
             var config = {};
             if (props.fps) {
                 config.fps = props.fps;
@@ -37,6 +38,7 @@ class QRReader extends React.Component {
             return config;
         }
 
+        //create the cibfug
         var config = createConfig(this.props);
         var verbose = this.props.verbose === true;
 
@@ -45,8 +47,11 @@ class QRReader extends React.Component {
             throw "qrCodeSuccessCallback is required callback.";
         }
 
+        //create new reader
         this.html5QrcodeScanner = new Html5QrcodeScanner(
             qrcodeRegionId, config, verbose);
+
+            //renders the component
         this.html5QrcodeScanner.render(
             this.props.qrCodeSuccessCallback,
             this.props.qrCodeErrorCallback);
