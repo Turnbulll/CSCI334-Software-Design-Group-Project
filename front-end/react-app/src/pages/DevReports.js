@@ -143,7 +143,6 @@ class DevReports extends React.Component {
     }
    
 
-
     createFile(reportText, filename){
          //inspired by https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
          const report = document.createElement("a");
