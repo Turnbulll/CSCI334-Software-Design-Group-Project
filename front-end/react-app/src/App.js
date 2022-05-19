@@ -16,7 +16,7 @@ import PharmacistHome from './pages/PharmacistHome';
 import ReadScript from './pages/ReadScript';
 import PharmacistPatientData from './pages/PharmacistPatientData';
 import TreatmentPlan from './pages/TreatmentPlan';
-import DevReports from './pages/DevReports';
+import Reports from './pages/Reports';
 
 export var User = {};
 
@@ -62,7 +62,7 @@ function App() {
 
 
 
-              <Route path="/DevSuperSecretReportsPageYourNotAllowedToSee" element={<DevReports />} />
+              <Route path="/SuperSecretReportsPageYourNotAllowedToSee" element={<Reports />} />
             </Routes>
             </div>
         </div>
