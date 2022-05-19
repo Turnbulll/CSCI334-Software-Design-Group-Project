@@ -40,18 +40,10 @@ class SignIn extends React.Component {
        if (username === "" || password === ""){
             this.callError("Missing Input");
             return;
-
-            //hard coded dev account. ONLY FOR ASSIGNMENT DEMO PURPOSES
        }
         
       //check data valid
        this.checkCredentials(username, password);
-    }
-
-    devMode = () =>{
-        setUser({userType: "Developer", name:"TEST123"});
-        this.setState({userType: "Developer"});
-
     }
 
 
@@ -142,9 +134,6 @@ class SignIn extends React.Component {
         this.setState({error: txt});
     }
 
-  
-
-   
 
    render(){
        return(
