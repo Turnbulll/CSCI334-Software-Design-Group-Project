@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { getUser } from '../App';
+import { getUser, setUser } from '../App';
 import FormAllergies from './formAllergies';
 import FormMedication from './formMedication';
 import FormOver from './formOver';
@@ -34,22 +34,39 @@ function Form()  {
 
     const SaveData = () =>{
         var treatmentID = getUser().treatment.treatmentId;
-        var allergy = formData.allergies;
-        var physical = formData.physical;
-        
-        //send data to backend
-        Axios.put("http://localhost:8080/Treatment/Allergy?treatmentId="+treatmentID+"&allergy="+allergy).then(
+
+        saveAllergy(treatmentID, formData.allergies);
+        savePhysical(treatmentID, formData.physical);
+        updateUser(getUser().userId);
+
+    }
+
+    const saveAllergy = (id, allergy) =>{
+           //send data to backend
+           Axios.put("http://localhost:8080/Treatment/Allergy?treatmentId="+id+"&allergy="+allergy).then(
             resp => {
+                console.log("ALLERGIES");
                 console.log(resp.data);
             }
         )
-        
-        //send data to backend
-        Axios.put("http://localhost:8080/Treatment/PhysicalCondition?treatmentId="+treatmentID+"&physicalCondition="+physical).then(resp => {
+    }
+
+    const savePhysical = (id, physical) =>{
+         //send data to backend
+         Axios.put("http://localhost:8080/Treatment/PhysicalCondition?treatmentId="+id+"&physicalCondition="+physical).then(resp => {
+            console.log("PhysicalCon");
             console.log(resp.data);
         });
     }
 
+    const updateUser = (id) =>{
+        
+        Axios.get("http://localhost:8080/Patient/"+id).then(resp => {
+            var user = resp.data;
+            setUser(user);
+        })
+
+    }
 
 
     return(

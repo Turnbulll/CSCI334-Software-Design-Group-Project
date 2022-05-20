@@ -39,8 +39,9 @@ class PatientProfile extends React.Component {
   }
 
   hideForm(){
+    this.loadAllergiesList();
+    this.loadPhysicalCondition();
     document.getElementById("form").style.display = "none";
-
   }
 
   showForm(){
