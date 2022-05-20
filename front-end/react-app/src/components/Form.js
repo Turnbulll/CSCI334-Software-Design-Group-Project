@@ -51,6 +51,9 @@ function Form()  {
                             if (step===FormTitles.length-1) {
                                 alert("FORM SUBMITTED FOR REVIEW");
                                 /*this will update the data - please note medication is not complete yet*/
+                                //HIDE THE FORM
+                                document.dispatchEvent(new Event("hideForm"));
+
                                 console.log(formData);
                             } else {
                                 setStep((currStep)=>currStep+1);

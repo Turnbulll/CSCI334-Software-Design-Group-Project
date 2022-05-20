@@ -7,13 +7,17 @@ class PatientProfile extends React.Component {
     this.setState({user: getUser()})
   }
 
-  hideTableShowForm(){
-    document.getElementById("dataTable").style.display ="none";
+  componentDidMount(){
+    this.hideForm();
+  }
+
+  hideForm(){
+    document.getElementById("form").style.display = "none";
 
   }
 
-  showTableHideForm(){
-    document.getElementById("dataTable").style.display ="";
+  showForm(){
+    document.getElementById("form").style.display ="";
 
   }
 
@@ -28,6 +32,12 @@ class PatientProfile extends React.Component {
     var vis=false;
   return (
     <div className='PatientProfile'>
+
+
+    {document.addEventListener("hideForm", () => {
+                  this.hideForm();
+		        })}
+
       <h1>{this.state.user.name}'s Profile</h1>
       <h2>Current Data:</h2>
       <table class='dataTable' id="dataTable">
@@ -60,11 +70,11 @@ class PatientProfile extends React.Component {
           <td>{this.state.user.userType}</td>
         </tr>
         <tr>
-          <td><button onClick={this.hideTableShowForm}>Edit Profile</button></td>
+          <td><button onClick={this.showForm}>Edit Profile</button></td>
         </tr>
       </table>
       {/*contains form */}
-      <table className={'formTable'} style={{visiblity: vis===false?'hidden':'visible'}}>
+      <table className={'formTable'} id="form">
         <tr>
           <td><Form /></td>
         </tr>
