@@ -5,7 +5,18 @@ import Form from "../components/Form";
 class PatientProfile extends React.Component {
   componentWillMount = () =>{
     this.setState({user: getUser()})
-}
+  }
+
+  hideTableShowForm(){
+    document.getElementById("dataTable").style.display ="none";
+
+  }
+
+  showTableHideForm(){
+    document.getElementById("dataTable").style.display ="";
+
+  }
+
 
   /* 
     Patient(String name, String password, String userType, Treatment treatment , List<Prescription> prescriptions)
@@ -19,7 +30,7 @@ class PatientProfile extends React.Component {
     <div className='PatientProfile'>
       <h1>{this.state.user.name}'s Profile</h1>
       <h2>Current Data:</h2>
-      <table class='dataTable'>
+      <table class='dataTable' id="dataTable">
         <tr>
           <td>allergies:</td>
           <td>{this.state.user.treatment.allergies[0]}</td>
@@ -49,7 +60,7 @@ class PatientProfile extends React.Component {
           <td>{this.state.user.userType}</td>
         </tr>
         <tr>
-          <td><button onClick={vis=true}>Edit Profile</button></td>
+          <td><button onClick={this.hideTableShowForm}>Edit Profile</button></td>
         </tr>
       </table>
       {/*contains form */}
