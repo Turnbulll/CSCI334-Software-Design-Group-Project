@@ -59,13 +59,12 @@ class PatientProfile extends React.Component {
     var vis=false;
   return (
     <div className='PatientProfile'>
-
-
     {document.addEventListener("hideForm", () => {
                   this.hideForm();
 		        })}
 
       <h1>{this.state.user.name}'s Profile</h1>
+      
       <h2>Current Data:</h2>
       <table class='dataTable' id="dataTable">
         <tr>
