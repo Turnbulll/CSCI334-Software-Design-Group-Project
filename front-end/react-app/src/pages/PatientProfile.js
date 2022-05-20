@@ -5,10 +5,37 @@ import Form from "../components/Form";
 class PatientProfile extends React.Component {
   componentWillMount = () =>{
     this.setState({user: getUser()})
+    console.log(getUser());
   }
 
   componentDidMount(){
     this.hideForm();
+    this.loadAllergiesList();
+    this.loadPhysicalCondition();
+  }
+
+  //loads thew allergy list
+  loadAllergiesList(){
+    var display = document.getElementById("allergiesList");
+    var allergies = getUser().treatment.allergies;
+    console.log(allergies);
+    var allergyString = ""
+
+    allergies.forEach(element => {
+      console.log("check");
+      allergyString += element + ", ";
+    });
+
+    allergyString = allergyString.substring(0, allergyString.length -2);
+
+    display.innerHTML = allergyString;
+  }
+
+  loadPhysicalCondition(){
+      var physicalCon = getUser().treatment.physicalConditionCondition;
+
+      document.getElementById("physicalCondition").innerHTML = physicalCon;
+
   }
 
   hideForm(){
@@ -43,7 +70,7 @@ class PatientProfile extends React.Component {
       <table class='dataTable' id="dataTable">
         <tr>
           <td>allergies:</td>
-          <td>{this.state.user.treatment.allergies[0]}</td>
+          <td id="allergiesList">t</td>
         </tr>
         <tr> 
           <td>medication taking records:</td>
@@ -67,7 +94,7 @@ class PatientProfile extends React.Component {
         </tr>
         <tr> 
           <td>description of physical condition:</td>
-          <td>{this.state.user.userType}</td>
+          <td id="physicalCondition"></td>
         </tr>
         <tr>
           <td><button onClick={this.showForm}>Edit Profile</button></td>
