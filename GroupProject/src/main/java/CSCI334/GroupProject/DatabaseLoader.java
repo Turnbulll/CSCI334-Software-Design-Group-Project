@@ -87,6 +87,10 @@ public class DatabaseLoader implements CommandLineRunner {
 		patientService.addNewUsers(patients);
 		log.info("Finished adding patients to the database");
 		
+		for(int i = 0; i<noOfRecords; i++) {
+			patientService.addPrescription(patients[i].getUserId(), prescriptions[i].getPrescriptionId());
+		}
+		
 		log.info("Hiring doctors..");
 		for(int i = 0; i<noOfRecords; i++) {
 			doctors[i] = new Doctor("Doctor"+i, "password", "Doctor");
