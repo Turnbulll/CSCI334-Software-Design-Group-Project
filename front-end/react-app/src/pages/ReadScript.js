@@ -37,13 +37,13 @@ class ReadScript extends React.Component{
 
         console.log("Patient ID", patientID);
 
-        if (patientID === "" || "0"){
+        if (patientID === "" || patientID === "0"){
             this.setErrorText("Error invalid code");
             return;
         }
 
         
-        Axios.get("http://localhost:8080/Patient/").then(resp => {
+        Axios.get("http://localhost:8080/Patient/"+patientID).then(resp => {
 
             console.log(resp.data);
 
