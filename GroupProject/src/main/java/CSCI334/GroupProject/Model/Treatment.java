@@ -19,7 +19,7 @@ public class Treatment {
 	//variables
 	private @Id @GeneratedValue Long treatmentId;
 	private ArrayList<String> allergies;
-	private ArrayList<String> reactions;
+	private ArrayList<String> conflicts;
 	private ArrayList<String> medicines;
 	private String physicalCondition;
 	
@@ -29,9 +29,9 @@ public class Treatment {
 	
     public Treatment(){};
     
-	public Treatment(ArrayList<String> allergies, ArrayList<String> reactions, ArrayList<String> medicines, String physicalCondition){
+	public Treatment(ArrayList<String> allergies, ArrayList<String> conflicts, ArrayList<String> medicines, String physicalCondition){
 		this.setAllergies(allergies);
-		this.setReactions(reactions);
+		this.setConflicts(conflicts);
 		this.setMedicines(medicines);
 		this.setPhysicalCondition(physicalCondition);
 	}
@@ -45,8 +45,8 @@ public class Treatment {
 		this.allergies = allergies;
 	}
 	
-	public void setReactions(ArrayList<String> reactions){
-		this.reactions = reactions;
+	public void setConflicts(ArrayList<String> conflicts){
+		this.conflicts = conflicts;
 	}
 	
 	public void setMedicines(ArrayList<String> medicines){
@@ -66,8 +66,8 @@ public class Treatment {
 		return allergies;
 	}
 	
-	public ArrayList<String> getReactions(){
-		return reactions;
+	public ArrayList<String> getConflicts(){
+		return conflicts;
 	}
 	
 	public ArrayList<String> getMedicines(){
@@ -85,8 +85,8 @@ public class Treatment {
 	}
 	
 	//add a reaction
-	public void addReaction(String reaction) {
-		reactions.add(reaction);
+	public void addConflict(String conflict) {
+		conflicts.add(conflict);
 	}
 	
 	//add medicine
@@ -100,6 +100,6 @@ public class Treatment {
 	}
 	
 	public String toString(){
-		return "Treatment { treatmentId= " + treatmentId + ", allergies= " + allergies + ", reactions= " + reactions + ", medicines= " + medicines + ", physcicalCondition= " + physicalCondition +"}"; 
+		return "Treatment { treatmentId= " + treatmentId + ", allergies= " + allergies + ", conflicts= " + conflicts + ", medicines= " + medicines + ", physcicalCondition= " + physicalCondition +"}"; 
 	}
 }

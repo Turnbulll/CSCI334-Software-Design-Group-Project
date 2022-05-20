@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "2295a6dd-5648-4222-8016-27d65392a92c",
 		"name": "CSCI334",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17089950"
 	},
 	"item": [
 		{
@@ -301,7 +302,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/Patient/AddPrescription/7?prescriptionId=5",
+							"raw": "http://localhost:8080/Patient/AddPrescription/201?prescriptionId=101",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -310,12 +311,12 @@
 							"path": [
 								"Patient",
 								"AddPrescription",
-								"7"
+								"201"
 							],
 							"query": [
 								{
 									"key": "prescriptionId",
-									"value": "5"
+									"value": "101"
 								}
 							]
 						}
@@ -573,7 +574,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"allergies\": [],\r\n    \"reactions\": [],\r\n    \"medicines\": [],\r\n    \"physicalCondition\": \"\"\r\n}",
+							"raw": "{\r\n    \"allergies\": [],\r\n    \"conflicts\": [],\r\n    \"medicines\": [],\r\n    \"physicalCondition\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -647,12 +648,12 @@
 					"response": []
 				},
 				{
-					"name": "Add Reaction",
+					"name": "Add Conflict",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/Treatment/Reaction?treatmentId=2&reaction=medicine2",
+							"raw": "http://localhost:8080/Treatment/Conflict?treatmentId=1&conflict=medicine0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -660,16 +661,16 @@
 							"port": "8080",
 							"path": [
 								"Treatment",
-								"Reaction"
+								"Conflict"
 							],
 							"query": [
 								{
 									"key": "treatmentId",
-									"value": "2"
+									"value": "1"
 								},
 								{
-									"key": "reaction",
-									"value": "medicine2"
+									"key": "conflict",
+									"value": "medicine0"
 								}
 							]
 						}

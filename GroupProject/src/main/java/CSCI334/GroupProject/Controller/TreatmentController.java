@@ -67,9 +67,9 @@ public class TreatmentController {
 	}
 	
 	//add a reaction
-	@PutMapping("/Treatment/Reaction")
-	public String addReaction(@RequestParam(required = true) Long treatmentId, @RequestParam(required = true) String reaction) {
-		return treatmentService.addReaction(treatmentId, reaction);
+	@PutMapping("/Treatment/Conflict")
+	public String addConflict(@RequestParam(required = true) Long treatmentId, @RequestParam(required = true) String conflict) {
+		return treatmentService.addConflict(treatmentId, conflict);
 	}
 	
 	//add a physical condition

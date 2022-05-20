@@ -64,11 +64,11 @@ public class TreatmentService {
 	}
 	
 	//add a reaction
-	public String addReaction(Long treatmentId, String reaction) {
+	public String addConflict(Long treatmentId, String conflicts) {
 		Treatment treatment = treatmentRepository.findById(treatmentId).get();
-		treatment.addReaction(reaction);
+		treatment.addConflict(conflicts);
 		treatmentRepository.save(treatment);
-		return reaction + " added to treatment " + treatmentId.toString();
+		return conflicts + " added to treatment " + treatmentId.toString();
 	}
 	
 	//add a physical condition

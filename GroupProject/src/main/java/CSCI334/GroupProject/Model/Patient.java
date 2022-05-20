@@ -76,9 +76,9 @@ public class Patient extends User {
 	}
 	
 	//check reactions
-	public boolean isReaction(String medicine) {
-		for(int i = 0; i < getTreatment().getReactions().size(); i++ ) {
-			if(getTreatment().getReactions().get(i).equals(medicine)) {
+	public boolean isConflict(String medicine) {
+		for(int i = 0; i < getTreatment().getConflicts().size(); i++ ) {
+			if(getTreatment().getConflicts().get(i).equals(medicine)) {
 				return true;
 			}
 		}

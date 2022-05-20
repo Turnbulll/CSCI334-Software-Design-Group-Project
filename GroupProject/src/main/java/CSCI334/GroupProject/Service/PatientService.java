@@ -130,7 +130,7 @@ public class PatientService implements UserServiceInterface<Patient> {
 		if(validateUser(userId) && validatePrescription(prescriptionId)) {
 			Patient patient = new Patient(patientRepository.findById(userId).get());
 			Prescription prescription = new Prescription (prescriptionRepository.findById(prescriptionId).get());
-			if(!patient.isAllergic(prescription.getMedicine()) && !patient.isReaction(prescription.getMedicine())) {
+			if(!patient.isAllergic(prescription.getMedicine()) && !patient.isConflict(prescription.getMedicine())) {
 				patient.addPrescription(prescription);
 				patient.getTreatment().addMedicines(prescription.getMedicine());
 				patientRepository.saveAndFlush(patient);
@@ -140,8 +140,8 @@ public class PatientService implements UserServiceInterface<Patient> {
 				if(patient.isAllergic(prescription.getMedicine())) {
 					log.error("failed to add prescription patient " + patient.getName() + "is allergic to " + prescription.getMedicine() );
 				}
-				if(patient.isReaction(prescription.getMedicine())) {
-					log.error("failed to add prescription patient " + patient.getName() + "is has a reaction to " + prescription.getMedicine());
+				if(patient.isConflict(prescription.getMedicine())) {
+					log.error("failed to add prescription patient " + patient.getName() + "is has a conflicting medicine too " + prescription.getMedicine());
 				}
 				return false;
 			}
