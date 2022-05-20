@@ -7,7 +7,7 @@ class PharmacistPatientData extends React.Component {
         super(props);
         this.state = {user: null,
                       allergies: [],
-                      reactions: [],
+                      conflicts: [],
                       medicines: [],
                       treatment: null,
                       errorText: ""
@@ -43,16 +43,16 @@ class PharmacistPatientData extends React.Component {
             ///get treatment data from patient
             const treatment = resp.data[0].treatment;
             const allergies = treatment.allergies;
-            const reactions = treatment.reactions;
+            const conflicts = treatment.conflicts;
             const medicines = treatment.medicines;
 
-            //console.log(allergies, reactions, medicines);
+            //console.log(allergies, conflicts, medicines);
             //set treatment data in state
             this.setState({user: resp.data[0], 
                 treatment: treatment, 
                 allergies: allergies, 
                 medicines: medicines,
-                reactions: reactions});
+                conflicts: conflicts});
         }).catch( error => {
             this.setErrorText("Ivalid Data Or Error contacting database");
         })
@@ -93,36 +93,6 @@ class PharmacistPatientData extends React.Component {
         document.getElementById("allergy").value = "";
       }
 
-      //adds a reaction to the patient
-      addReaction = () =>{
-        //check patient has been got
-        if (this.state.treatment === null){
-          this.setErrorText("Missing Patient Input");
-          return;
-        }
-
-        //get id and value for UI
-        const treatmentId = this.state.treatment.treatmentId;
-        
-        var reaction = document.getElementById("reaction").value;
-
-        //if ui empty show error
-        if (reaction === ""){
-          this.setErrorText("Missing Reaction Input");
-          return;
-        } 
-
-        //add reaction to backend data
-        Axios.put("http://localhost:8080/Treatment/Reaction?treatmentId="+treatmentId+"&reaction="+reaction).then(
-          resp => {
-            console.log(resp);
-            this.getPatientData();
-          }
-        );
-
-          //empty the ui
-        document.getElementById("reaction").value = "";
-      }
       
       //sets the text for the error
       setErrorText = (text) =>{
@@ -167,10 +137,10 @@ class PharmacistPatientData extends React.Component {
 
 
             <div className='dataGridCol'>
-            <h3 className='center'>Reactions</h3>
+            <h3 className='center'>Conflicts</h3>
             
             <ul>
-            {this.state.reactions.map(item => (
+            {this.state.conflicts.map(item => (
                         <li className='center' key={item}>{item}</li>
                     ))}
             </ul>
@@ -201,11 +171,6 @@ class PharmacistPatientData extends React.Component {
       </form>
       <button className='blueButton' onClick={this.addAlergy}>Add Allergy</button>
         
-      <form className='form'>
-        <label>Reaction:</label>
-        <input type="text" id="reaction" />
-      </form>
-      <button className='blueButton' onClick={this.addReaction}>Add Reaction</button>
       </div>
 
       </div>

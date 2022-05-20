@@ -9,7 +9,7 @@ class PatientProfile extends React.Component {
 
   /* 
     Patient(String name, String password, String userType, Treatment treatment , List<Prescription> prescriptions)
-    Treatment(ArrayList<String> allergies, ArrayList<String> reactions, ArrayList<String> medicines, String physicalCondition)
+    Treatment(ArrayList<String> allergies, ArrayList<String> conflicts, ArrayList<String> medicines, String physicalCondition)
     Prescription(String medicine, Float dosage, int repeats)
   */
   render(){

@@ -31,7 +31,7 @@ class NewPrescription extends React.Component {
 
     var treatment_ = {treatmentId: null,
                      allergies: [],
-                     reactions: []}
+                     conflicts: []}
 
     var name = document.getElementById("PatientName").value;
     this.setState({name:name});
@@ -89,6 +89,7 @@ class NewPrescription extends React.Component {
 
     Axios.get("http://localhost:8080/Patient/Name?name="+name).then(resp => {
       const userID = resp.data[0].userId;
+    
       Axios.put("http://localhost:8080/Patient/AddPrescription/"+ userID +"?prescriptionId="+scriptID).then(resp => {
         //check if prescription can be added
         //console.log(resp);
@@ -108,8 +109,9 @@ class NewPrescription extends React.Component {
 
       }).catch(err => {
         console.log(err);
+        console.log("error linking");
         //send alert
-        this.toggleErrorAlert("Contraindiction Error. Cannot Assign Patient Prescription. \nPatient may be allergic, have a bad reaction or are currently taking a conflicting medicine");
+        this.toggleErrorAlert("Contraindiction Error. Cannot Assign Patient Prescription. \nPatient may be allergic or currently taking a conflicting medicine");
 
       })
 
@@ -117,7 +119,6 @@ class NewPrescription extends React.Component {
       //send alert
       this.toggleErrorAlert("Patient Not Found");
     })
-
   }
 
   toggleErrorAlert = (error) =>{
@@ -178,7 +179,7 @@ class NewPrescription extends React.Component {
             <Modal show={this.state.inputPopup}>
               <div className='popup'>
                 <h2 className='centerText'>Missing Input</h2>
-                <button onClick={()=> this.toggleErrorAlert("")} className='blueButton'>Ok</button>
+                <button onClick={()=> this.toggleInputAlert("")} className='blueButton'>Ok</button>
               </div>
             </Modal>
 
