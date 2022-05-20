@@ -89,7 +89,7 @@ class SignUp extends React.Component {
                                   var empty = "";
                                     Axios.post("http://localhost:8080/Treatment/New", {
                                         "allergies": [],
-                                        "reactions": [],
+                                        "conflicts": [],
                                         "medicines": [],
                                         "physicalCondition": ""
                                     }).then(
