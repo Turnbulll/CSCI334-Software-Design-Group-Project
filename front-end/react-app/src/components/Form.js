@@ -1,8 +1,11 @@
 import React, { useState} from 'react'
+import { getUser } from '../App';
 import FormAllergies from './formAllergies';
 import FormMedication from './formMedication';
 import FormOver from './formOver';
 import FormPhysical from './formPhysical';
+import Axios from 'axios';
+
 function Form()  {
     const[step, setStep]= useState(0);
     const [formData, setFormData]=useState({
@@ -11,7 +14,9 @@ function Form()  {
         physical: "",
         over: ""
     });
+
     const FormTitles=["Allergies", "Medication", "Physical Condition", "Over the counter"];
+
     const StepDisplay = () => {
         if (step === 0) {
             return <FormAllergies formData={formData} setFormData={setFormData}/>;
@@ -26,6 +31,27 @@ function Form()  {
             return <FormOver formData={formData} setFormData={setFormData}/>;
         }
     }
+
+    const SaveData = () =>{
+        var treatmentID = getUser().treatment.treatmentId;
+        var allergy = formData.allergies;
+        var physical = formData.physical;
+        
+        //send data to backend
+        Axios.put("http://localhost:8080/Treatment/Allergy?treatmentId="+treatmentID+"&allergy="+allergy).then(
+            resp => {
+                console.log(resp.data);
+            }
+        )
+        
+        //send data to backend
+        Axios.put("http://localhost:8080/Treatment/PhysicalCondition?treatmentId="+treatmentID+"&physicalCondition="+physical).then(resp => {
+            console.log(resp.data);
+        });
+    }
+
+
+
     return(
         <div className="profileForm">
             <div className="progressbar">
@@ -51,6 +77,10 @@ function Form()  {
                             if (step===FormTitles.length-1) {
                                 alert("FORM SUBMITTED FOR REVIEW");
                                 /*this will update the data - please note medication is not complete yet*/
+                                //HIDE THE FORM
+                                document.dispatchEvent(new Event("hideForm"));
+                                SaveData();
+
                                 console.log(formData);
                             } else {
                                 setStep((currStep)=>currStep+1);
