@@ -5,7 +5,49 @@ import Form from "../components/Form";
 class PatientProfile extends React.Component {
   componentWillMount = () =>{
     this.setState({user: getUser()})
-}
+    console.log(getUser());
+  }
+
+  componentDidMount(){
+    this.hideForm();
+    this.loadAllergiesList();
+    this.loadPhysicalCondition();
+  }
+
+  //loads thew allergy list
+  loadAllergiesList(){
+    var display = document.getElementById("allergiesList");
+    var allergies = getUser().treatment.allergies;
+    console.log(allergies);
+    var allergyString = ""
+
+    allergies.forEach(element => {
+      console.log("check");
+      allergyString += element + ", ";
+    });
+
+    allergyString = allergyString.substring(0, allergyString.length -2);
+
+    display.innerHTML = allergyString;
+  }
+
+  loadPhysicalCondition(){
+      var physicalCon = getUser().treatment.physicalConditionCondition;
+
+      document.getElementById("physicalCondition").innerHTML = physicalCon;
+
+  }
+
+  hideForm(){
+    document.getElementById("form").style.display = "none";
+
+  }
+
+  showForm(){
+    document.getElementById("form").style.display ="";
+
+  }
+
 
   /* 
     Patient(String name, String password, String userType, Treatment treatment , List<Prescription> prescriptions)
@@ -17,12 +59,17 @@ class PatientProfile extends React.Component {
     var vis=false;
   return (
     <div className='PatientProfile'>
+    {document.addEventListener("hideForm", () => {
+                  this.hideForm();
+		        })}
+
       <h1>{this.state.user.name}'s Profile</h1>
+      
       <h2>Current Data:</h2>
-      <table class='dataTable'>
+      <table class='dataTable' id="dataTable">
         <tr>
           <td>allergies:</td>
-          <td>{this.state.user.treatment.allergies[0]}</td>
+          <td id="allergiesList">t</td>
         </tr>
         <tr> 
           <td>medication taking records:</td>
@@ -46,14 +93,14 @@ class PatientProfile extends React.Component {
         </tr>
         <tr> 
           <td>description of physical condition:</td>
-          <td>{this.state.user.userType}</td>
+          <td id="physicalCondition"></td>
         </tr>
         <tr>
-          <td><button onClick={vis=true}>Edit Profile</button></td>
+          <td><button onClick={this.showForm}>Edit Profile</button></td>
         </tr>
       </table>
       {/*contains form */}
-      <table className={'formTable'} style={{visiblity: vis===false?'hidden':'visible'}}>
+      <table className={'formTable'} id="form">
         <tr>
           <td><Form /></td>
         </tr>
