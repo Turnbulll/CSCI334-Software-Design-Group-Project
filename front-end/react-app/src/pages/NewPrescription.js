@@ -83,9 +83,6 @@ class NewPrescription extends React.Component {
   }
 
   linkPatientPrescription = (name, scriptID) => {
-    //Axios.put("http://localhost:8080/Patient/AddPrescription/7?prescriptionId=13").then(resp => {
-       // console.log(resp.data);
-    //});
 
     Axios.get("http://localhost:8080/Patient/Name?name="+name).then(resp => {
       const userID = resp.data[0].userId;
@@ -93,17 +90,8 @@ class NewPrescription extends React.Component {
       Axios.put("http://localhost:8080/Patient/AddPrescription/"+ userID +"?prescriptionId="+scriptID).then(resp => {
         //check if prescription can be added
         //console.log(resp);
-
-        //console.log(resp.data);
-
-        //reset variables
-        document.getElementById("Medication").value = "";
-        document.getElementById("Dosage").value = "";
-        document.getElementById("Repeats").value = "";
-        document.getElementById("PatientName").value = "";
-        document.getElementById("Instructions").value = "";
-        document.getElementById("todaysDate").value = "";
-
+        this.clearInput();
+    
         //send alert
         this.toggleSavedPopup();
 
@@ -119,6 +107,16 @@ class NewPrescription extends React.Component {
       //send alert
       this.toggleErrorAlert("Patient Not Found");
     })
+  }
+
+  //clears the user input
+  clearInput(){
+    document.getElementById("Medication").value = "";
+    document.getElementById("Dosage").value = "";
+    document.getElementById("Repeats").value = "";
+    document.getElementById("PatientName").value = "";
+    document.getElementById("Instructions").value = "";
+    document.getElementById("todaysDate").value = "";
   }
 
   toggleErrorAlert = (error) =>{
