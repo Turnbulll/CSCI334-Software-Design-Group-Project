@@ -14,27 +14,9 @@ class Patients extends React.Component {
 
   loadData(){
 
-
-    /* For each prescription push it to the list*/
-
     Axios.get("http://localhost:8080/Patient").then(resp => {
       this.setState({list: resp.data});
     })
-
-    /* test data
-    this.state.list.push({
-      id: 0,
-      Email: 'vgislason@yahoo.com',
-      FirstName: 'Vanessa',
-      LastName: 'twice a day',
-      Score: 2})
-
-    this.state.list.push({
-      id: 1,
-      Email: 'randybonckles@yahoo.com',
-      FirstName: 'Randy',
-      LastName: 'bonckles',
-      Score: 1})*/
     
   }
 

@@ -62,6 +62,7 @@ class SignIn extends React.Component {
             const resp3 = responses[2];
             console.log(resp1.data, resp2.data, resp3.data);
 
+            //if all arrays empty show error
             if (resp1.length === resp2.length && resp2.length === resp3.length){
                 this.callError("Invalid Username or Password");
             }
