@@ -42,6 +42,7 @@ class TreatmentPlan extends React.Component {
         this.setState({user: user,
                         currentPrescriptions: currentTreatments});
     }
+    
   componentDidMount = () =>{
       this.setState({user: getUser()})
       this.loadPrescriptions();

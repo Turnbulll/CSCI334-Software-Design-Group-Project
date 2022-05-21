@@ -17,9 +17,7 @@ class PharmacistPatientData extends React.Component {
 
       }
 
-      //gets the patient data
-      getPatientData = () =>{
-
+      checkInput= () =>{
         //get name from input
         var patientName = document.getElementById("name").value;
 
@@ -29,6 +27,12 @@ class PharmacistPatientData extends React.Component {
            // this.setState({errorText: "HEEHEHE"});
             return;
         }
+
+        this.getPatientData(patientName);
+      }
+
+      //gets the patient data
+      getPatientData = (patientName) =>{
 
         //get the patient by name from backend
         Axios.get("http://localhost:8080/Patient/Name?name=" + patientName).then(resp =>{
@@ -54,7 +58,9 @@ class PharmacistPatientData extends React.Component {
                 medicines: medicines,
                 conflicts: conflicts});
         }).catch( error => {
+
             this.setErrorText("Ivalid Data Or Error contacting database");
+
         })
 
 
@@ -85,7 +91,7 @@ class PharmacistPatientData extends React.Component {
         Axios.put("http://localhost:8080/Treatment/Allergy?treatmentId="+treatmentId+"&allergy="+allergy).then(
           resp => {
             console.log(resp);
-            this.getPatientData();
+            this.checkInput();
           }
         );
 
@@ -114,7 +120,7 @@ class PharmacistPatientData extends React.Component {
             <label>Patient:</label>
             <input type="text" id="name" />
           </form>
-              <button className='blueButton' onClick={this.getPatientData}>Submit</button>
+              <button className='blueButton' onClick={this.checkInput}>Submit</button>
 
 
         <div className='errorText'>{this.state.errorText}</div>
