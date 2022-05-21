@@ -20,15 +20,13 @@ class PatientPrescriptions extends React.Component {
   }
 
   componentDidMount = () =>{
-    //TEMPORARY, NEEDS TO BE UPDATED TO ONLY GET CURRENT PATIENTS PRESCRIPTIONS
+    this.loadPrescriptions(getUser().prescriptions);
+    this.setState({user: getUser()});
+  }
 
-    const user = getUser();
-    //const userID = user.userID;
-
-    //console.log(user.userId);
-
+  loadPrescriptions(prescriptions){
     //get all the users prescriptions
-    var prescriptions = user.prescriptions;
+    var  prescriptions
     var newList = [];
     var oldList = [];
 
@@ -44,16 +42,8 @@ class PatientPrescriptions extends React.Component {
 
 
     this.setState({list: newList,
-                  oldList: oldList,
-                  user: user});
-
-    console.log(user.prescriptions);
-
-    //Axios.get("http://localhost:8080/Prescription").then(resp => {
-     // this.setState({list: resp.data});
-      //console.log(resp.data);
-    //})
-
+                  oldList: oldList});
+      console.log(prescriptions);
   }
 
   searchPrescription(){

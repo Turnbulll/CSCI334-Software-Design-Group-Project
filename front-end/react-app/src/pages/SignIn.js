@@ -62,6 +62,10 @@ class SignIn extends React.Component {
             const resp3 = responses[2];
             console.log(resp1.data, resp2.data, resp3.data);
 
+            if (resp1.length === resp2.length && resp2.length === resp3.length){
+                this.callError("Invalid Username or Password");
+            }
+
             var userType;
             var user;
                 //if patients return a value
@@ -124,6 +128,7 @@ class SignIn extends React.Component {
             })
         ).then((...responses) => {this.log()}).catch(errors => {
              // react on errors.
+        
             console.error(errors);
         });
     }
