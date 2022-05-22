@@ -155,7 +155,7 @@ input {
 .prescriptionListItem{
   width: 80%;
   display: inline-grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 0.5fr;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
   padding: 10px;
   border: 1px solid rgb(185, 185, 185);
   
@@ -164,7 +164,7 @@ input {
 .prescriptionListItemOld{
   width: 80%;
   display: inline-grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 1frr;
   padding: 10px;
   border: 1px solid rgb(185, 185, 185);
   

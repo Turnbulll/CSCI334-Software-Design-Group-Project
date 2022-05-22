@@ -82,18 +82,16 @@ class Patients extends React.Component {
             <li className="prescriptionListItem">
                 <div>ID</div>
                 <div>Email</div>
-                <div>First Name</div>
-                <div>Last Name</div>
-                <div>Score</div>
+                <div>Name</div>
+            
             </li>
 
           {this.state.list.map(item => (
               <li key={item.userId} className="prescriptionListItem">
                 <div>{item.userId}</div>
-                <div>TBD</div>
+                <div>{item.email}</div>
                 <div>{item.name}</div>
-                <div>TBD</div>
-                <div>TBD</div>
+             
              </li>
             ))}
         </ul>
