@@ -125,7 +125,7 @@ class DoctorPrescriptions extends React.Component {
             <li className="doctorPrescriptionListItem">
                 <div>ID</div>
                 <div>Patient</div>
-                <div>Date</div>
+                <div>Expiry Date</div>
                 <div>Medicine</div>
                 <div>Dosage</div>
       
