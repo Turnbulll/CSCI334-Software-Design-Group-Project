@@ -74,11 +74,11 @@ class ReadScript extends React.Component{
                         var today = new Date();
             
                         var convertedDate = respData.date.substring(6) +"-" + respData.date.substring(3,5) + "-" +respData.date.substring(0,2); 
-                        console.log(convertedDate);
+                        //console.log(convertedDate);
 
                         convertedDate = Date.parse(convertedDate);
                        
-                        console.log("Date", convertedDate);
+                       //console.log("Date", convertedDate);
 
                         console.log(convertedDate < today);
 

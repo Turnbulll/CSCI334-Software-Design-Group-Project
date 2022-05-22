@@ -22,10 +22,16 @@ class TreatmentPlan extends React.Component {
         var prescriptions = user.prescriptions;
         var currentTreatments = [];
         
+        var today = new Date();
         //for each item in prescriptions
         for (var i = 0; i < prescriptions.length; i++){
+          
             //if its not expired/finished
-              if (prescriptions[i].repeats > 0){
+            var convertedDate = prescriptions[i].date.substring(6) +"-" + prescriptions[i].date.substring(3,5) + "-" + prescriptions[i].date.substring(0,2); 
+            //console.log(convertedDate);
+             convertedDate = Date.parse(convertedDate);
+
+              if (today < convertedDate){
                     //create a new medical intervention with script details
                   var medicalIntervention = {
                       type: "medicine",

@@ -30,13 +30,24 @@ class PatientPrescriptions extends React.Component {
     var newList = [];
     var oldList = [];
 
+    var today = new Date();
+
     //seperate prescriptions into old and new lis
     for (var i =0; i < prescriptions.length; i++){
-      if (prescriptions[i].repeats > 0){
+     
+      var convertedDate = prescriptions[i].date.substring(6) +"-" + prescriptions[i].date.substring(3,5) + "-" + prescriptions[i].date.substring(0,2); 
+      //console.log(convertedDate);
+      convertedDate = Date.parse(convertedDate);
+     
+     //console.log("Date", convertedDate);
+
+     // console.log(convertedDate < today);
+      if (today < convertedDate){
         newList.push(prescriptions[i]);
       }else{
         oldList.push(prescriptions[i]);
       }
+
     }
 
 
@@ -130,7 +141,7 @@ class PatientPrescriptions extends React.Component {
       <ul className='prescriptionList' id="prescriptionList">
         
           <li className="prescriptionListItem">
-              <div>Date</div>
+              <div>Expiry Date</div>
               <div>Medicine</div>
               <div>Dosage</div>
               <div>Repeat Dispesnses</div>
@@ -154,7 +165,7 @@ class PatientPrescriptions extends React.Component {
       <ul className='prescriptionList'>
         
           <li className="prescriptionListItem">
-              <div>Date</div>
+              <div>Expiry Date</div>
               <div>Medicine</div>
               <div>Dosage</div>
               <div>Repeat Dispesnses</div>
