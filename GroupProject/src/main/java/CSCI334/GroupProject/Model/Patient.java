@@ -25,18 +25,18 @@ public class Patient extends User {
 	
 	public Patient(){};
 	
-	public Patient(String name, String password, String userType, Treatment treatment , List<Prescription> prescriptions) {
-		super(name, password, userType);
+	public Patient(String name, String password, String userType, String email, Treatment treatment , List<Prescription> prescriptions) {
+		super(name, password, userType, email);
 		this.treatment = treatment;
 		this.prescriptions = prescriptions;
 	}
 	
-	public Patient(String name, String password, String userType) {
-		super(name, password, userType);
+	public Patient(String name, String password, String userType, String email) {
+		super(name, password, userType, email);
 	}
 	
 	public Patient(Patient patient) {
-		super(patient.getUserId(), patient.getName(), patient.getPassword(), patient.getUserType());
+		super(patient.getUserId(), patient.getName(), patient.getPassword(), patient.getUserType(), patient.getEmail());
 		setTreatment(patient.getTreatment());
 		setPrescriptions(patient.getPrescriptions());
 	}

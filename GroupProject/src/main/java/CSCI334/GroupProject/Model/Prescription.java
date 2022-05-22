@@ -20,6 +20,7 @@ public class Prescription {
 	private String medicine;
 	private Float dosage;
 	private int repeats;
+	private String date;
 	
 	@ManyToOne
     @JsonIgnore
@@ -28,10 +29,11 @@ public class Prescription {
 	public Prescription() {};
 	
 	//constructor 
-	public Prescription(String medicine, Float dosage, int repeats){
+	public Prescription(String medicine, Float dosage, int repeats, String date){
 		this.setMedicine(medicine);
 		this.setDosage(dosage);
 		this.setRepeats(repeats);
+		this.setDate(date);
 	}
 	
 	public Prescription(Prescription prescription){
@@ -39,6 +41,7 @@ public class Prescription {
 		this.setMedicine(prescription.getMedicine());
 		this.setDosage(prescription.getDosage());
 		this.setRepeats(prescription.getRepeats());
+		this.setDate(prescription.getDate());
 	}
 	
 	//getters
@@ -63,6 +66,10 @@ public class Prescription {
 		return patient;
 	}
 	
+	public String getDate() {
+		return date;
+	}
+	
 	//setters
 	public void setPrescriptionId(Long prescriptionId) {
 		this.prescriptionId = prescriptionId;
@@ -84,8 +91,12 @@ public class Prescription {
 		this.patient = patient;
 	}
 	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
 	public String toString(){
-		return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + ", repeats= " + repeats +"})"; 
+		return "Prescription { prescriptionId= " + prescriptionId + ", medicine= " + medicine + ", dosage= " + dosage + ", repeats= " + repeats + ", date= " + date +"})"; 
 	}
 	
 }

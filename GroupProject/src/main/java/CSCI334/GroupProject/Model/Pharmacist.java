@@ -8,8 +8,8 @@ import javax.persistence.Table;
 public class Pharmacist extends User {	
 	public Pharmacist() {};
 	
-	public Pharmacist(String name, String password, String userType) {
-		super(name, password, userType);
+	public Pharmacist(String name, String password, String userType, String email ) {
+		super(name, password, userType, email);
 	}
 
 }

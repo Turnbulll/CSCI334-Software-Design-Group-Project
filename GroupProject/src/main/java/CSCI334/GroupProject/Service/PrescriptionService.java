@@ -54,7 +54,7 @@ public class PrescriptionService {
 
 	//updates a prescription
 	@Transactional
-	public void updatePrescription(@PathVariable Long prescriptionId, @PathVariable String medicine, @PathVariable Float dosage, @PathVariable Integer repeats) {
+	public void updatePrescription(@PathVariable Long prescriptionId, @PathVariable String medicine, @PathVariable Float dosage, @PathVariable Integer repeats,  @PathVariable String date) {
 		Prescription prescription = prescriptionRepository.findById(prescriptionId)
 	                .orElseThrow(()-> new IllegalStateException("prescription with id " + prescriptionId + " does not exist" ));
 			if(medicine != null && prescription.getMedicine().length() > 0 && !Objects.equals(prescription.getMedicine(), medicine)){
@@ -65,6 +65,9 @@ public class PrescriptionService {
 	        }
 	        if(repeats != null && prescription.getRepeats()  >= 0 && !Objects.equals(prescription.getRepeats(), repeats)){  
 	        	prescription.setRepeats(repeats);
+	        }
+	        if(date != null && prescription.getDate().length() > 0 && !Objects.equals(prescription.getDate(), date)){
+	        	prescription.setDate(date);
 	        }
 	        prescriptionRepository.save(prescription);
 	}
