@@ -12,11 +12,10 @@ class ReadScript extends React.Component{
             error: "",
             loaded: false,
             Code: null,
+            PatientName: null,
             Date: null,
-            Doctor: null,
             Medicine: null,
             Dosage: null,
-            TreatmentInstruction: null,
             Dispenses: 2,
             patientID: null
     
@@ -46,11 +45,14 @@ class ReadScript extends React.Component{
         Axios.get("http://localhost:8080/Patient/"+patientID).then(resp => {
 
             console.log(resp.data);
+           
 
             if (resp.data === ""){
                 this.setErrorText("Error invalid code");
                 return;
             }
+
+            this.setState({PatientName: resp.data.name});
         })
 
 
@@ -70,9 +72,7 @@ class ReadScript extends React.Component{
                         this.setState({
                             loaded: true,
                             Code: respData.prescriptionId,
-                            Date: "tbd",
-                            Doctor: "tbd",
-                            TreatmentInstruction: "TBD",
+                            Date: respData.date,
                             Medicine: respData.medicine,
                             Dosage: respData.dosage,
                             Dispenses: respData.repeats,
@@ -98,13 +98,11 @@ class ReadScript extends React.Component{
 
             <label>Date: {this.state.Date}</label>
     
-            <label>Doctor: {this.state.Doctor}</label>
+            <label>Patient: {this.state.PatientName}</label>
 
             <label className='span2'>Medicine: {this.state.Medicine}</label>
 
             <label className='span2'>Dosage: {this.state.Dosage}</label>
-
-            <label className='span2'>Instructions: {this.state.TreatmentInstruction}</label>
            
             <label>Dispenses: {this.state.Dispenses}</label>
 

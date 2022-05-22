@@ -128,17 +128,17 @@ class DoctorPrescriptions extends React.Component {
                 <div>Date</div>
                 <div>Medicine</div>
                 <div>Dosage</div>
-                <div>Treatement Instructions</div>
+      
             </li>
     
           {this.state.list.map(data => (
               <li key={data.id} className="doctorPrescriptionListItem">
                 <div>{data.prescription.prescriptionId}</div>
                 <div>{data.name}</div>
-                <div>TBD</div>
+                <div>{data.prescription.date}</div>
                 <div>{data.prescription.medicine}</div>
                 <div>{data.prescription.dosage}</div>
-                <div>TBD</div>
+    
              </li>
             ))}
         </ul>

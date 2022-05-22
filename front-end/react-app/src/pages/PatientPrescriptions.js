@@ -131,22 +131,18 @@ class PatientPrescriptions extends React.Component {
         
           <li className="prescriptionListItem">
               <div>Date</div>
-              <div>Doctor</div>
               <div>Medicine</div>
               <div>Dosage</div>
               <div>Repeat Dispesnses</div>
-              <div>Treatement Instructions</div>
               <div>QR</div>
           </li>
 
         {this.state.list.map(item => (
             <li key={item.prescriptionId} className="prescriptionListItem">
-              <div>{/*item.Date*/} TBD</div>
-              <div>{/*item.Doctor*/}TBD</div>
+              <div>{item.date}</div>
               <div>{item.medicine}</div>
               <div>{item.dosage}</div>
               <div>{item.repeats}</div>
-              <div>{/*item.TreatmentInstruction*/}TBD</div>
               <div className=''><button onClick={this.getQR.bind(this, item)}>QR CODE </button></div>
            </li>
           ))}
@@ -157,23 +153,20 @@ class PatientPrescriptions extends React.Component {
       <h2>Old Prescriptions</h2>
       <ul className='prescriptionList'>
         
-          <li className="prescriptionListItemOld">
+          <li className="prescriptionListItem">
               <div>Date</div>
-              <div>Doctor</div>
               <div>Medicine</div>
               <div>Dosage</div>
               <div>Repeat Dispesnses</div>
-              <div>Treatement Instructions</div>
           </li>
 
         {this.state.oldList.map(item => (
-            <li key={item.prescriptionId} className="prescriptionListItemOld">
-              <div>{/*item.Date*/} TBD</div>
-              <div>{/*item.Doctor*/}TBD</div>
+            <li key={item.prescriptionId} className="prescriptionListItem">
+              <div>{item.date}</div>
               <div>{item.medicine}</div>
               <div>{item.dosage}</div>
               <div>{item.repeats}</div>
-              <div>{/*item.TreatmentInstruction*/}TBD</div>
+
            </li>
           ))}
       </ul>

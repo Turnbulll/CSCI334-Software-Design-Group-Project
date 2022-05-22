@@ -30,7 +30,7 @@ class TreatmentPlan extends React.Component {
                   var medicalIntervention = {
                       type: "medicine",
                       name: prescriptions[i].medicine,
-                      date: "date",
+                      date: prescriptions[i].date,
                       dosage: prescriptions[i].dosage
                   }
                   //push to array

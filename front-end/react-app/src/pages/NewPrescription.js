@@ -45,7 +45,9 @@ class NewPrescription extends React.Component {
       this.toggleInputAlert();
       return;
     }
-
+   
+   //console.log(date_);
+    date_ = date_.substring(8) +"/" + date_.substring(5, 7) +"/" + date_.substring(0,4);
 
 
     const prescription_ = {
@@ -53,6 +55,7 @@ class NewPrescription extends React.Component {
       medicine: medicine_,
       dosage: dosage_,
       repeats: repeats_,
+      date: date_,
       treatment : null
     };
 
@@ -76,7 +79,7 @@ class NewPrescription extends React.Component {
 
       this.linkPatientPrescription(name, scriptID);
       
- 
+      //console.log(prescription);
       //console.log(resp)
       }).catch(err => {console.log(err);});
   
