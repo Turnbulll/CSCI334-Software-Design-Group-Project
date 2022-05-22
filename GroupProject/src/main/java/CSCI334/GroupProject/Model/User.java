@@ -18,23 +18,25 @@ public abstract class User {
 	private String name;
 	private String password;
 	private String userType;
-
+	private String email;
 	
 	//default constructor
 	public User() {};
 	
 	//constructor
-	public User(String name, String password, String userType) {
+	public User(String name, String password, String userType, String email) {
 		setName(name);
 		setPassword(password);
 		setUserType(userType);
+		setEmail(email);
 	}
 	
-	public User(Long userId, String name, String password, String userType) {
+	public User(Long userId, String name, String password, String userType, String email) {
 		setUserId(userId);
 		setName(name);
 		setPassword(password);
 		setUserType(userType);
+		setEmail(email);
 	}
 	
 	//getters
@@ -54,6 +56,10 @@ public abstract class User {
 		return userType;
 	}
 	
+	public String getEmail(){
+		return email;
+	}
+	
 	//setters
 	public void setUserId(Long userId){
 		this.userId = userId;
@@ -69,6 +75,10 @@ public abstract class User {
 	
 	public void setUserType(String userType){
 		this.userType = userType; 
+	}
+	
+	public void setEmail(String email){
+		this.email = email; 
 	}
 	
 	@Override
@@ -95,12 +105,15 @@ public abstract class User {
         if (!Objects.equals(this.userType, other.userType)) {
             return false;
         }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
         return Objects.equals(this.userId, other.userId);
     }
 	
 	@Override
 	public String toString() {
-        return "User{" + "userId=" + userId + ", name=" + name + ", password=" + password + ", userType=" + userType + '}';
+        return "User{" + "userId=" + userId + ", name=" + name + ", password=" + password + ", userType=" + userType + ", email=" + email + '}';
 	}
 	
 	

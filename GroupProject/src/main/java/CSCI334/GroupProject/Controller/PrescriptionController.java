@@ -60,8 +60,9 @@ public class PrescriptionController {
 		@PathVariable("prescriptionId") Long prescriptionId,
         @RequestParam(required = false) String medicine,
         @RequestParam(required = false) Float dosage,
-        @RequestParam(required = false) Integer repeats){
-		prescriptionService.updatePrescription(prescriptionId, medicine, dosage, repeats);
+        @RequestParam(required = false) Integer repeats,
+        @RequestParam(required = false) String date){
+		prescriptionService.updatePrescription(prescriptionId, medicine, dosage, repeats, date);
 			return prescriptionService.findPrescriptionById(prescriptionId);
 	}
 

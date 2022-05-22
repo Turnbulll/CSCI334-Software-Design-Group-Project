@@ -55,7 +55,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Doctor\",\r\n    \"password\": \"password\",\r\n    \"userType\": \"Doctor\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Doctor\",\r\n    \"password\": \"password\",\r\n    \"userType\": \"Doctor\",\r\n    \"email\" : \"docotr@hotmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -201,7 +201,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Patient\",\r\n    \"password\": \"password\",\r\n    \"userType\": \"Patient\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Patient\",\r\n    \"password\": \"password\",\r\n    \"userType\": \"Patient\",\r\n    \"email\" : \"patient@hotmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -428,7 +428,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Pharmacist\",\r\n    \"password\": \"password\",\r\n    \"userType\": \"Pharmacist\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Pharmacist\",\r\n    \"password\": \"password\",\r\n    \"userType\": \"Pharmacist\",\r\n    \"email\" : \"pharmacist@hotmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -758,7 +758,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"medicine\": \"medicine\",\r\n    \"dosage\": \"1.0f\"\r\n}",
+							"raw": "{\r\n    \"medicine\": \"medicine\",\r\n    \"dosage\": \"1.0f\",\r\n    \"date\" : \"11/11/11\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

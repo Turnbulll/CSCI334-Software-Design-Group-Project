@@ -72,7 +72,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		
 		log.info("Prescriptions are being created...");
 		for(int i = 0; i<noOfRecords; i++) {
-			prescriptions[i] = new Prescription("medicine" + i , 1.0f, 3);
+			prescriptions[i] = new Prescription("medicine" + i , 1.0f, 3, "25/12/2022");
 		}
 		log.info("Adding prescriptions to the database...");
 		prescriptionService.addNewPrescriptions(prescriptions);
@@ -81,7 +81,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		List<Prescription> emptyPrescriptions = new ArrayList<Prescription>();
 		log.info("Patients are arriving..");
 		for(int i = 0; i<noOfRecords; i++) {
-			patients[i] = new Patient("Patient"+ i, "password", "Patient", treatments[i], emptyPrescriptions);
+			patients[i] = new Patient("Patient"+ i, "password", "Patient", "patient"+i+"@sickness.com" , treatments[i], emptyPrescriptions);
 		}
 		log.info("Adding patients to the database...");
 		patientService.addNewUsers(patients);
@@ -93,7 +93,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		
 		log.info("Hiring doctors..");
 		for(int i = 0; i<noOfRecords; i++) {
-			doctors[i] = new Doctor("Doctor"+i, "password", "Doctor");
+			doctors[i] = new Doctor("Doctor"+i, "password", "Doctor", "doctor"+i+"@sickness.com");
 		}
 		log.info("Adding doctors to the database...");	
 		doctorService.addNewUsers(doctors);
@@ -101,7 +101,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		
 		log.info("Hiring pharmacists..");
 		for(int i = 0; i<noOfRecords; i++) {
-			pharmacists[i] = new Pharmacist("Pharmacist"+i, "password", "Pharmacist");
+			pharmacists[i] = new Pharmacist("Pharmacist"+i, "password", "Pharmacist", "pharmacist"+i+"@sickness.com");
 		}
 		log.info("Adding pharmacists to the database...");
 		pharmacistService.addNewUsers(pharmacists);

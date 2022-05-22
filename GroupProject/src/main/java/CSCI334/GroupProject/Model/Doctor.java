@@ -11,8 +11,8 @@ public class Doctor extends User {
 	
 	public Doctor() {};
 	
-	public Doctor(String name, String password, String userType) {
-		super(name, password, userType);
+	public Doctor(String name, String password, String userType,String email) {
+		super(name, password, userType, email);
 	}
 	
 }
