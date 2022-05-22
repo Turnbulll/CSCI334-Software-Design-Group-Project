@@ -147,7 +147,7 @@ class NewPrescription extends React.Component {
                     <label>Patient Name:</label>
                     <input type="text" id="PatientName" />
 
-                    <label>Date:</label>
+                    <label>Expiry Date:</label>
                     <input type="date"  id="todaysDate" />
 
                     <label>Medication:</label>

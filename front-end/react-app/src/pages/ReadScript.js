@@ -11,6 +11,7 @@ class ReadScript extends React.Component{
 		this.state = {
             error: "",
             loaded: false,
+            status: null,
             Code: null,
             PatientName: null,
             Date: null,
@@ -68,9 +69,28 @@ class ReadScript extends React.Component{
                     if ((respData.length > 1) === false){
                         //do nothing
                         //console.log("do that");
+                        var status = "";
+
+                        var today = new Date();
+            
+                        var convertedDate = respData.date.substring(6) +"-" + respData.date.substring(3,5) + "-" +respData.date.substring(0,2); 
+                        console.log(convertedDate);
+
+                        convertedDate = Date.parse(convertedDate);
+                       
+                        console.log("Date", convertedDate);
+
+                        console.log(convertedDate < today);
+
+                        if (today < convertedDate){
+                            status = "In date";
+                        }else{
+                            status = "Expired";
+                        }
 
                         this.setState({
                             loaded: true,
+                            status: status,
                             Code: respData.prescriptionId,
                             Date: respData.date,
                             Medicine: respData.medicine,
@@ -96,7 +116,9 @@ class ReadScript extends React.Component{
         return <div className='loadedPrescription'>
             <label>Code: {this.state.Code}</label>
 
-            <label>Date: {this.state.Date}</label>
+            <label>Expiry Date: {this.state.Date}</label>
+
+            <label>Status: {this.state.status}</label>
     
             <label>Patient: {this.state.PatientName}</label>
 
@@ -112,6 +134,10 @@ class ReadScript extends React.Component{
 
     markScriptDispensed = () => {
         console.log("Dispensed LOL");
+
+        if (this.state.status === "Expired"){
+            return;
+        }
 
         if (this.state.Dispenses > 0){
 
@@ -130,13 +156,6 @@ class ReadScript extends React.Component{
         //update the backend. BACKEND CURRENTLY DOESNT HAVE REPEAT DISPENSES
     }
 
-    removeMedicine = () =>{
-        //removes the medicine from the treatment object
-        Axios.put("http://localhost:8080/Patient/RemoveMedicine/"+this.state.patientID+"?medicine="+this.state.Medicine).then(resp => {
-            console.log(resp.data)
-        })
-    }
-    
     onNewScanResult = (decodedText, decodedResult) =>{
        // console.log(decodedText);
        // console.log(decodedResult);
