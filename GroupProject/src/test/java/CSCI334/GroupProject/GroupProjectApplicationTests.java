@@ -10,7 +10,7 @@ class GroupProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Doctor doctor = new Doctor("Steve", "123", "Doctor");
+		Doctor doctor = new Doctor("Steve", "123", "Doctor", "");
 		System.out.println(doctor.toString());
 	}
 

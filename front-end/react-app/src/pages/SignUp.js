@@ -20,13 +20,12 @@ class SignUp extends React.Component {
 
         //check all inputs have values
             //currently saved in backend
-        var user_ = document.getElementById("Email").value;
+        var email_ = document.getElementById("Email").value;
+        var user_ = document.getElementById("name").value;
         var password_ = document.getElementById("Password").value;
         var userType_ = "";
 
             //currently not saved in backend
-        var firstName = document.getElementById("FirstName").value;
-        var lastName = document.getElementById("LastName").value;
         var dob = document.getElementById("DOB").value;
      
         //get all the radio buttons
@@ -40,14 +39,14 @@ class SignUp extends React.Component {
         }
 
         //if value missing return
-        if (user_ === "" || password_ === "" || firstName === "" || lastName === "" || dob === "" || userType_ === ""){
+        if (user_ === "" || password_ === "" || email_ === "" || dob === "" || userType_ === ""){
             //,aybe send error notification
             this.callError("Missing Input");
             return;
         }
 
         //set state
-        this.setState({user: user_, password: password_, userType: userType_});
+        this.setState({user: user_, password: password_, userType: userType_, email: email_});
         this.checkAlreadyInDB(user_);
     
         
@@ -76,7 +75,8 @@ class SignUp extends React.Component {
                             //setup user object
                             const user = {name: this.state.user,
                             password: this.state.password,
-                            userType: this.state.userType}
+                            userType: this.state.userType,
+                            email: this.state.email}
 
                                 //post user object to database
                           Axios.post("http://localhost:8080/"+this.state.userType+"/New?", user).then(resp => {
@@ -146,11 +146,8 @@ class SignUp extends React.Component {
                         <label for="Pharmacist">Pharmacist</label><br/>
                     </div>
 
-                    <label>First Name:</label>
-                    <input type="text" id="FirstName" />
-
-                    <label>Last Name:</label>
-                    <input type="text" id="LastName" />
+                    <label>Name:</label>
+                    <input type="text" id="name" />
 
                     <label>Date Of Birth:</label>
                     <input type="Date" id="DOB" />
