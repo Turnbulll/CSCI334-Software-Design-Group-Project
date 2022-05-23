@@ -128,7 +128,6 @@ class DoctorPrescriptions extends React.Component {
                 <div>Expiry Date</div>
                 <div>Medicine</div>
                 <div>Dosage</div>
-      
             </li>
     
           {this.state.list.map(data => (

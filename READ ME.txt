@@ -1,0 +1,14 @@
+Note: .bat files work on windows only. On mac you will have to do setup manually
+Requirements:
+ - Node
+ 
+
+Installation Guide:
+ - To install the required node modules and libraries for the front end navigate to
+   front-end -> install.bat, the front end will not work without this step
+
+Starting the fontend:
+ - To start the front end navigate to
+   front-end -> run front-end.bat
+   If successful the app should open a webpage in your default browser
+
