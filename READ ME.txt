@@ -1,7 +1,8 @@
 Note: .bat files work on windows only. On mac you will have to do setup manually
+
 Requirements:
  - Node
- 
+ - An IDE
 
 Installation Guide:
  - To install the required node modules and libraries for the front end navigate to
@@ -11,4 +12,13 @@ Starting the fontend:
  - To start the front end navigate to
    front-end -> run front-end.bat
    If successful the app should open a webpage in your default browser
+
+(manual)
+ - open a command prompt,
+ - navigate to front-end, react-app
+ - call npm start
+
+Starting the backend:
+ - To start the backend run GroupApplication.java through an ide (eclipse or vscode reccomended)
+   Test data is automatically generated
 
