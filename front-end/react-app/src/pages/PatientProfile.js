@@ -38,14 +38,16 @@ class PatientProfile extends React.Component {
 
   }
 
-  hideForm(){
+  hideForm = () => {
     this.loadAllergiesList();
     this.loadPhysicalCondition();
     document.getElementById("form").style.display = "none";
+    document.getElementById("dataTable").style.display = "";
   }
 
   showForm(){
     document.getElementById("form").style.display ="";
+    document.getElementById("dataTable").style.display = "none";
 
   }
 
@@ -104,6 +106,9 @@ class PatientProfile extends React.Component {
       <table className={'formTable'} id="form">
         <tr>
           <td><Form /></td>
+        </tr>
+        <tr>
+          <button onClick={this.hideForm}>Cancel</button>
         </tr>
         
       </table>  
