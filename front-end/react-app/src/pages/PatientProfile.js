@@ -34,7 +34,9 @@ class PatientProfile extends React.Component {
     allergyString = allergyString.substring(0, allergyString.length -2);
 
     display.innerHTML = allergyString;
-    this.loadPhysicalCondition();
+    var physicalCon = resp.data.treatment.physicalConditionCondition;
+
+      document.getElementById("physicalCondition").innerHTML = physicalCon;
     })
   }
 

@@ -29,6 +29,16 @@ export function setUser(user){
   //console.log("SET USER: ", User);
 }
 
+export var overCounter = [];
+
+export function addOverCounter(yes){
+  overCounter.push(yes);
+}
+
+export function clearOverCounter(){
+  overCounter = [];
+}
+
 function App() {
   {/* add router components here to add other web pages */}
 
