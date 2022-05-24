@@ -2,6 +2,7 @@ import { render } from '@testing-library/react'
 import {getUser, setUser} from '../App.js'
 import React from 'react'
 import Form from "../components/Form";
+import Axios from 'axios';
 class PatientProfile extends React.Component {
   componentWillMount = () =>{
     this.setState({user: getUser()})
@@ -15,9 +16,13 @@ class PatientProfile extends React.Component {
   }
 
   //loads thew allergy list
-  loadAllergiesList(){
-    var display = document.getElementById("allergiesList");
-    var allergies = getUser().treatment.allergies;
+  async loadAllergiesList(){
+
+    Axios.get("http://localhost:8080/Patient/" + getUser().userId).then(resp => {
+      setUser(resp.data);
+
+      var display = document.getElementById("allergiesList");
+    var allergies = resp.data.treatment.allergies;
     console.log(allergies);
     var allergyString = ""
 
@@ -29,6 +34,7 @@ class PatientProfile extends React.Component {
     allergyString = allergyString.substring(0, allergyString.length -2);
 
     display.innerHTML = allergyString;
+    })
   }
 
   loadPhysicalCondition(){
@@ -43,6 +49,7 @@ class PatientProfile extends React.Component {
     this.loadPhysicalCondition();
     document.getElementById("form").style.display = "none";
     document.getElementById("dataTable").style.display = "";
+  
   }
 
   showForm(){
@@ -72,7 +79,7 @@ class PatientProfile extends React.Component {
       <table class='dataTable' id="dataTable">
         <tr>
           <td>allergies:</td>
-          <td id="allergiesList">t</td>
+          <td id="allergiesList"></td>
         </tr>
         <tr> 
           <td>medication taking records:</td>
