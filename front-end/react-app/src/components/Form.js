@@ -5,6 +5,7 @@ import FormMedication from './formMedication';
 import FormOver from './formOver';
 import FormPhysical from './formPhysical';
 import Axios from 'axios';
+import { overCounter, addOverCounter } from '../App.js';
 
 function Form()  {
     const[step, setStep]= useState(0);
@@ -38,6 +39,8 @@ function Form()  {
         saveAllergy(treatmentID, formData.allergies);
         savePhysical(treatmentID, formData.physical);
         updateUser(getUser().userId);
+
+        overCounter.addOverCounter(this.state.over);
 
     }
 
